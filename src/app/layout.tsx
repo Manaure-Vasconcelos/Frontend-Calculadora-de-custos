@@ -1,3 +1,11 @@
+import NavBar from '@/components/NavBar';
+import { Metadata } from 'next';
+import './globals.css';
+
+export const metadata: Metadata = {
+	title: 'Calculadora de Custos - Dashboard',
+};
+
 export default function RootLayout({
 	children,
 }: Readonly<{
@@ -5,7 +13,12 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang='en'>
-			<body>{children}</body>
+			<body>
+				<header>
+					<NavBar />
+				</header>
+				<>{children}</>
+			</body>
 		</html>
 	);
 }
