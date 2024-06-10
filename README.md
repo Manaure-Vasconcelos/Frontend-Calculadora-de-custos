@@ -1,4 +1,5 @@
 # Calculadora de Custos - Frontend
+README em desenvolvimento.
 
 ## Descrição
 Este projeto é uma aplicação frontend desenvolvida em Next.js para uma calculadora de custos. Consome uma API externa para realizar os cálculos de custos e gerenciar os dados.
@@ -21,11 +22,11 @@ Certifique-se de ter instalado o seguinte software na sua máquina:
 ### Configuração do Projeto
 1. Clone este repositório na sua máquina local:
     ```sh
-    git clone https://github.com/seu_usuario/calculadora_custos_frontend.git
+    git clone https://github.com/Manaure-Vasconcelos/frontend-Calculadora-de-custos.git
     ```
 2. Navegue até o diretório do projeto:
     ```sh
-    cd calculadora_custos_frontend
+    cd cfrontend-Calculadora-de-custos
     ```
 3. Instale as dependências necessárias:
     ```sh
