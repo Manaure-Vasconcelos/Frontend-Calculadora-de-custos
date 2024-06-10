@@ -4,6 +4,14 @@ import './globals.css';
 
 export const metadata: Metadata = {
 	title: 'Calculadora de Custos - Dashboard',
+	keywords: [
+		'calculadora',
+		'ficha técnica',
+		'custo fixos',
+		'custo unitário',
+		'microempreendedor',
+		'MEI',
+	],
 };
 
 export default function RootLayout({
@@ -12,7 +20,7 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang='en'>
+		<html lang='pt-br'>
 			<body>
 				<header>
 					<NavBar />

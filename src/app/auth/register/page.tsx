@@ -1,5 +1,9 @@
+import { Metadata } from "next";
 import { useForm } from "react-hook-form"
 
+export const metadata: Metadata = {
+	title: 'Register',
+};
 
 export default function Register() {
   const {register} = useForm()

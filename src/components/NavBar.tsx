@@ -1,4 +1,4 @@
-import Link from 'next/link'
+import Link from 'next/link';
 
 export default function NavBar() {
 	return (
@@ -6,17 +6,17 @@ export default function NavBar() {
 			<nav className='bg-gray-800 w-full py-3'>
 				<ul className='flex justify-end space-x-4 pr-8 text-white'>
 					<li className='list-none'>
-            <Link href='/'>Dashboard</Link>
-          </li>
+						<Link href='./about'>About</Link>
+					</li>
 					<li className='list-none'>
-            <Link href='./calculator'>Calculator</Link>
-          </li>
+						<Link href='/'>Dashboard</Link>
+					</li>
 					<li className='list-none'>
-            <Link href='./acount'>Acount</Link>
-            </li>
+						<Link href='./calculator'>Calculator</Link>
+					</li>
 					<li className='list-none'>
-            <Link href='./about'>Sobre</Link>
-            </li>
+						<Link href='./acount'>Acount</Link>
+					</li>
 				</ul>
 			</nav>
 		</>
