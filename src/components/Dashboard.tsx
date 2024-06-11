@@ -5,7 +5,7 @@ export default function Dashboard() {
 			<ul className="flex-row">
 				<li>All Recipes</li>
 				<li>Fixed Costs</li>
-				<li>Calculate a new value => recipe and product</li>
+				<li>Calculate a new value: recipe and product</li>
 			</ul>
 		</div>
 	);
