@@ -2,6 +2,7 @@
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import Link from 'next/link';
 
 interface RegisterRequest {
 	email: string;
@@ -25,8 +26,8 @@ export default function Login() {
 	return (
 		<div className=' border border-gray-300 rounded-lg p-4 w-80 mx-auto flex flex-col justify-center items-center'>
 			<form onSubmit={onSubmit} className='w-full flex flex-col gap-2'>
-				<h1 className='text-xl font-bold pt-4 pb-2 text-center'>Login</h1>
-				<p className='text-xs font-bold text-center'>
+				<h1 className='text-xl font-bold pt-4 pb-1 text-center'>Login</h1>
+				<p className='text-xm text-slate-200 text-center pb-2'>
 					Use your email and password to login
 				</p>
 
@@ -73,6 +74,12 @@ export default function Login() {
 				<button className='bg-blue-500 rounded-lg mt-3 p-3 w-full'>
 					Login
 				</button>
+				<span className='flex flex-row justify-center items-center gap-2 pt-2'>
+					<h3 className='text-sm text-slate-200'>New to here? </h3>
+					<Link href={'/auth/register'} className='text-blue-500'>
+						Create an acount
+					</Link>
+				</span>
 			</form>
 		</div>
 	);

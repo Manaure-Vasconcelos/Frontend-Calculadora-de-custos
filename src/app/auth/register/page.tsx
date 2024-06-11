@@ -2,6 +2,7 @@
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
+import Link from 'next/link';
 
 interface RegisterRequest {
 	name: string;
@@ -118,6 +119,13 @@ export default function Register() {
 				<button className='bg-blue-500 rounded-lg mt-3 p-3 w-full'>
 					Register
 				</button>
+
+				<span className='flex flex-row justify-center items-center gap-2 pt-2'>
+					<h3 className='text-sm text-slate-200'>Already have an Account? </h3>
+					<Link href={'/auth/login'} className='text-blue-500 '>
+						Login
+					</Link>
+				</span>
 			</form>
 		</div>
 	);
