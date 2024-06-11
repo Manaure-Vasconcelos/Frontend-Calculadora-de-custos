@@ -1,5 +1,6 @@
 'use client';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 
 interface RegisterRequest {
@@ -15,10 +16,14 @@ export default function Register() {
 		handleSubmit,
 		formState: { errors },
 	} = useForm<RegisterRequest>();
+	const router = useRouter();
 
 	const onSubmit = handleSubmit(async (data) => {
+		if (data.confirmPassword !== data.password)
+			return alert('Passwords is not match');
+
 		const res = await axios.post('http://localhost:3001/auth/register', data);
-		console.log(res);
+		if (res.status === 201) router.push('/auth/login');
 	});
 
 	return (
@@ -43,9 +48,7 @@ export default function Register() {
 					placeholder='3 - 20 chars'
 				/>
 				{errors.name && (
-					<span className='text-red-500 text-xs'>
-						{errors.name.message}
-					</span>
+					<span className='text-red-500 text-xs'>{errors.name.message}</span>
 				)}
 
 				<label
@@ -69,9 +72,9 @@ export default function Register() {
 				)}
 
 				<label
-					htmlFor='password'
+					htmlFor='confirmPassword'
 					className='text-slate-500 block text-sm text-left'>
-					Password:
+					Confirm Password:
 				</label>
 				<input
 					type='password'
@@ -87,6 +90,28 @@ export default function Register() {
 				{errors.password && (
 					<span className='text-red-500 text-xs'>
 						{errors.password.message}
+					</span>
+				)}
+
+				<label
+					htmlFor='confirmPassword'
+					className='text-slate-500 block text-sm text-left'>
+					Password:
+				</label>
+				<input
+					type='password'
+					{...register('confirmPassword', {
+						required: {
+							value: true,
+							message: 'Password is required',
+						},
+					})}
+					className='block rounded p-2 w-full bg-slate-900 text-slate-300'
+					placeholder='Min: 8 chars. (A-a-1-@)'
+				/>
+				{errors.confirmPassword && (
+					<span className='text-red-500 text-xs'>
+						{errors.confirmPassword.message}
 					</span>
 				)}
 

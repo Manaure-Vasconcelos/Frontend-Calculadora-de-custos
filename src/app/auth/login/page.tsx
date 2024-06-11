@@ -8,7 +8,7 @@ interface RegisterRequest {
 	password: string;
 }
 
-export default function SignIn() {
+export default function Login() {
 	const {
 		register,
 		handleSubmit,
@@ -25,8 +25,10 @@ export default function SignIn() {
 	return (
 		<div className=' border border-gray-300 rounded-lg p-4 w-80 mx-auto flex flex-col justify-center items-center'>
 			<form onSubmit={onSubmit} className='w-full flex flex-col gap-2'>
-				<h1 className='text-xl font-bold pt-4 pb-2 text-center'>Sign In</h1>
-				<p className='text-xs font-bold text-center'>Use your email and password to login</p>
+				<h1 className='text-xl font-bold pt-4 pb-2 text-center'>Login</h1>
+				<p className='text-xs font-bold text-center'>
+					Use your email and password to login
+				</p>
 
 				<label
 					htmlFor='email'
@@ -69,7 +71,7 @@ export default function SignIn() {
 				)}
 
 				<button className='bg-blue-500 rounded-lg mt-3 p-3 w-full'>
-					Sign In
+					Login
 				</button>
 			</form>
 		</div>
