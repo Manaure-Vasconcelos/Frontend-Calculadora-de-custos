@@ -1,6 +1,6 @@
 export default function Dashboard() {
 	return (
-		<div className="border border-gray-300 rounded-lg p-4 w-80 mx-auto flex flex-col justify-center items-center">
+		<div className="p-4 w-full mx-auto flex flex-col justify-center items-center">
 			<h1 className="text-xl font-bold p-4">Dashboard</h1>
 			<ul className="flex-row">
 				<li>All Recipes</li>
