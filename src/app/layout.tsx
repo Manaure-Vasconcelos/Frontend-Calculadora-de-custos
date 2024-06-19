@@ -1,6 +1,7 @@
 import NavBar from '@/components/NavBar';
 import { Metadata } from 'next';
 import './globals.css';
+import '../../axiosConfig'
 
 export const metadata: Metadata = {
 	title: 'Calculadora de Custos - Dashboard',

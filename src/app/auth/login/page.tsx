@@ -1,5 +1,6 @@
 'use client';
 import { useForm } from 'react-hook-form';
+import { useState } from 'react'
 import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import Link from 'next/link';
@@ -16,20 +17,36 @@ export default function Login() {
 		formState: { errors },
 	} = useForm<RegisterRequest>();
 	const router = useRouter();
+  const [loginError, setLoginError] = useState('')
 
 	const onSubmit = handleSubmit(async (data) => {
-		const res = await axios.post('http://localhost:3001/auth/login', data);
-		console.log(res);
-		if (res.status === 201) router.push('/');
+    try {
+      const res = await axios.post(
+        'https://backend-calculadora-de-custo.onrender.com/auth/login',
+        data
+      );
+  
+      if (res.status === 200) {
+        const token = res.data.access_token;
+        localStorage.setItem('authToken', token)
+        router.push('/');
+      }
+
+    } catch(error) {
+      setLoginError('Failed to login. Please try again.')
+      console.log(error)
+    }
 	});
 
 	return (
-		<div className=' border border-gray-300 rounded-lg p-4 w-80 mx-auto flex flex-col justify-center items-center'>
+		<div className='border border-gray-300 rounded-lg p-4 w-80 mx-auto flex flex-col justify-center items-center'>
 			<form onSubmit={onSubmit} className='w-full flex flex-col gap-2'>
 				<h1 className='text-xl font-bold pt-4 pb-1 text-center'>Login</h1>
 				<p className='text-xm text-slate-200 text-center pb-2'>
 					Use your email and password to login
 				</p>
+
+        {loginError && (<div className='text-red-500 text-xs mb-2 text-center'>{loginError}</div>)}
 
 				<label
 					htmlFor='email'

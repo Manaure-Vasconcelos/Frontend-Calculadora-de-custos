@@ -23,7 +23,7 @@ export default function Register() {
 		if (data.confirmPassword !== data.password)
 			return alert('Passwords is not match');
 
-		const res = await axios.post('http://localhost:3001/auth/register', data);
+		const res = await axios.post('https://backend-calculadora-de-custo.onrender.com/auth/register', data);
 		if (res.status === 201) router.push('/auth/login');
 	});
 
