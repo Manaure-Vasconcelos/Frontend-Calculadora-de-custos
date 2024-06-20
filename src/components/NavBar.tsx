@@ -4,7 +4,7 @@ export default function NavBar() {
 	return (
 		<>
 			<nav className='bg-slate-900 w-full py-4 border-b-2'>
-				<ul className='flex justify-end space-x-4 pr-8 text-white'>
+				<ul className='flex justify-end space-x-5 pr-8 text-white text-xl'>
 					<li className='list-none'>
 						<Link href='./about'>About</Link>
 					</li>
