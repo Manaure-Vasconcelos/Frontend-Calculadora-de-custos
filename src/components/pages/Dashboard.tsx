@@ -30,7 +30,7 @@ export default function Dashboard() {
   const router = useRouter();
 
   const LoadingAnimation = dynamic(
-    () => import("../components/LoadingAnimation"),
+    () => import("../ui/LoadingAnimation"),
     {
       ssr: false,
     }

@@ -1,4 +1,4 @@
-import NavBar from "@/components/NavBar";
+import NavBar from "@/components/layout/NavBar";
 import { Metadata } from "next";
 import "./globals.css";
 import "@/lib/axiosConfig";
