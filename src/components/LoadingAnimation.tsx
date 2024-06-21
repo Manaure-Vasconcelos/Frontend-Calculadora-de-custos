@@ -14,7 +14,7 @@ const LoadingAnimation = () => {
   };
 
   return (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center justify-center mt-50">
       <Lottie options={defaultOptions} height={250} width={250} />
     </div>
   );

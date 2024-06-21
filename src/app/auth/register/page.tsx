@@ -1,7 +1,7 @@
 'use client';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import axios from 'axios';
+import axios from "@/lib/axiosConfig";
 import Link from 'next/link';
 
 interface RegisterRequest {

@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import axios from "./../../axiosConfig";
-import Button from "react-bootstrap/Button";
+import axios from "@/lib/axiosConfig";
 import Modal from "react-bootstrap/Modal";
 
 interface Props {
@@ -31,9 +30,9 @@ export default function ModalCreateRecipe({
       data
     );
 
-    if(res.status === 201) {
-      onRequestClose()
-      router.push('/calculator')
+    if (res.status === 201) {
+      onRequestClose();
+      router.push("/calculator");
     }
   });
 
@@ -42,18 +41,24 @@ export default function ModalCreateRecipe({
       show={isModalOpen}
       onHide={onRequestClose}
       onBackdropClick={onRequestClose}
-      className="w-1/3 fixed inset-0 mx-auto mt-40 bg-black-bg-opacity-25 backdrop-blur-sm flex items-center justify-center h-20"
+      className="fixed inset-0 flex items-center justify-center z-50"
     >
-      <div className="bg-slate-600 rounded-lg p-6 shadow-lg">
-        <div className='flex justify-between items-center'>
-        <h2 className="text-xl mb-3">Create New Recipe</h2>
-        <button className='rounded-lg mb-4 mr-2' onClick={onRequestClose}>X</button>
-        </div>
+      <main
+        className="fixed inset-0 bg-black bg-opacity-75"
+        onClick={onRequestClose}
+      ></main>
+      <div
+        className="bg-slate-600 rounded-lg p-6 shadow-lg absolute w-80 z-10 "
+        style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+      >
+        <span className="flex justify-between items-center">
+          <h2 className="text-xl mb-3">Create New Recipe</h2>
+          <button className="rounded-lg mb-4 mr-2" onClick={onRequestClose}>
+            X
+          </button>
+        </span>
         <form onSubmit={onSubmit} className="flex flex-col gap-4">
-          <label
-            htmlFor="title"
-            className="text-white block text-sm text-left"
-          >
+          <label htmlFor="title" className="text-white block text-sm text-left">
             Title:
           </label>
           <input
