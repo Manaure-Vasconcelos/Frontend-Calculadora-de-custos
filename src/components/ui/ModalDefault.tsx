@@ -4,6 +4,7 @@ interface Props {
   children: any;
   isModalOpen: boolean;
   onRequestClose: () => void;
+  onBackdropClick: () => void;
 }
 
 export default function ModalDefault({

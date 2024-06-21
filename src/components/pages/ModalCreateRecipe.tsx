@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
 import axios from "@/lib/axiosConfig";
-import Modal from "react-bootstrap/Modal";
+import ModalDefault from "../ui/ModalDefault";
 
 interface Props {
   isModalOpen: boolean;
@@ -37,11 +37,10 @@ export default function ModalCreateRecipe({
   });
 
   return (
-    <Modal
-      show={isModalOpen}
-      onHide={onRequestClose}
+    <ModalDefault
+      isModalOpen={isModalOpen}
+      onRequestClose={onRequestClose}
       onBackdropClick={onRequestClose}
-      className="fixed inset-0 flex items-center justify-center z-50"
     >
       <main
         className="fixed inset-0 bg-black bg-opacity-75"
@@ -94,6 +93,6 @@ export default function ModalCreateRecipe({
           </button>
         </form>
       </div>
-    </Modal>
+    </ModalDefault>
   );
 }
