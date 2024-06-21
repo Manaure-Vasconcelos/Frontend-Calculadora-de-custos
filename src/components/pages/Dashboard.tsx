@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "@/lib/axiosConfig";
-import RecipesDashboard from "./RecipesDashboard";
+import RecipesDashboard from "./AllRecipesDashboard";
 import FixedCosts from "./FixedCosts";
 import dynamic from "next/dynamic";
 

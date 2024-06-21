@@ -1,5 +1,5 @@
 import { useState } from "react";
-import ModalCreateRecipe from "./ModalCreateRecipe";
+import CreateRecipe from "./CreateRecipe";
 import { Table } from "react-bootstrap";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
   };
 }
 
-export default function RecipesDashboard({ userData }: Props) {
+export default function AllRecipesDashboard({ userData }: Props) {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleOpenModal = () => setIsModalOpen(true);
@@ -73,7 +73,7 @@ export default function RecipesDashboard({ userData }: Props) {
         </Table>
       </div>
 
-      <ModalCreateRecipe
+      <CreateRecipe
         isModalOpen={isModalOpen}
         onRequestClose={handleCloseModal}
       />
