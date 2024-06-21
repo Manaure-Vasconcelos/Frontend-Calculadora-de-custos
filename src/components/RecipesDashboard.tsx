@@ -1,5 +1,6 @@
 import { useState } from "react";
 import ModalCreateRecipe from "./ModalCreateRecipe";
+import { Table } from "react-bootstrap";
 
 interface Props {
   userData: {
@@ -18,28 +19,58 @@ export default function RecipesDashboard({ userData }: Props) {
   return (
     <section className="border border-slate-700 p-4 w-1/2" id="root">
       <div className="flex justify-between items-center">
-        <h2 className="text-xl">Recipes:</h2>
+        <h2 className="text-2xl ml-5">Recipes:</h2>
         <button
-          className="px-2 py-1 rounded bg-slate-500 mr-5 mb-2 mt-2"
+          className="px-3 py-2 rounded bg-slate-500 hover:bg-slate-700 my-5 mx-3"
           onClick={handleOpenModal}
         >
           Create Recipe
         </button>
       </div>
-      <div className="mt-2 w-full">
-        {userData.recipes.map((recipe) => (
-          <article
-            key={recipe.id}
-            className="bg-slate-700 border-b p-2 flex justify-between items-center"
-          >
-            <span>Title: {recipe.title}</span>
-            <span>Itens: {recipe.ingredients.length}</span>
-            <span>Value: {recipe.valuePartial}</span>
-            <button className="bg-blue-500 text-white px-2 py-1 rounded">
-              Edit
-            </button>
-          </article>
-        ))}
+
+      <div className="p-4 m-2 bg-slate-700 rounded-lg">
+        <Table striped bordered hover className="w-full table-fixed">
+          <thead>
+            <tr className="border-b-2">
+              <th className="w-1/4 p-2">Title</th>
+              <th className="w-1/4 p-2">Items</th>
+              <th className="w-1/4 p-2">Value Recipe</th>
+              <th className="w-1/4 p-2">Value Real</th>
+              <th className="w-1/4 p-2"></th>
+            </tr>
+          </thead>
+
+          {userData.recipes.length === 0 ? (
+            <tbody>
+              <tr>
+                <td colSpan={4} className="w-full text-center py-4">
+                  Adicione uma receita para exibi-la
+                </td>
+              </tr>
+            </tbody>
+          ) : (
+            <tbody>
+              {userData.recipes.map((recipe) => (
+                <tr key={recipe.id}>
+                  <th className="w-1/4 py-2 pl-7 text-left">{recipe.title}</th>
+                  <th className="w-1/4 py-2">{recipe.ingredients.length}</th>
+                  <th className="w-1/4 py-2">
+                    {recipe.valuePartial.toLocaleString("pt-BR", {
+                      style: "currency",
+                      currency: "BRL",
+                    })}
+                  </th>
+                  <th className="w-1/4 py-2">valor</th>
+                  <th className="w-1/4 py-2 pr-2 text-right">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded">
+                      Edit
+                    </button>
+                  </th>
+                </tr>
+              ))}
+            </tbody>
+          )}
+        </Table>
       </div>
 
       <ModalCreateRecipe
