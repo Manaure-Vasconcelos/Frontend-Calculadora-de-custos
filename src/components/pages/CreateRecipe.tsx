@@ -13,7 +13,7 @@ interface RecipeRequest {
   describe?: string;
 }
 
-export default function ModalCreateRecipe({
+export default function CreateRecipe({
   isModalOpen,
   onRequestClose,
 }: Props) {
