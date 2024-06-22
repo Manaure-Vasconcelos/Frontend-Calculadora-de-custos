@@ -1,7 +1,7 @@
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import axios from "@/lib/axiosConfig";
-import ModalDefault from "../ui/ModalDefault";
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import axios from '@/lib/axiosConfig';
+import ModalDefault from '../ui/ModalDefault';
 
 interface Props {
   isModalOpen: boolean;
@@ -31,8 +31,12 @@ export default function EditRecipe({ isModalOpen, onRequestClose }: Props) {
         className="fixed inset-0 bg-black bg-opacity-75"
         onClick={onRequestClose}
       ></main>
-      <div  className="bg-slate-600 rounded-lg p-6 shadow-lg absolute w-80 z-10 "
-        style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}>Aqui irá uma table</div>
+      <div
+        className="bg-slate-600 rounded-lg p-6 shadow-lg absolute w-80 z-10 "
+        style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
+      >
+        Aqui irá uma table
+      </div>
     </ModalDefault>
   );
 }

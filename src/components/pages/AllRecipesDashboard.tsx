@@ -1,8 +1,8 @@
-"use client";
-import { useState } from "react";
-import CreateRecipe from "./CreateRecipe";
-import EditRecipe from "./EditRecipe";
-import { Table } from "react-bootstrap";
+'use client';
+import { useState } from 'react';
+import CreateRecipe from './CreateRecipe';
+import EditRecipe from './EditRecipe';
+import { Table } from 'react-bootstrap';
 
 interface Props {
   userData: {
@@ -17,18 +17,18 @@ export default function AllRecipesDashboard({ userData }: Props) {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
 
   const handleOpenModal = (identify: string) => {
-    if (identify === "create") {
+    if (identify === 'create') {
       setCreateModalOpen(true);
     }
-    if (identify === "edit") {
+    if (identify === 'edit') {
       setEditModalOpen(true);
     }
   };
   const handleCloseModal = (identify: string) => {
-    if (identify === "create") {
+    if (identify === 'create') {
       setCreateModalOpen(false);
     }
-    if (identify === "edit") {
+    if (identify === 'edit') {
       setEditModalOpen(false);
     }
   };
@@ -39,7 +39,7 @@ export default function AllRecipesDashboard({ userData }: Props) {
         <h2 className="text-2xl ml-5">Recipes:</h2>
         <button
           className="px-3 py-2 rounded bg-slate-500 hover:bg-slate-700 my-5 mx-3"
-          onClick={() => handleOpenModal("create")}
+          onClick={() => handleOpenModal('create')}
         >
           Create Recipe
         </button>
@@ -72,16 +72,16 @@ export default function AllRecipesDashboard({ userData }: Props) {
                   <th className="w-1/4 py-2 pl-7 text-left">{recipe.title}</th>
                   <th className="w-1/4 py-2">{recipe.ingredients.length}</th>
                   <th className="w-1/4 py-2">
-                    {recipe.valuePartial.toLocaleString("pt-BR", {
-                      style: "currency",
-                      currency: "BRL",
+                    {recipe.valuePartial.toLocaleString('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL'
                     })}
                   </th>
                   <th className="w-1/4 py-2">valor</th>
                   <th className="w-1/4 py-2 pr-2 text-right">
                     <button
                       className="bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded"
-                      onClick={()=> handleOpenModal('edit')}
+                      onClick={() => handleOpenModal('edit')}
                     >
                       Edit
                     </button>

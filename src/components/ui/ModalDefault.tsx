@@ -1,4 +1,4 @@
-import Modal from "react-bootstrap/Modal";
+import Modal from 'react-bootstrap/Modal';
 
 interface Props {
   children: any;
@@ -10,7 +10,7 @@ interface Props {
 export default function ModalDefault({
   children,
   isModalOpen,
-  onRequestClose,
+  onRequestClose
 }: Props) {
   return (
     <Modal

@@ -1,7 +1,7 @@
 // components/LoadingAnimation.js
-import React from "react";
-import Lottie from "react-lottie";
-import animationData from "@/public/loading-dots.json";
+import React from 'react';
+import Lottie from 'react-lottie';
+import animationData from '@/public/loading-dots.json';
 
 const LoadingAnimation = () => {
   const defaultOptions = {
@@ -9,8 +9,8 @@ const LoadingAnimation = () => {
     autoplay: true,
     animationData: animationData,
     rendererSettings: {
-      preserveAspectRatio: "xMidYMid slice",
-    },
+      preserveAspectRatio: 'xMidYMid slice'
+    }
   };
 
   return (

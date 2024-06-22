@@ -1,26 +1,25 @@
-import NavBar from "@/components/layout/NavBar";
-import { Metadata } from "next";
-import "./globals.css";
-import "@/lib/axiosConfig";
+import NavBar from '@/components/layout/NavBar';
+import { Metadata } from 'next';
+import './globals.css';
+import '@/lib/axiosConfig';
 
 export const metadata: Metadata = {
-  title: "Calculadora de Custos - Dashboard",
+  title: 'Calculadora de Custos - Dashboard',
   keywords: [
-    "calculadora",
-    "ficha técnica",
-    "custo fixos",
-    "custo unitário",
-    "microempreendedor",
-    "MEI",
-  ],
+    'calculadora',
+    'ficha técnica',
+    'custo fixos',
+    'custo unitário',
+    'microempreendedor',
+    'MEI'
+  ]
 };
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
   return (
     <html lang="pt-br">
       <body>

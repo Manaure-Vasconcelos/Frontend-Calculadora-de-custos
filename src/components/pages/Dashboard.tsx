@@ -1,11 +1,10 @@
-"use client";
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import axios from "@/lib/axiosConfig";
-import AllRecipes from "./AllRecipesDashboard";
-import FixedCosts from "./FixedCosts";
-import dynamic from "next/dynamic";
-
+'use client';
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import axios from '@/lib/axiosConfig';
+import AllRecipes from './AllRecipesDashboard';
+import FixedCosts from './FixedCosts';
+import dynamic from 'next/dynamic';
 
 interface Recipe {
   id: number;
@@ -29,28 +28,24 @@ export default function Dashboard() {
   const [loading, setLoading] = useState(true);
   const router = useRouter();
 
-  const LoadingAnimation = dynamic(
-    () => import("../ui/LoadingAnimation"),
-    {
-      ssr: false,
-    }
-  );
+  const LoadingAnimation = dynamic(() => import('../ui/LoadingAnimation'), {
+    ssr: false
+  });
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await axios.get<UserData>(
-          "https://backend-calculadora-de-custo.onrender.com/user"
+          `${process.env.NEXT_PUBLIC_BASE_URL}/user`
         );
         setUserData(res.data);
         setLoading(false);
       } catch (error) {
-        alert("Login expirado, você será redirecionado.");
-        router.push("/auth/login");
+        alert('Login expirado, você será redirecionado.');
+        router.push('/auth/login');
       }
     };
 
-    
     fetchData();
   }, [router]);
 

@@ -1,9 +1,8 @@
-import Dashboard from "@/components/pages/Dashboard";
+import Dashboard from '@/components/pages/Dashboard';
 
 export default function Home() {
-  
   return (
-    <div className="h-full w-full items-top" >
+    <div className="h-full w-full items-top">
       <Dashboard />
     </div>
   );

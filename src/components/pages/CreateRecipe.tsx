@@ -1,7 +1,7 @@
-import { useForm } from "react-hook-form";
-import { useRouter } from "next/navigation";
-import axios from "@/lib/axiosConfig";
-import ModalDefault from "../ui/ModalDefault";
+import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import axios from '@/lib/axiosConfig';
+import ModalDefault from '../ui/ModalDefault';
 
 interface Props {
   isModalOpen: boolean;
@@ -13,26 +13,23 @@ interface RecipeRequest {
   describe?: string;
 }
 
-export default function CreateRecipe({
-  isModalOpen,
-  onRequestClose,
-}: Props) {
+export default function CreateRecipe({ isModalOpen, onRequestClose }: Props) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors }
   } = useForm<RecipeRequest>();
   const router = useRouter();
 
   const onSubmit = handleSubmit(async (data) => {
     const res = await axios.post(
-      "https://backend-calculadora-de-custo.onrender.com/recipes",
+      `${process.env.NEXT_PUBLIC_BASE_URL}/recipes`,
       data
     );
 
     if (res.status === 201) {
       onRequestClose();
-      router.push("/calculator");
+      router.push('/calculator');
     }
   });
 
@@ -48,7 +45,7 @@ export default function CreateRecipe({
       ></main>
       <div
         className="bg-slate-600 rounded-lg p-6 shadow-lg absolute w-80 z-10 "
-        style={{ top: "50%", left: "50%", transform: "translate(-50%, -50%)" }}
+        style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
       >
         <span className="flex justify-between items-center">
           <h2 className="text-xl mb-3">Create New Recipe</h2>
@@ -62,11 +59,11 @@ export default function CreateRecipe({
           </label>
           <input
             type="text"
-            {...register("title", {
+            {...register('title', {
               required: {
                 value: true,
-                message: "Title is required",
-              },
+                message: 'Title is required'
+              }
             })}
             className="block p-2 w-full bg-slate-900 text-slate-300 rounded"
           />
@@ -83,8 +80,8 @@ export default function CreateRecipe({
           </label>
           <input
             type="text"
-            {...register("describe", {
-              required: false,
+            {...register('describe', {
+              required: false
             })}
             className="block p-2 w-full bg-slate-900 text-slate-300 rounded"
           />
