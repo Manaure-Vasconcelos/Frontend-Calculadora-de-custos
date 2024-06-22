@@ -1,29 +1,23 @@
 'use client';
 import { useState } from 'react';
 import CreateRecipe from './CreateRecipe';
-import EditRecipe from './EditRecipe';
+import EditRecipe, { Recipe } from './EditRecipe';
 import { Table } from 'react-bootstrap';
 
 interface Props {
   userData: {
     id: string;
     name: string;
-    recipes: any[];
+    recipes: Recipe[];
   };
 }
 
 export default function AllRecipesDashboard({ userData }: Props) {
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
   const [isEditModalOpen, setEditModalOpen] = useState(false);
+  const [data, setData] = useState<Recipe | null>(null);
 
-  const handleOpenModal = (identify: string) => {
-    if (identify === 'create') {
-      setCreateModalOpen(true);
-    }
-    if (identify === 'edit') {
-      setEditModalOpen(true);
-    }
-  };
+  const handleOpenModal = () => setCreateModalOpen(true);
   const handleCloseModal = (identify: string) => {
     if (identify === 'create') {
       setCreateModalOpen(false);
@@ -33,13 +27,18 @@ export default function AllRecipesDashboard({ userData }: Props) {
     }
   };
 
+  const handleEditItem = (data: Recipe) => {
+    setData(data);
+    setEditModalOpen(true);
+  };
+
   return (
     <section className="border border-slate-700 p-4 w-1/2" id="root">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl ml-5">Recipes:</h2>
         <button
           className="px-3 py-2 rounded bg-slate-500 hover:bg-slate-700 my-5 mx-3"
-          onClick={() => handleOpenModal('create')}
+          onClick={() => handleOpenModal()}
         >
           Create Recipe
         </button>
@@ -81,7 +80,7 @@ export default function AllRecipesDashboard({ userData }: Props) {
                   <th className="w-1/4 py-2 pr-2 text-right">
                     <button
                       className="bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded"
-                      onClick={() => handleOpenModal('edit')}
+                      onClick={() => handleEditItem(recipe)}
                     >
                       Edit
                     </button>
@@ -100,6 +99,7 @@ export default function AllRecipesDashboard({ userData }: Props) {
       <EditRecipe
         isModalOpen={isEditModalOpen}
         onRequestClose={() => handleCloseModal('edit')}
+        data={data}
       />
     </section>
   );

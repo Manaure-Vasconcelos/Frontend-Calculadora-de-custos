@@ -3,8 +3,20 @@ import { useRouter } from 'next/navigation';
 import axios from '@/lib/axiosConfig';
 import ModalDefault from '../ui/ModalDefault';
 
+export interface Recipe {
+  id: number;
+  title: string;
+  describe?: string;
+  userId: string;
+  valuePartial: number;
+  createdAt: Date;
+  updatedA: Date;
+  ingredients: any[];
+}
+
 interface Props {
   isModalOpen: boolean;
+  data?: Recipe | null;
   onRequestClose: () => void;
 }
 
@@ -15,12 +27,16 @@ interface Props {
     id: number;
     name: string;
     usedWeight: number
-    marketprice: number
+    marketPrice: number
     grossWeight: number
   }
 }
  */
-export default function EditRecipe({ isModalOpen, onRequestClose }: Props) {
+export default function EditRecipe({
+  isModalOpen,
+  onRequestClose,
+  data
+}: Props) {
   return (
     <ModalDefault
       isModalOpen={isModalOpen}
@@ -35,7 +51,7 @@ export default function EditRecipe({ isModalOpen, onRequestClose }: Props) {
         className="bg-slate-600 rounded-lg p-6 shadow-lg absolute w-80 z-10 "
         style={{ top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }}
       >
-        Aqui irá uma table
+        Aqui irá uma - {data?.title}
       </div>
     </ModalDefault>
   );
