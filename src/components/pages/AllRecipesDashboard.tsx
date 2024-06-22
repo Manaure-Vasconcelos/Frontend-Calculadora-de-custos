@@ -1,5 +1,7 @@
+"use client";
 import { useState } from "react";
 import CreateRecipe from "./CreateRecipe";
+import EditRecipe from "./EditRecipe";
 import { Table } from "react-bootstrap";
 
 interface Props {
@@ -11,10 +13,25 @@ interface Props {
 }
 
 export default function AllRecipesDashboard({ userData }: Props) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isCreateModalOpen, setCreateModalOpen] = useState(false);
+  const [isEditModalOpen, setEditModalOpen] = useState(false);
 
-  const handleOpenModal = () => setIsModalOpen(true);
-  const handleCloseModal = () => setIsModalOpen(false);
+  const handleOpenModal = (identify: string) => {
+    if (identify === "create") {
+      setCreateModalOpen(true);
+    }
+    if (identify === "edit") {
+      setEditModalOpen(true);
+    }
+  };
+  const handleCloseModal = (identify: string) => {
+    if (identify === "create") {
+      setCreateModalOpen(false);
+    }
+    if (identify === "edit") {
+      setEditModalOpen(false);
+    }
+  };
 
   return (
     <section className="border border-slate-700 p-4 w-1/2" id="root">
@@ -22,7 +39,7 @@ export default function AllRecipesDashboard({ userData }: Props) {
         <h2 className="text-2xl ml-5">Recipes:</h2>
         <button
           className="px-3 py-2 rounded bg-slate-500 hover:bg-slate-700 my-5 mx-3"
-          onClick={handleOpenModal}
+          onClick={() => handleOpenModal("create")}
         >
           Create Recipe
         </button>
@@ -62,7 +79,10 @@ export default function AllRecipesDashboard({ userData }: Props) {
                   </th>
                   <th className="w-1/4 py-2">valor</th>
                   <th className="w-1/4 py-2 pr-2 text-right">
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded">
+                    <button
+                      className="bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded"
+                      onClick={()=> handleOpenModal('edit')}
+                    >
                       Edit
                     </button>
                   </th>
@@ -74,8 +94,12 @@ export default function AllRecipesDashboard({ userData }: Props) {
       </div>
 
       <CreateRecipe
-        isModalOpen={isModalOpen}
-        onRequestClose={handleCloseModal}
+        isModalOpen={isCreateModalOpen}
+        onRequestClose={() => handleCloseModal('create')}
+      />
+      <EditRecipe
+        isModalOpen={isEditModalOpen}
+        onRequestClose={() => handleCloseModal('edit')}
       />
     </section>
   );

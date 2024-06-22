@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import axios from "@/lib/axiosConfig";
-import RecipesDashboard from "./AllRecipesDashboard";
+import AllRecipes from "./AllRecipesDashboard";
 import FixedCosts from "./FixedCosts";
 import dynamic from "next/dynamic";
 
@@ -63,7 +63,7 @@ export default function Dashboard() {
         <div className="border border-slate-400 p-4 w-full gap-2">
           <h1 className="block text-xl p-5">Welcome, {userData.name}</h1>
           <main className="flex justify-around">
-            <RecipesDashboard userData={userData} />
+            <AllRecipes userData={userData} />
             <FixedCosts />
           </main>
         </div>
