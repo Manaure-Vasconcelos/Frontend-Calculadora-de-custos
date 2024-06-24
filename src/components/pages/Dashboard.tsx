@@ -5,17 +5,8 @@ import axios from '@/lib/axiosConfig';
 import AllRecipes from './AllRecipesDashboard';
 import FixedCosts from './FixedCosts';
 import dynamic from 'next/dynamic';
+import { Recipe } from './EditRecipe';
 
-interface Recipe {
-  id: number;
-  title: string;
-  describe: string;
-  userId: string;
-  valuePartial: number;
-  ingredients: any[];
-  createdAt: Date;
-  updatedAt: Date;
-}
 
 interface UserData {
   id: string;

@@ -3,6 +3,7 @@ import { useState } from 'react';
 import CreateRecipe from './CreateRecipe';
 import EditRecipe, { Recipe } from './EditRecipe';
 import { Table } from 'react-bootstrap';
+import formatForBRL from '@/lib/formatForBrl';
 
 interface Props {
   userData: {
@@ -48,11 +49,11 @@ export default function AllRecipesDashboard({ userData }: Props) {
         <Table striped bordered hover className="w-full table-fixed">
           <thead>
             <tr className="border-b-2">
-              <th className="w-1/4 p-2">Title</th>
-              <th className="w-1/4 p-2">Items</th>
-              <th className="w-1/4 p-2">Value Recipe</th>
-              <th className="w-1/4 p-2">Value Real</th>
-              <th className="w-1/4 p-2"></th>
+              <th className="w-1/3 pb-4">Title</th>
+              <th className="w-1/4 pb-4">Items</th>
+              <th className="w-1/4 pb-4">Value Recipe</th>
+              <th className="w-1/4 pb-4">Value Real</th>
+              <th className="w-1/6 pb-4"></th>
             </tr>
           </thead>
 
@@ -68,21 +69,23 @@ export default function AllRecipesDashboard({ userData }: Props) {
             <tbody>
               {userData.recipes.map((recipe) => (
                 <tr key={recipe.id}>
-                  <th className="w-1/4 py-2 pl-7 text-left">{recipe.title}</th>
+                  <th className="w-1/3 py-2 pl-3 text-left">{recipe.title}</th>
                   <th className="w-1/4 py-2">{recipe.ingredients.length}</th>
                   <th className="w-1/4 py-2">
-                    {recipe.valuePartial.toLocaleString('pt-BR', {
-                      style: 'currency',
-                      currency: 'BRL'
-                    })}
+                    {formatForBRL(recipe.valuePartial)}
                   </th>
                   <th className="w-1/4 py-2">valor</th>
-                  <th className="w-1/4 py-2 pr-2 text-right">
+                  <th className="w-1/6 py-2">
                     <button
-                      className="bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded"
+                      className="bg-transparent px-2 py-1 rounded transform transition-transform duration-200 hover:scale-110"
                       onClick={() => handleEditItem(recipe)}
                     >
-                      Edit
+                      <img
+                        src="/moreIcon.svg"
+                        alt="More"
+                        height="22"
+                        width="22"
+                      />
                     </button>
                   </th>
                 </tr>

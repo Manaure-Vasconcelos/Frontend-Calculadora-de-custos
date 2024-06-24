@@ -3,9 +3,10 @@ import { useRouter } from 'next/navigation';
 import axios from '@/lib/axiosConfig';
 import ModalDefault from '../ui/ModalDefault';
 import { Table } from 'react-bootstrap';
-import Format from '@/lib/formatNumber';
+import formatForBRL from '@/lib/formatForBrl';
+import { formatForKg } from '@/lib/formatForKg';
 
-interface Ingredient {
+export interface Ingredient {
   id: number;
   name: string;
   usedWeight: number;
@@ -21,7 +22,7 @@ export interface Recipe {
   userId: string;
   valuePartial: number;
   createdAt: Date;
-  updatedA: Date;
+  updatedAt: Date;
   ingredients: Ingredient[];
 }
 
@@ -31,18 +32,18 @@ interface Props {
   onRequestClose: () => void;
 }
 
-/* interface RecipeRequest {
+interface RecipeRequest {
   title?: string;
   describe?: string;
-  ingredient: {
+  ingredient?: {
     id: number;
     name: string;
-    usedWeight: number
-    marketPrice: number
-    grossWeight: number
-  }
+    usedWeight: number;
+    marketPrice: number;
+    grossWeight: number;
+  };
 }
- */
+
 export default function EditRecipe({
   isModalOpen,
   onRequestClose,
@@ -72,7 +73,7 @@ export default function EditRecipe({
               <h2 className="text-xl m-3">{data.title}</h2>
               <h2 className="text-xl m-3">{data.describe}</h2>
               <h2 className="text-xl m-3">
-                Custo: {Format(data.valuePartial)}
+                Custo: {formatForBRL(data.valuePartial)}
               </h2>
             </>
           )}
@@ -91,7 +92,7 @@ export default function EditRecipe({
                 <th className="w-1/4 p-2">Market Price</th>
                 <th className="w-1/4 p-2">Gross Weight</th>
                 <th className="w-1/4 p-2">Real Amount</th>
-                <th className="w-1/4 p-2"></th>
+                <th className="w-1/5 p-2"></th>
               </tr>
             </thead>
 
@@ -108,18 +109,42 @@ export default function EditRecipe({
                 {data?.ingredients?.map((ingredient) => (
                   <tr key={ingredient.id}>
                     <th className="w-1/4 py-2 text-left">{ingredient.name}</th>
-                    <th className="w-1/4 py-2">{ingredient.usedWeight}</th>
-                    <th className="w-1/4 py-2">{ingredient.marketPrice}</th>
-                    <th className="w-1/4 py-2">{ingredient.grossWeight}</th>
                     <th className="w-1/4 py-2">
-                      {Format(ingredient.realAmount)}
+                      {formatForKg(ingredient.usedWeight)}
                     </th>
-                    <th className="w-1/4 py-2 pr-2 text-right">
+                    <th className="w-1/4 py-2">
+                      {formatForBRL(ingredient.marketPrice)}
+                    </th>
+                    <th className="w-1/4 py-2">
+                      {formatForKg(ingredient.grossWeight)}
+                    </th>
+                    <th className="w-1/4 py-2">
+                      {formatForBRL(ingredient.realAmount)}
+                    </th>
+                    <th className="w-1/5 py-2">
                       <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white px-2 py-1 rounded"
+                        className="bg-transparent px-2 py-1 rounded transform transition-transform duration-200 hover:scale-110"
                         onClick={() => handleEditItem(ingredient?.id)}
                       >
-                        Edit
+                        <img
+                          src="/editIcon.svg"
+                          alt="Editar"
+                          className="inline-block align-text-top"
+                          height="21"
+                          width="21"
+                        />
+                      </button>
+                      <button
+                        className="bg-transparent px-2 py-1 rounded transform transition-transform duration-200 hover:scale-110"
+                        onClick={() => handleEditItem(ingredient?.id)}
+                      >
+                        <img
+                          src="/deleteIcon.svg"
+                          alt="Delete"
+                          className="inline-block align-text-top"
+                          height="21"
+                          width="21"
+                        />
                       </button>
                     </th>
                   </tr>
