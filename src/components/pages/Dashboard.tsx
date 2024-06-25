@@ -40,7 +40,7 @@ export default function Dashboard() {
     fetchData();
   }, [router]);
 
-  if (loading) return <LoadingAnimation />;
+  if (loading) return <LoadingAnimation height={250} width={250}/>;
 
   return (
     <div className="p-4 w-full h-full flex flex-col justify-normal items-start ">

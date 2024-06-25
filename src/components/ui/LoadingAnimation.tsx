@@ -3,7 +3,12 @@ import React from 'react';
 import Lottie from 'react-lottie';
 import animationData from '@/public/loading-dots.json';
 
-const LoadingAnimation = () => {
+interface Props {
+  height: number;
+  width: number;
+}
+
+const LoadingAnimation = ({ height, width }: Props) => {
   const defaultOptions = {
     loop: true,
     autoplay: true,
@@ -13,11 +18,7 @@ const LoadingAnimation = () => {
     }
   };
 
-  return (
-    <div className="flex items-center justify-center h-screen">
-      <Lottie options={defaultOptions} height={250} width={250} />
-    </div>
-  );
+  return <Lottie options={defaultOptions} height={height} width={width} />;
 };
 
 export default LoadingAnimation;
