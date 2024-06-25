@@ -1,5 +1,5 @@
 'use client';
-import { Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from '@/lib/axiosConfig';
 import AllRecipes, { Recipe } from './AllRecipesDashboard';
@@ -14,7 +14,6 @@ interface UserData {
 
 export default function Dashboard() {
   const [userData, setUserData] = useState<UserData | null>(null);
-  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   const LoadingAnimation = dynamic(() => import('../ui/LoadingAnimation'), {
@@ -28,7 +27,6 @@ export default function Dashboard() {
           `${process.env.NEXT_PUBLIC_BASE_URL}/user`
         );
         setUserData(res.data);
-        setLoading(false);
       } catch (error) {
         alert('Login expirado, você será redirecionado.');
         router.push('/auth/login');
@@ -38,7 +36,7 @@ export default function Dashboard() {
     fetchData();
   }, []);
 
-  if (loading) return <LoadingAnimation height={250} width={250} />;
+  if (!userData) return <LoadingAnimation height={250} width={250} />;
 
   return (
     <div className="p-4 w-full h-full flex flex-col justify-normal items-start ">

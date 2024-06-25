@@ -38,8 +38,6 @@ export default function AllRecipesDashboard({ userData }: Props) {
     const res = await axios.delete(
       `${process.env.NEXT_PUBLIC_BASE_URL}/recipes/${id}`
     );
-
-    console.log(res.status);
   };
 
   return (
