@@ -1,9 +1,17 @@
 'use client';
 import { useState } from 'react';
 import CreateRecipe from './CreateRecipe';
-import EditRecipe, { Recipe } from './EditRecipe';
 import { Table } from 'react-bootstrap';
 import formatForBRL from '@/lib/formatForBrl';
+import { useRouter } from 'next/navigation';
+import axios from '@/lib/axiosConfig';
+
+export interface Recipe {
+  id: string;
+  title: string;
+  ingredients: any[];
+  valuePartial: number;
+}
 
 interface Props {
   userData: {
@@ -15,22 +23,23 @@ interface Props {
 
 export default function AllRecipesDashboard({ userData }: Props) {
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
-  const [isEditModalOpen, setEditModalOpen] = useState(false);
-  const [data, setData] = useState<Recipe | null>(null);
+
+  const router = useRouter();
 
   const handleOpenModal = () => setCreateModalOpen(true);
-  const handleCloseModal = (identify: string) => {
-    if (identify === 'create') {
-      setCreateModalOpen(false);
-    }
-    if (identify === 'edit') {
-      setEditModalOpen(false);
-    }
+  const handleCloseModal = () => setCreateModalOpen(false);
+
+  const handleEditItem = (id: string) => {
+    console.log(id);
+    router.push(`/calculator/${id}`);
   };
 
-  const handleEditItem = (data: Recipe) => {
-    setData(data);
-    setEditModalOpen(true);
+  const handleDeleteItem = async (id: string) => {
+    const res = await axios.delete(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/recipes/${id}`
+    );
+
+    console.log(res.status);
   };
 
   return (
@@ -39,7 +48,7 @@ export default function AllRecipesDashboard({ userData }: Props) {
         <h2 className="text-2xl ml-5">Recipes:</h2>
         <button
           className="px-3 py-2 rounded bg-slate-500 hover:bg-slate-700 my-5 mx-3"
-          onClick={() => handleOpenModal()}
+          onClick={handleOpenModal}
         >
           Create Recipe
         </button>
@@ -78,13 +87,26 @@ export default function AllRecipesDashboard({ userData }: Props) {
                   <th className="w-1/6 py-2">
                     <button
                       className="bg-transparent px-2 py-1 rounded transform transition-transform duration-200 hover:scale-110"
-                      onClick={() => handleEditItem(recipe)}
+                      onClick={() => handleEditItem(recipe.id)}
                     >
                       <img
-                        src="/moreIcon.svg"
-                        alt="More"
-                        height="22"
-                        width="22"
+                        src="/editIcon.svg"
+                        alt="Editar"
+                        className="inline-block align-text-top"
+                        height="21"
+                        width="21"
+                      />
+                    </button>
+                    <button
+                      className="bg-transparent px-2 py-1 rounded transform transition-transform duration-200 hover:scale-110"
+                      onClick={() => handleDeleteItem(recipe.id)}
+                    >
+                      <img
+                        src="/deleteIcon.svg"
+                        alt="Delete"
+                        className="inline-block align-text-top"
+                        height="21"
+                        width="21"
                       />
                     </button>
                   </th>
@@ -97,12 +119,7 @@ export default function AllRecipesDashboard({ userData }: Props) {
 
       <CreateRecipe
         isModalOpen={isCreateModalOpen}
-        onRequestClose={() => handleCloseModal('create')}
-      />
-      <EditRecipe
-        isModalOpen={isEditModalOpen}
-        onRequestClose={() => handleCloseModal('edit')}
-        data={data}
+        onRequestClose={handleCloseModal}
       />
     </section>
   );

@@ -1,12 +1,10 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from '@/lib/axiosConfig';
-import AllRecipes from './AllRecipesDashboard';
+import AllRecipes, { Recipe } from './AllRecipesDashboard';
 import FixedCosts from './FixedCosts';
 import dynamic from 'next/dynamic';
-import { Recipe } from './EditRecipe';
-
 
 interface UserData {
   id: string;
@@ -38,9 +36,9 @@ export default function Dashboard() {
     };
 
     fetchData();
-  }, [router]);
+  }, []);
 
-  if (loading) return <LoadingAnimation height={250} width={250}/>;
+  if (loading) return <LoadingAnimation height={250} width={250} />;
 
   return (
     <div className="p-4 w-full h-full flex flex-col justify-normal items-start ">
@@ -49,8 +47,8 @@ export default function Dashboard() {
         <div className="border border-slate-400 p-4 w-full gap-2">
           <h1 className="block text-xl p-5">Welcome, {userData.name}</h1>
           <main className="flex justify-around">
-            <AllRecipes userData={userData} />
-            <FixedCosts />
+              <AllRecipes userData={userData} />
+              <FixedCosts />
           </main>
         </div>
       ) : (
