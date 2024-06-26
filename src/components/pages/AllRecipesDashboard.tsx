@@ -1,43 +1,38 @@
 'use client';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CreateRecipe from './CreateRecipe';
 import { Table } from 'react-bootstrap';
 import formatForBRL from '@/lib/formatForBrl';
 import { useRouter } from 'next/navigation';
 import axios from '@/lib/axiosConfig';
+import { Recipe, useRecipes } from '@/context/recipes/contextRecipes';
 
-export interface Recipe {
-  id: string;
-  title: string;
-  ingredients: any[];
-  valuePartial: number;
-}
+/* 4 render */
 
-interface Props {
-  userData: {
-    id: string;
-    name: string;
-    recipes: Recipe[];
-  };
-}
-
-export default function AllRecipesDashboard({ userData }: Props) {
+export default function AllRecipesDashboard() {
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
+  const { recipes, fetchData, deleteRecipe } = useRecipes();
+
+  /* Refatorar */
+  useEffect(() => {
+    fetchData();
+  }, []);
+
 
   const router = useRouter();
 
   const handleOpenModal = () => setCreateModalOpen(true);
   const handleCloseModal = () => setCreateModalOpen(false);
 
-  const handleEditItem = (id: string) => {
-    console.log(id);
+  const handleEditItem = (id: number) => {
     router.push(`/calculator/${id}`);
   };
 
-  const handleDeleteItem = async (id: string) => {
+  const handleDeleteItem = async (id: number) => {
     const res = await axios.delete(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/recipes/${id}`
+      `${process.env.NEXT_PUBLIC_BASE_URL}/recipes/${String(id)}`
     );
+    if (res.status === 204) deleteRecipe(id);
   };
 
   return (
@@ -64,7 +59,7 @@ export default function AllRecipesDashboard({ userData }: Props) {
             </tr>
           </thead>
 
-          {userData.recipes.length === 0 ? (
+          {recipes.length === 0 ? (
             <tbody>
               <tr>
                 <td colSpan={4} className="w-full text-center py-4">
@@ -74,7 +69,7 @@ export default function AllRecipesDashboard({ userData }: Props) {
             </tbody>
           ) : (
             <tbody>
-              {userData.recipes.map((recipe) => (
+              {recipes.map((recipe) => (
                 <tr key={recipe.id}>
                   <th className="w-1/3 py-2 pl-3 text-left">{recipe.title}</th>
                   <th className="w-1/4 py-2">{recipe.ingredients.length}</th>

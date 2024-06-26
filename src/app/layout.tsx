@@ -2,6 +2,7 @@ import NavBar from '@/components/layout/NavBar';
 import { Metadata } from 'next';
 import './globals.css';
 import '@/lib/axiosConfig';
+import { RecipesProvider } from '@/context/recipes/contextRecipes';
 
 export const metadata: Metadata = {
   title: 'Calculadora de Custos - Dashboard',
@@ -26,7 +27,9 @@ export default function RootLayout({
         <header>
           <NavBar />
         </header>
-        <>{children}</>
+        <RecipesProvider>
+          <>{children}</>
+        </RecipesProvider>
       </body>
     </html>
   );

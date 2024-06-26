@@ -2,9 +2,10 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import axios from '@/lib/axiosConfig';
-import AllRecipes, { Recipe } from './AllRecipesDashboard';
+import AllRecipes from './AllRecipesDashboard';
 import FixedCosts from './FixedCosts';
 import dynamic from 'next/dynamic';
+import { Recipe } from '@/context/recipes/contextRecipes';
 
 interface UserData {
   id: string;
@@ -20,6 +21,7 @@ export default function Dashboard() {
     ssr: false
   });
 
+  /* Refatorar / criar context */
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -45,8 +47,8 @@ export default function Dashboard() {
         <div className="border border-slate-400 p-4 w-full gap-2">
           <h1 className="block text-xl p-5">Welcome, {userData.name}</h1>
           <main className="flex justify-around">
-              <AllRecipes userData={userData} />
-              <FixedCosts />
+            <AllRecipes />
+            <FixedCosts />
           </main>
         </div>
       ) : (

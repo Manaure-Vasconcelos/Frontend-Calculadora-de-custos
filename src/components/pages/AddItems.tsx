@@ -5,28 +5,10 @@ import { Table } from 'react-bootstrap';
 import axios from '@/lib/axiosConfig';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
+import { Recipe } from '@/context/recipes/contextRecipes';
 
 interface Props {
   id: string;
-}
-
-interface Ingredient {
-  id: number;
-  name: string;
-  usedWeight: number;
-  grossWeight: number;
-  marketPrice: number;
-  realAmount: number;
-  recipeId: number;
-}
-
-interface Recipe {
-  id: string;
-  title: string;
-  describe: string | null;
-  valuePartial: number;
-  ingredients: Ingredient[];
-  createAt: Date;
 }
 
 interface IngredientRequest {
