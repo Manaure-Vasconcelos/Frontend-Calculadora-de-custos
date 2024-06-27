@@ -38,12 +38,16 @@ export default function Dashboard() {
     fetchData();
   }, []);
 
-  if (!userData) return <LoadingAnimation height={250} width={250} />;
+  if (!userData) return (
+    <div className='h-screen items center'>
+
+      <LoadingAnimation height={250} width={250} />;
+    </div>)
 
   return (
     <div className="p-4 w-full h-full flex flex-col justify-normal items-start ">
       <h1 className="text-xl font-bold p-4">Dashboard</h1>
-      {userData ? (
+      {userData && (
         <div className="border border-slate-400 p-4 w-full gap-2">
           <h1 className="block text-xl p-5">Welcome, {userData.name}</h1>
           <main className="flex justify-around">
@@ -51,8 +55,6 @@ export default function Dashboard() {
             <FixedCosts />
           </main>
         </div>
-      ) : (
-        <p>Loading...</p>
       )}
     </div>
   );

@@ -23,13 +23,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body>
-        <header>
-          <NavBar />
-        </header>
-        <RecipesProvider>
-          <>{children}</>
-        </RecipesProvider>
+      <body className="flex min-h-screen">
+        <NavBar />
+        <div className="flex-1 flex flex-col">
+          <main className="flex-1 overflow-y-auto p-4 ml-48 flex items-center justify-center">
+            <RecipesProvider>
+              <>{children}</>
+            </RecipesProvider>
+          </main>
+          <footer className="bg-slate-700 w-full p-4 fixed bottom-0 left-48 z-10">
+            Info pessoal / links
+          </footer>
+        </div>
       </body>
     </html>
   );
