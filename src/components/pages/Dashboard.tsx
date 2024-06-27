@@ -39,9 +39,8 @@ export default function Dashboard() {
   }, []);
 
   if (!userData) return (
-    <div className='h-screen items center'>
-
-      <LoadingAnimation height={250} width={250} />;
+    <div className='h-screen items-center'>
+      <LoadingAnimation height={250} width={250} />
     </div>)
 
   return (

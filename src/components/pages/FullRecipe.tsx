@@ -6,25 +6,15 @@ import axios from '@/lib/axiosConfig';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { Recipe } from '@/context/recipes/contextRecipes';
+import CreateIngredient from './CreateIngredient';
 
 interface Props {
   id: string;
 }
 
-interface IngredientRequest {
-  name: string;
-  usedWeight: number;
-  grossWeight: number;
-  marketPrice: number;
-}
-
-export default function AddItems({ id }: Props) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors }
-  } = useForm<IngredientRequest>();
+export default function FullRecipe({ id }: Props) {
   const [recipe, setRecipe] = useState<Recipe | null>(null);
+  const [isModalOpen, setModalOpen] = useState(false);
   const router = useRouter();
 
   const LoadingAnimation = dynamic(
@@ -33,6 +23,9 @@ export default function AddItems({ id }: Props) {
       ssr: false
     }
   );
+
+  const handleOpenModal = () => setModalOpen(true);
+  const handleCloseModal = () => setModalOpen(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -52,97 +45,19 @@ export default function AddItems({ id }: Props) {
 
   if (!recipe) return <LoadingAnimation height={250} width={250} />;
 
-  const onSubmit = handleSubmit(async (data) => {
-    console.log(data);
-    /* const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/recipes`,
-      data
-    );
-
-    if (res.status === 201) {
-      onRequestClose();
-      router.push('/calculator');
-    } */
-  });
-
   return (
     recipe && (
-      <div className="border roudend-lg w-1/2">
-        <header>
-          <h2>{recipe.title}</h2>
+      <div className="border rounded-lg p-4 w-1/2 h-full flex flex-col items-start">
+        <header className="flex justify-between items-center">
+          <h2 className="text-2xl ml-5">{recipe.title}</h2>
+          <button
+            className="px-3 py-2 rounded bg-slate-500 hover:bg-slate-700 my-5 mx-3"
+            onClick={handleOpenModal}
+          >
+            Create Ingredient
+          </button>
         </header>
         <main className="p-4 m-2 bg-slate-700 rounded-lg">
-          <div>
-            <form onSubmit={onSubmit} className="flex flex-col gap-4">
-              <label
-                htmlFor="name"
-                className="text-white block text-sm text-left"
-              >
-                Name:
-              </label>
-              <input
-                type="text"
-                {...register('name', {
-                  required: {
-                    value: true,
-                    message: 'Name is required'
-                  }
-                })}
-                className="block p-2 w-full bg-slate-900 text-slate-300 rounded"
-              />
-
-              {errors.name && (
-                <span className="text-red-500 text-xs">
-                  {errors.name.message}
-                </span>
-              )}
-
-              <label
-                htmlFor="usedWeight"
-                className="text-white block text-sm text-left"
-              >
-                Used Weight:
-              </label>
-              <input
-                type="text"
-                {...register('usedWeight', {
-                  required: true
-                })}
-                className="block p-2 w-full bg-slate-900 text-slate-300 rounded"
-              />
-
-              <label
-                htmlFor="marketPrice"
-                className="text-white block text-sm text-left"
-              >
-                Market Price:
-              </label>
-              <input
-                type="text"
-                {...register('marketPrice', {
-                  required: true
-                })}
-                className="block p-2 w-full bg-slate-900 text-slate-300 rounded"
-              />
-
-              <label
-                htmlFor="grossWeight"
-                className="text-white block text-sm text-left"
-              >
-                Gross Weight:
-              </label>
-              <input
-                type="text"
-                {...register('grossWeight', {
-                  required: true
-                })}
-                className="block p-2 w-full bg-slate-900 text-slate-300 rounded"
-              />
-              <button className="bg-blue-500 text-white px-4 py-2 rounded">
-                Create
-              </button>
-            </form>
-          </div>
           <Table striped bordered hover className="w-full table-fixed">
             <thead>
               <tr className="border-b-2">
@@ -206,6 +121,10 @@ export default function AddItems({ id }: Props) {
             )}
           </Table>
         </main>
+        <CreateIngredient
+          isModalOpen={isModalOpen}
+          onRequestClose={handleCloseModal}
+        />
       </div>
     )
   );
