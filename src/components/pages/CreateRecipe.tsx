@@ -2,10 +2,12 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import axios from '@/lib/axiosConfig';
 import ModalDefault from '../ui/ModalDefault';
+import { Recipe } from '@/context/recipes/contextRecipes';
 
 interface Props {
   isModalOpen: boolean;
   onRequestClose: () => void;
+  setData: (data: Recipe) => void;
 }
 
 interface RecipeRequest {
@@ -13,11 +15,16 @@ interface RecipeRequest {
   describe?: string;
 }
 
-export default function CreateRecipe({ isModalOpen, onRequestClose }: Props) {
+export default function CreateRecipe({
+  isModalOpen,
+  onRequestClose,
+  setData
+}: Props) {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
+    reset
   } = useForm<RecipeRequest>();
   const router = useRouter();
 
@@ -28,8 +35,10 @@ export default function CreateRecipe({ isModalOpen, onRequestClose }: Props) {
     );
 
     if (res.status === 201) {
+      setData(res.data.data);
       onRequestClose();
-      router.push('/calculator');
+      reset()
+      router.push(`/calculator/${res.data.data.id}`);
     }
   });
 
@@ -66,6 +75,7 @@ export default function CreateRecipe({ isModalOpen, onRequestClose }: Props) {
               }
             })}
             className="block p-2 w-full bg-slate-900 text-slate-300 rounded"
+            autoFocus
           />
 
           {errors.title && (

@@ -5,19 +5,18 @@ import { Table } from 'react-bootstrap';
 import formatForBRL from '@/lib/formatForBrl';
 import { useRouter } from 'next/navigation';
 import axios from '@/lib/axiosConfig';
-import { Recipe, useRecipes } from '@/context/recipes/contextRecipes';
+import { useRecipes } from '@/context/recipes/contextRecipes';
 
 /* 4 render */
 
 export default function AllRecipesDashboard() {
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
-  const { recipes, fetchData, deleteRecipe } = useRecipes();
+  const { recipes, fetchData, deleteRecipe, addRecipe } = useRecipes();
 
   /* Refatorar */
   useEffect(() => {
     fetchData();
   }, []);
-
 
   const router = useRouter();
 
@@ -72,7 +71,9 @@ export default function AllRecipesDashboard() {
               {recipes.map((recipe) => (
                 <tr key={recipe.id}>
                   <th className="w-1/3 py-2 pl-3 text-left">{recipe.title}</th>
-                  <th className="w-1/4 py-2">{recipe.ingredients.length}</th>
+                  <th className="w-1/4 py-2">
+                    {recipe.ingredients ? recipe.ingredients.length : 0}
+                  </th>
                   <th className="w-1/4 py-2">
                     {formatForBRL(recipe.valuePartial)}
                   </th>
@@ -113,6 +114,7 @@ export default function AllRecipesDashboard() {
       <CreateRecipe
         isModalOpen={isCreateModalOpen}
         onRequestClose={handleCloseModal}
+        setData={addRecipe}
       />
     </section>
   );

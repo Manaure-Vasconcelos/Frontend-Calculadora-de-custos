@@ -6,11 +6,9 @@ export interface Recipe {
   id: number;
   title: string;
   describe: string | null;
-  userId: string;
   valuePartial: number;
   ingredients: Ingredient[];
   createdAt: Date;
-  updatedAt: Date;
 }
 
 export interface Ingredient {
@@ -25,7 +23,7 @@ export interface Ingredient {
 
 interface RecipeContextProps {
   recipes: Recipe[];
-  fetchData: () => Promise<void>
+  fetchData: () => Promise<void>;
   addRecipe: (newRecipe: Recipe) => void;
   updateRecipe: (id: number, updatedRecipe: Recipe) => void;
   deleteRecipe: (id: number) => void;
@@ -78,7 +76,14 @@ export const RecipesProvider = ({
 
   return (
     <RecipesContext.Provider
-      value={{ recipes,fetchData,addRecipe, updateRecipe, deleteRecipe, getRecipeById }}
+      value={{
+        recipes,
+        fetchData,
+        addRecipe,
+        updateRecipe,
+        deleteRecipe,
+        getRecipeById
+      }}
     >
       {children}
     </RecipesContext.Provider>
