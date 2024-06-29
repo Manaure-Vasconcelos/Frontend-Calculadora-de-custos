@@ -1,10 +1,9 @@
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
 import axios from '@/lib/axiosConfig';
 import ModalDefault from '../ui/ModalDefault';
 
-
 interface Props {
+  recipeId: string
   isModalOpen: boolean;
   onRequestClose: () => void;
 }
@@ -16,21 +15,30 @@ interface IngredientRequest {
   marketPrice: number;
 }
 
-export default function CreateIngredient({ isModalOpen, onRequestClose }: Props) {
+export default function CreateIngredient({
+  recipeId,
+  isModalOpen,
+  onRequestClose
+}: Props) {
   const {
     register,
     handleSubmit,
     formState: { errors }
   } = useForm<IngredientRequest>();
-  const router = useRouter();
 
   const onSubmit = handleSubmit(async (data) => {
-    /* const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/recipes`,
-      data
-    ); */
+    const res = await axios.post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/ingredients/${recipeId}`, {
+        name: data.name,
+        usedWeight: Number(data.usedWeight),
+        grossWeight: Number(data.grossWeight),
+        marketPrice: Number(data.marketPrice),
+      }
+    );
+    
+    console.log(res)
 
-    onRequestClose()
+    onRequestClose();
   });
 
   return (
@@ -70,6 +78,7 @@ export default function CreateIngredient({ isModalOpen, onRequestClose }: Props)
                 }
               })}
               className="block p-2 w-full bg-slate-900 text-slate-300 rounded"
+              autoFocus
             />
 
             {errors.name && (
@@ -85,7 +94,7 @@ export default function CreateIngredient({ isModalOpen, onRequestClose }: Props)
               Used Weight:
             </label>
             <input
-              type="text"
+              type="number"
               {...register('usedWeight', {
                 required: true
               })}
@@ -99,7 +108,7 @@ export default function CreateIngredient({ isModalOpen, onRequestClose }: Props)
               Market Price:
             </label>
             <input
-              type="text"
+              type="number"
               {...register('marketPrice', {
                 required: true
               })}
@@ -113,13 +122,13 @@ export default function CreateIngredient({ isModalOpen, onRequestClose }: Props)
               Gross Weight:
             </label>
             <input
-              type="text"
+              type="number"
               {...register('grossWeight', {
                 required: true
               })}
               className="block p-2 w-full bg-slate-900 text-slate-300 rounded"
             />
-            <button className="bg-blue-500 text-white px-4 py-2 rounded">
+            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
               Create
             </button>
           </form>

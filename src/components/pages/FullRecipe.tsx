@@ -122,6 +122,7 @@ export default function FullRecipe({ id }: Props) {
           </Table>
         </main>
         <CreateIngredient
+          recipeId={id}
           isModalOpen={isModalOpen}
           onRequestClose={handleCloseModal}
         />
