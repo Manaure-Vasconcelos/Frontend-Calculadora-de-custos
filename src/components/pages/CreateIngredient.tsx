@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form';
-import axios from '@/lib/axiosConfig';
+import {api} from '@/lib/axiosConfig';
 import ModalDefault from '../ui/ModalDefault';
 
 interface Props {
@@ -27,8 +27,8 @@ export default function CreateIngredient({
   } = useForm<IngredientRequest>();
 
   const onSubmit = handleSubmit(async (data) => {
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/ingredients/${recipeId}`, {
+    const res = await api.post(
+      `/ingredients/${recipeId}`, {
         name: data.name,
         usedWeight: Number(data.usedWeight),
         grossWeight: Number(data.grossWeight),

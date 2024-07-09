@@ -4,7 +4,7 @@ import CreateRecipe from './CreateRecipe';
 import { Table } from 'react-bootstrap';
 import formatForBRL from '@/lib/formatForBrl';
 import { useRouter } from 'next/navigation';
-import axios from '@/lib/axiosConfig';
+import {api} from '@/lib/axiosConfig';
 import { useRecipes } from '@/context/recipes/contextRecipes';
 
 /* 4 render */
@@ -28,9 +28,9 @@ export default function AllRecipesDashboard() {
   };
 
   const handleDeleteItem = async (id: number) => {
-    const res = await axios.delete(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/recipes/${String(id)}`
-    );
+    console.log(id);
+    const res = await api.delete(`/recipes/${String(id)}`);
+    console.log(res);
     if (res.status === 204) deleteRecipe(id);
   };
 

@@ -1,7 +1,7 @@
 'use client';
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import axios from '@/lib/axiosConfig';
+import { api } from '@/lib/axiosConfig';
 import AllRecipes from './AllRecipesDashboard';
 import FixedCosts from './FixedCosts';
 import dynamic from 'next/dynamic';
@@ -25,23 +25,24 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get<UserData>(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/user`
-        );
+        const res = await api.get<UserData>('/user');
         setUserData(res.data);
-      } catch (error) {
-        alert('Login expirado, você será redirecionado.');
-        router.push('/auth/login');
+      } catch (error: any) {
+        console.log(error);
+        /* alert('Login expirado, você será redirecionado.'); */
+        /* router.push('/auth/login'); */
       }
     };
 
     fetchData();
   }, []);
 
-  if (!userData) return (
-    <div className='h-screen flex items-center'>
-      <LoadingAnimation height={250} width={250} />
-    </div>)
+  if (!userData)
+    return (
+      <div className="h-screen flex items-center">
+        <LoadingAnimation height={250} width={250} />
+      </div>
+    );
 
   return (
     <div className="p-4 w-full h-full flex flex-col justify-normal items-start ">

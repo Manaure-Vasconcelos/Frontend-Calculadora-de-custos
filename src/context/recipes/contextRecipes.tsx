@@ -1,6 +1,6 @@
 'use client';
 import { createContext, useContext, useState } from 'react';
-import axios from '@/lib/axiosConfig';
+import { api } from '@/lib/axiosConfig';
 
 export interface Recipe {
   id: number;
@@ -43,9 +43,7 @@ export const RecipesProvider = ({
 
   const fetchData = async () => {
     try {
-      const res = await axios.get<Recipe[]>(
-        `${process.env.NEXT_PUBLIC_BASE_URL}/recipes/all`
-      );
+      const res = await api.get<Recipe[]>(`/recipes/all`);
       setRecipes(res.data);
     } catch (error) {
       console.log(`Error fetching data`);

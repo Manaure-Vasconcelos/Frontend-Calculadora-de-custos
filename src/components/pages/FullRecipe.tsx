@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Table } from 'react-bootstrap';
-import axios from '@/lib/axiosConfig';
+import {api} from '@/lib/axiosConfig';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { Recipe } from '@/context/recipes/contextRecipes';
@@ -30,8 +30,8 @@ export default function FullRecipe({ id }: Props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get<Recipe>(
-          `${process.env.NEXT_PUBLIC_BASE_URL}/recipes/${id}`
+        const res = await api.get<Recipe>(
+          `/recipes/${id}`
         );
         setRecipe(res.data);
       } catch (err) {

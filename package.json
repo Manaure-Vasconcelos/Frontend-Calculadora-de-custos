@@ -13,6 +13,8 @@
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "eslint": "^8.57.0",
+    "flowbite": "^2.4.1",
+    "flowbite-react": "^0.10.1",
     "lottie-web": "^5.12.2",
     "next": "14.2.3",
     "react": "^18.3.1",

@@ -1,7 +1,7 @@
 'use client';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import axios from '@/lib/axiosConfig';
+import {api} from '@/lib/axiosConfig';
 import Link from 'next/link';
 
 interface RegisterRequest {
@@ -23,10 +23,7 @@ export default function Register() {
     if (data.confirmPassword !== data.password)
       return alert('Passwords is not match');
 
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/auth/register`,
-      data
-    );
+    const res = await api.post(`/auth/register`, data);
     if (res.status === 201) router.push('/auth/login');
   });
 

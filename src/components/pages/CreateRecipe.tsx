@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import axios from '@/lib/axiosConfig';
+import {api} from '@/lib/axiosConfig';
 import ModalDefault from '../ui/ModalDefault';
 import { Recipe } from '@/context/recipes/contextRecipes';
 
@@ -29,8 +29,8 @@ export default function CreateRecipe({
   const router = useRouter();
 
   const onSubmit = handleSubmit(async (data) => {
-    const res = await axios.post(
-      `${process.env.NEXT_PUBLIC_BASE_URL}/recipes`,
+    const res = await api.post(
+      `/recipes`,
       data
     );
 
