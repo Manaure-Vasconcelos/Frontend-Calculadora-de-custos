@@ -2,13 +2,30 @@
 import { RecipesProvider } from '@/context/recipes/contextRecipes';
 import SideBar from './SideBar';
 import Footer from './Footer';
+import { usePathname } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function LayoutRoot({
   children
 }: {
   children: React.ReactNode;
 }) {
-  return (
+  const path = usePathname();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  if (!isMounted) {
+    return null; // Ou um componente de carregamento
+  }
+
+  const isAuthRoute = path.includes('/auth');
+
+  return isAuthRoute ? (
+    <>{children}</>
+  ) : (
     <>
       <SideBar />
       <div className="flex flex-col w-full">
