@@ -35,7 +35,7 @@ export default function AllRecipesDashboard() {
   };
 
   return (
-    <section className="border border-slate-700 p-4 w-1/2" id="root">
+    <section className="border border-slate-700 p-4 w-1/2 min-h-50" id="root">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl ml-5">Recipes:</h2>
         <button
