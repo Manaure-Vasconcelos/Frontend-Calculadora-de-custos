@@ -17,7 +17,7 @@ export default function Home() {
 
   return (
     <LayoutRoot header={header}>
-      <div className="h-full w-full items-start flex justify-between">
+      <div className="size-full items-start flex justify-around">
         <AllRecipesDashboard />
         <FixedCosts />
       </div>

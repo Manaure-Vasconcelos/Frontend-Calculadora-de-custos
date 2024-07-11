@@ -1,6 +1,6 @@
 export default function FixedCosts() {
   return (
-    <section className="border border-slate-700 p-4 w-1/3 h-1/2">
+    <section className="bg-quinary rounded-xl p-4 w-1/3 min-h-48">
       Fixed Costs
       <ul>
         <li>Contas fixas: Gás, luz, internet, aluguel.</li>

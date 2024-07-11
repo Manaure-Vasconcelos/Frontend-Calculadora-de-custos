@@ -24,6 +24,7 @@ body {
   height: screen;
   color: rgb(var(--foreground-rgb));
   background: rgb(var(--background-start-rgb));
+  box-sizing: border-box;
 }
 
 @layer utilities {

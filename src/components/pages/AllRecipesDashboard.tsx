@@ -4,7 +4,7 @@ import CreateRecipe from './CreateRecipe';
 import { Table } from 'react-bootstrap';
 import formatForBRL from '@/lib/formatForBrl';
 import { useRouter } from 'next/navigation';
-import {api} from '@/lib/axiosConfig';
+import { api } from '@/lib/axiosConfig';
 import { useRecipes } from '@/context/recipes/contextRecipes';
 
 /* 4 render */
@@ -35,7 +35,7 @@ export default function AllRecipesDashboard() {
   };
 
   return (
-    <section className="border border-slate-700 p-4 w-1/2 min-h-64" id="root">
+    <section className="bg-quinary rounded-xl p-4 w-1/2 min-h-72" id="root">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl ml-5">Recipes:</h2>
         <button

@@ -13,6 +13,12 @@ const config: Config = {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
         'gradient-conic':
           'conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))'
+      },
+      colors: {
+        secondary: '#F3F2F8',
+        tertiary: '#56B665',
+        quaternary: '#CD7D48',
+        quinary: '#E5F9E8'
       }
     }
   },
