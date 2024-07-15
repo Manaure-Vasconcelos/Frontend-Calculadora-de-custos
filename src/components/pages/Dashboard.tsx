@@ -5,7 +5,7 @@ import { api } from '@/lib/axiosConfig';
 import AllRecipes from './AllRecipesDashboard';
 import FixedCosts from './FixedCosts';
 import dynamic from 'next/dynamic';
-import { Recipe } from '@/context/recipes/contextRecipes';
+import { Recipe } from '@/context/ContextRecipes';
 
 interface UserData {
   id: string;

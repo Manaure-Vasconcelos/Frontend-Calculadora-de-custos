@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
 import './globals.css';
 import '@/lib/axiosConfig';
-import LayoutRoot from '@/components/layout/LayoutRoot';
-import { RecipesProvider } from '@/context/recipes/contextRecipes';
+import RecipesProvider from '@/context/ContextRecipes';
+import AuthProvider from '@/context/AuthContext';
 
 export const metadata: Metadata = {
   title: 'Calculadora de Custos - Dashboard',
@@ -24,7 +24,9 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className="flex min-h-screen flex-row">
-        <RecipesProvider>{children}</RecipesProvider>
+        <AuthProvider>
+          <RecipesProvider>{children}</RecipesProvider>
+        </AuthProvider>
       </body>
     </html>
   );

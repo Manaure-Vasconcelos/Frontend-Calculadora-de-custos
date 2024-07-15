@@ -1,6 +1,6 @@
 'use client';
-import { createContext, useContext, useState } from 'react';
 import { api } from '@/lib/axiosConfig';
+import { createContext, useContext, useState } from 'react';
 
 export interface Recipe {
   id: number;
@@ -34,11 +34,11 @@ const RecipesContext = createContext<RecipeContextProps>(
   {} as RecipeContextProps
 );
 
-export const RecipesProvider = ({
+export default function RecipesProvider ({
   children
 }: {
   children: React.ReactNode;
-}) => {
+}) {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
 
   const fetchData = async () => {

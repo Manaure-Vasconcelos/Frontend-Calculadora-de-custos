@@ -2,10 +2,10 @@
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Table } from 'react-bootstrap';
-import {api} from '@/lib/axiosConfig';
+import { api } from '@/lib/axiosConfig';
 import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { Recipe } from '@/context/recipes/contextRecipes';
+import { Recipe } from '@/context/ContextRecipes';
 import CreateIngredient from './CreateIngredient';
 
 interface Props {
@@ -30,13 +30,11 @@ export default function FullRecipe({ id }: Props) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await api.get<Recipe>(
-          `/recipes/${id}`
-        );
+        const res = await api.get<Recipe>(`/recipes/${id}`);
         setRecipe(res.data);
       } catch (err) {
-        alert('Login expirado, você será redirecionado.');
-        router.push('/auth/login');
+        /* alert('Login expirado, você será redirecionado.');
+        router.push('/auth/login'); */
       }
     };
 

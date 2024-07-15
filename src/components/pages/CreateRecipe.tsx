@@ -2,7 +2,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import {api} from '@/lib/axiosConfig';
 import ModalDefault from '../ui/ModalDefault';
-import { Recipe } from '@/context/recipes/contextRecipes';
+import { Recipe } from '@/context/ContextRecipes';
 
 interface Props {
   isModalOpen: boolean;

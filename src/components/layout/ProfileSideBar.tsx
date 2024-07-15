@@ -1,8 +1,10 @@
+import { useAuth } from '@/context/AuthContext';
 import { useState, useEffect, useRef } from 'react';
 
 export default function ProfileSideBar() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const { user } = useAuth();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -38,7 +40,7 @@ export default function ProfileSideBar() {
         onClick={toggleDropdown}
         className="w-full p-2 flex justify-between items-center cursor-pointer hover:bg-gray-100"
       >
-        <div className='flex justify-start items-center gap-1 '>
+        <div className="flex justify-start items-center gap-1 ">
           <img
             id="avatarButton"
             className="w-11 h-11 rounded-lg cursor-pointer"
@@ -46,7 +48,7 @@ export default function ProfileSideBar() {
             alt="User dropdown"
           />
           <span className="mx-2 font-medium text-gray-800 dark:text-gray-200">
-            John Doe
+            {user?.name}
           </span>
         </div>
         <>
@@ -70,8 +72,8 @@ export default function ProfileSideBar() {
           className="z-10 absolute bottom-full mb-2 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600"
         >
           <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-            <div>Bonnie Green</div>
-            <div className="font-medium truncate">name@flowbite.com</div>
+            <div>{user?.name}</div>
+            <div className="font-medium truncate">{user?.email}</div>
           </div>
           <ul
             className="py-2 text-sm text-gray-700 dark:text-gray-200"

@@ -3,8 +3,9 @@ import Link from 'next/link';
 import { api } from '@/lib/axiosConfig';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/context/AuthContext';
 
-interface LoginRequest {
+interface SignInRequest {
   email: string;
   password: string;
 }
@@ -14,16 +15,14 @@ export default function FormLogin() {
     register,
     handleSubmit,
     formState: { errors }
-  } = useForm<LoginRequest>();
+  } = useForm<SignInRequest>();
   const router = useRouter();
+  const { isAuthenticated, signIn } = useAuth();
 
-  const onSubmit = async ({ email, password }: LoginRequest) => {
+  const onSubmit = async ({ email, password }: SignInRequest) => {
     try {
-      const res = await api.post('/auth/login', { email, password });
-      if (res.status === 200) {
-        router.push('/');
-      }
-    } catch (err: Error) {
+      await signIn(email, password);
+    } catch (err: any) {
       alert('Check your credentials and try again.');
     }
   };

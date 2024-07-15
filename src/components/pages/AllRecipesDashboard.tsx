@@ -5,7 +5,7 @@ import { Table } from 'react-bootstrap';
 import formatForBRL from '@/lib/formatForBrl';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/axiosConfig';
-import { useRecipes } from '@/context/recipes/contextRecipes';
+import { useRecipes } from '@/context/ContextRecipes';
 
 /* 4 render */
 
