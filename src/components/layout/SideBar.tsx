@@ -5,7 +5,7 @@ export default function SideBar() {
   return (
     <>
       <aside className="flex flex-col w-60 h-screen px-4 py-8 overflow-y-auto bg-white border-r dark:bg-gray-900 dark:border-gray-700">
-        <Link href="#">
+        <Link href="/">
           <img
             className="w-auto ml-3 h-6 sm:h-7"
             src="https://merakiui.com/images/logo.svg"
@@ -17,7 +17,7 @@ export default function SideBar() {
           <nav>
             <Link
               className="flex items-center px-5 py-3 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-              href="#"
+              href="/"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
                 <path
@@ -33,7 +33,7 @@ export default function SideBar() {
 
             <Link
               className="flex items-center px-5 py-3 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-              href="#"
+              href="/all-recipes"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
                 <path
@@ -49,7 +49,7 @@ export default function SideBar() {
 
             <Link
               className="flex items-center px-5 py-3 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-              href="#"
+              href="/fixed-costs"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
                 <path
@@ -64,7 +64,7 @@ export default function SideBar() {
 
             <Link
               className="flex items-center px-5 py-3 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700"
-              href="#"
+              href="/about"
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24">
                 <path
@@ -84,25 +84,6 @@ export default function SideBar() {
           </span>
         </div>
       </aside>
-      {/* <nav className="bg-slate-900 h-full w-48 fixed left-0 top-0 bottom-0 z-10 p-4">
-        <ul className="w-full flex flex-col justify-center gap-5 text-white text-xl">
-          <li className="list-none border-b-2 border-transparent hover:border-white transition-all ease-in-out duration-300">
-            <Link href="/">Dashboard</Link>
-          </li>
-          <li className="list-none border-b-2 border-transparent hover:border-white transition-all ease-in-out duration-300">
-            <Link href="/">All Recipes*</Link>
-          </li>
-          <li className="list-none border-b-2 border-transparent hover:border-white transition-all ease-in-out duration-300">
-            <Link href="/">Fixed Costs*</Link>
-          </li>
-          <li className="list-none border-b-2 border-transparent hover:border-white transition-all ease-in-out duration-300">
-            <Link href="./about">About</Link>
-          </li>
-          <li className="list-none border-b-2 border-transparent hover:border-white transition-all ease-in-out duration-300">
-            <Link href="./acount">Acount</Link>
-          </li>
-        </ul>
-      </nav> */}
     </>
   );
 }
