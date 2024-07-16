@@ -3,7 +3,7 @@ import FormRegister from '@/components/forms/FormRegister';
 
 export default function Register() {
   return (
-    <div className="bg-white dark:bg-gray-900">
+    <div className="w-full bg-white dark:bg-gray-900">
       <div className="flex justify-center h-screen">
         <div
           className="hidden bg-cover lg:block lg:w-2/3"
