@@ -1,5 +1,4 @@
 'use client';
-import { RecipesProvider } from '@/context/recipes/contextRecipes';
 import SideBar from './SideBar';
 import Footer from './Footer';
 import { usePathname } from 'next/navigation';

@@ -3,6 +3,7 @@ import { api } from '@/lib/axiosConfig';
 import { setCookie, parseCookies } from 'nookies';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { importSPKI, jwtVerify } from 'jose';
 
 interface User {
   id: string;
@@ -33,6 +34,15 @@ export default function AuthProvider({
       const { access_token } = parseCookies();
 
       if (access_token) {
+        const spki = process.env.JWT_SECRET;
+        const alg = 'RS256';
+
+        if (!spki) throw new Error('Secret key not found');
+
+        const publicKey = await importSPKI(spki, alg);
+
+        await jwtVerify(access_token, publicKey);
+
         const { data } = await api.get<User>('/user');
         setUser(data);
       }
@@ -42,16 +52,20 @@ export default function AuthProvider({
   }, []);
 
   async function signIn(email: string, password: string) {
-    const res = await api.post('/auth/login', { email, password });
-    console.log(res.data);
-    setCookie(undefined, 'access_token', res.data.access_token, {
+    const { data } = await api.post('/auth/login', { email, password });
+    setCookie(undefined, 'access_token', data.access_token, {
       maxAge: 60 * 60 * 1,
-      path: '/',
+      path: '/'
     });
 
-    setUser(res.data.userData);
+    api.defaults.headers['Authorization'] = `Bearer ${data.access_token}`;
+
+    setUser(data.userData);
     router.push('/');
   }
+
+  // rota logout => exclui o cookies ou seta um cookie vazio vencendo no horario atual.
+  // seta o user como null
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, signIn, user }}>
