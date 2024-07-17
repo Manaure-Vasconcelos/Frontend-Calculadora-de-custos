@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from 'react';
 export default function ProfileSideBar() {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
-  const { user } = useAuth();
+  const { user, signOut } = useAuth();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -76,13 +76,13 @@ export default function ProfileSideBar() {
             <div className="font-medium truncate">{user?.email}</div>
           </div>
           <ul
-            className="py-2 text-sm text-gray-700 dark:text-gray-200"
+            className="flex flex-col items-center w-full py-2 text-sm text-gray-700 dark:text-gray-200"
             aria-labelledby="avatarButton"
           >
-            <li>
-              <a
-                href="#"
-                className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white flex items-center justify-evenly text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400"
+            <li className="w-full">
+              <button
+                onClick={() => {}}
+                className="w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white flex items-center justify-evenly text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
                   <path
@@ -101,10 +101,10 @@ export default function ProfileSideBar() {
                   />
                 </svg>
                 <span className="mx-4 font-medium">Account</span>
-              </a>
-              <a
-                href="#"
-                className="px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white flex items-center justify-evenly text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400"
+              </button>
+              <button
+                onClick={() => {}}
+                className="w-full px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white flex items-center justify-evenly text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400"
               >
                 <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none">
                   <path
@@ -123,13 +123,13 @@ export default function ProfileSideBar() {
                   />
                 </svg>
                 <span className="mx-4 font-medium">Settings</span>
-              </a>
+              </button>
             </li>
           </ul>
-          <div className="py-1">
-            <a
-              href="#"
-              className="flex items-center justify-evenly px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
+          <div className="py-1 flex flex-col items-center w-full">
+            <button
+              onClick={signOut}
+              className="flex items-center justify-evenly px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white w-full"
             >
               <svg
                 className="w-5 h-5 stroke-current"
@@ -142,7 +142,7 @@ export default function ProfileSideBar() {
                 <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h280v80H200v560h280v80H200Zm440-160-55-58 102-102H360v-80h327L585-622l55-58 200 200-200 200Z" />
               </svg>
               <span className="mx-4 font-medium">Sign out</span>
-            </a>
+            </button>
           </div>
         </div>
       )}

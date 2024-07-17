@@ -15,6 +15,7 @@ interface AuthContextProps {
   isAuthenticated: boolean;
   user: User | null;
   signIn: (email: string, password: string) => Promise<void>;
+  signOut: () => void;
 }
 
 const AuthContext = createContext({} as AuthContextProps);
@@ -64,11 +65,18 @@ export default function AuthProvider({
     router.push('/');
   }
 
-  // rota logout => exclui o cookies ou seta um cookie vazio vencendo no horario atual.
-  // seta o user como null
+  function signOut() {
+    // confirmação forma de modal
+    setCookie(undefined, 'access_token', '', {
+      path: '/',
+      expires: new Date(0)
+    });
+    delete api.defaults.headers['Authorization'];
+    router.push('/auth/login');
+  }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, signIn, user }}>
+    <AuthContext.Provider value={{ isAuthenticated, signIn, signOut, user }}>
       {children}
     </AuthContext.Provider>
   );
