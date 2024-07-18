@@ -43,8 +43,8 @@ export default function ProfileSideBar() {
         <div className="flex justify-start items-center gap-1 ">
           <img
             id="avatarButton"
-            className="w-11 h-11 rounded-lg cursor-pointer"
-            src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80"
+            className="w-11 h-11 rounded-lg cursor-pointer border-gray-600"
+            src={user?.avatarURL}
             alt="User dropdown"
           />
           <span className="mx-2 font-medium text-gray-800 dark:text-gray-200">

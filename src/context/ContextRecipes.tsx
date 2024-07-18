@@ -34,7 +34,7 @@ const RecipesContext = createContext<RecipeContextProps>(
   {} as RecipeContextProps
 );
 
-export default function RecipesProvider ({
+export default function RecipesProvider({
   children
 }: {
   children: React.ReactNode;
@@ -46,7 +46,7 @@ export default function RecipesProvider ({
       const res = await api.get<Recipe[]>(`/recipes/all`);
       setRecipes(res.data);
     } catch (error) {
-      console.log(`Error fetching data`);
+      throw new Error('Error query data');
     }
   };
 
@@ -86,7 +86,7 @@ export default function RecipesProvider ({
       {children}
     </RecipesContext.Provider>
   );
-};
+}
 
 export const useRecipes = () => {
   const context = useContext(RecipesContext);

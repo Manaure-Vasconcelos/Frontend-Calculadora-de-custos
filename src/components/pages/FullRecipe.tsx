@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
 import { Recipe } from '@/context/ContextRecipes';
 import CreateIngredient from './CreateIngredient';
+import DropdownButtons from '../ui/DropdownButtons';
 
 interface Props {
   id: string;
@@ -88,30 +89,7 @@ export default function FullRecipe({ id }: Props) {
                     <th className="w-1/4 py-2">{ingredient.grossWeight}</th>
                     <th className="w-1/4 py-2">{ingredient.realAmount}</th>
                     <th className="w-1/6 py-2">
-                      <button
-                        className="bg-transparent px-2 py-1 rounded transform transition-transform duration-200 hover:scale-110"
-                        onClick={() => {}}
-                      >
-                        <img
-                          src="/editIcon.svg"
-                          alt="Editar"
-                          className="inline-block align-text-top"
-                          height="21"
-                          width="21"
-                        />
-                      </button>
-                      <button
-                        className="bg-transparent px-2 py-1 rounded transform transition-transform duration-200 hover:scale-110"
-                        onClick={() => {}}
-                      >
-                        <img
-                          src="/deleteIcon.svg"
-                          alt="Delete"
-                          className="inline-block align-text-top"
-                          height="21"
-                          width="21"
-                        />
-                      </button>
+                      <DropdownButtons idRecipe={ingredient.id}/>
                     </th>
                   </tr>
                 ))}

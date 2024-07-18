@@ -17,7 +17,7 @@ export default function FormLogin() {
     formState: { errors }
   } = useForm<SignInRequest>();
   const router = useRouter();
-  const { isAuthenticated, signIn } = useAuth();
+  const { signIn } = useAuth();
 
   const onSubmit = async ({ email, password }: SignInRequest) => {
     try {

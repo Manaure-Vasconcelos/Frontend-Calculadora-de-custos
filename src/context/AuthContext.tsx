@@ -9,10 +9,10 @@ interface User {
   id: string;
   name: string;
   email: string;
+  avatarURL: string;
 }
 
 interface AuthContextProps {
-  isAuthenticated: boolean;
   user: User | null;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => void;
@@ -31,52 +31,46 @@ export default function AuthProvider({
   const isAuthenticated = !!user;
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      const { access_token } = parseCookies();
-
-      if (access_token) {
-        const spki = process.env.JWT_SECRET;
-        const alg = 'RS256';
-
-        if (!spki) throw new Error('Secret key not found');
-
-        const publicKey = await importSPKI(spki, alg);
-
-        await jwtVerify(access_token, publicKey);
-
+    async function fetchData() {
+      try {
         const { data } = await api.get<User>('/user');
         setUser(data);
+      } catch (error) {
+        throw new Error('Error query data');
       }
-    };
-
-    fetchUserData();
+    }
+    const { logged } = parseCookies();
+    if (logged) fetchData();
   }, []);
 
   async function signIn(email: string, password: string) {
-    const { data } = await api.post('/auth/login', { email, password });
-    setCookie(undefined, 'access_token', data.access_token, {
-      maxAge: 60 * 60 * 1,
+    const { data } = await api.post('/auth/signin', { email, password });
+
+    setCookie(undefined, 'logged', 'logged', {
+      sameSite: 'strict',
+      secure: true,
+      maxAge: 60 * 60 * 24 * 7,
       path: '/'
     });
 
-    api.defaults.headers['Authorization'] = `Bearer ${data.access_token}`;
-
     setUser(data.userData);
+
     router.push('/');
   }
 
-  function signOut() {
-    // confirmação forma de modal
-    setCookie(undefined, 'access_token', '', {
-      path: '/',
-      expires: new Date(0)
+  async function signOut() {
+    await api.post('/auth/signout');
+
+    setCookie(undefined, 'logged', '', {
+      maxAge: 0,
+      path: '/'
     });
-    delete api.defaults.headers['Authorization'];
+
     router.push('/auth/login');
   }
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, signIn, signOut, user }}>
+    <AuthContext.Provider value={{ signIn, signOut, user }}>
       {children}
     </AuthContext.Provider>
   );

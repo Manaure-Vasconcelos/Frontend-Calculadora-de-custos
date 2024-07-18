@@ -5,7 +5,7 @@ import RecipesProvider from '@/context/ContextRecipes';
 import AuthProvider from '@/context/AuthContext';
 
 export const metadata: Metadata = {
-  title: 'Calculadora de Custos - Dashboard',
+  title: 'Calculadora de Preço',
   keywords: [
     'calculadora',
     'ficha técnica',

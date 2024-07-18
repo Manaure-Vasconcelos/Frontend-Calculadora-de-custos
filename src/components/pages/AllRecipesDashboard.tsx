@@ -6,6 +6,7 @@ import formatForBRL from '@/lib/formatForBrl';
 import { useRouter } from 'next/navigation';
 import { api } from '@/lib/axiosConfig';
 import { useRecipes } from '@/context/ContextRecipes';
+import DropdownButtons from '../ui/DropdownButtons';
 
 /* 4 render */
 
@@ -54,7 +55,7 @@ export default function AllRecipesDashboard() {
               <th className="w-1/4 pb-4">Items</th>
               <th className="w-1/4 pb-4">Value Recipe</th>
               <th className="w-1/4 pb-4">Value Real</th>
-              <th className="w-1/6 pb-4"></th>
+              <th className="w-1/12 pb-4"></th>
             </tr>
           </thead>
 
@@ -70,7 +71,7 @@ export default function AllRecipesDashboard() {
             <tbody>
               {recipes.map((recipe) => (
                 <tr key={recipe.id}>
-                  <th className="w-1/3 py-2 pl-3 text-left">{recipe.title}</th>
+                  <th className="w-1/3 py-2 pl-6 text-left">{recipe.title}</th>
                   <th className="w-1/4 py-2">
                     {recipe.ingredients ? recipe.ingredients.length : 0}
                   </th>
@@ -78,31 +79,8 @@ export default function AllRecipesDashboard() {
                     {formatForBRL(recipe.valuePartial)}
                   </th>
                   <th className="w-1/4 py-2">valor</th>
-                  <th className="w-1/6 py-2">
-                    <button
-                      className="bg-transparent px-2 py-1 rounded transform transition-transform duration-200 hover:scale-110"
-                      onClick={() => handleEditItem(recipe.id)}
-                    >
-                      <img
-                        src="/editIcon.svg"
-                        alt="Editar"
-                        className="inline-block align-text-top"
-                        height="21"
-                        width="21"
-                      />
-                    </button>
-                    <button
-                      className="bg-transparent px-2 py-1 rounded transform transition-transform duration-200 hover:scale-110"
-                      onClick={() => handleDeleteItem(recipe.id)}
-                    >
-                      <img
-                        src="/deleteIcon.svg"
-                        alt="Delete"
-                        className="inline-block align-text-top"
-                        height="21"
-                        width="21"
-                      />
-                    </button>
+                  <th className="w-1/12 py-2">
+                    <DropdownButtons idRecipe={recipe.id} />
                   </th>
                 </tr>
               ))}
