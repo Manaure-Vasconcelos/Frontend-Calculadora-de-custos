@@ -39,7 +39,16 @@ export default function RecipesProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
+  const [recipes, setRecipes] = useState<Recipe[]>([
+    {
+      id: 1,
+      title: 'receita',
+      describe: null,
+      valuePartial: 10,
+      ingredients: [],
+      createdAt: new Date()
+    }
+  ]);
 
   const fetchData = async () => {
     try {

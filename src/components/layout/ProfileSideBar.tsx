@@ -1,7 +1,8 @@
 import { useAuth } from '@/context/AuthContext';
 import { useState, useEffect, useRef } from 'react';
+import { Menu } from 'lucide-react';
 
-export default function ProfileSideBar() {
+export default function ProfileSideBar({ expanded }: { expanded: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { user, signOut } = useAuth();
@@ -32,7 +33,26 @@ export default function ProfileSideBar() {
   }, [isOpen]);
 
   return (
-    <div
+    <div className="border-t flex p-3">
+      <img
+        src={`https://ui-avatars.com/api/?background=random&name=${user.name}`}
+        alt=""
+        className="w-10 h-10 rounded-md"
+      />
+      <div
+        className={`
+              flex justify-between items-center
+              overflow-hidden transition-all ${expanded ? 'w-52 ml-3' : 'w-0'}
+          `}
+      >
+        <div className="leading-4">
+          <h4 className="font-semibold">{user.name}</h4>
+          <span className="text-xs text-gray-600">{user.email}</span>
+        </div>
+        <Menu size={20} />
+      </div>
+    </div>
+    /*     <div
       className="relative text-left w-full flex justify-start items-center"
       ref={dropdownRef}
     >
@@ -146,6 +166,6 @@ export default function ProfileSideBar() {
           </div>
         </div>
       )}
-    </div>
+    </div> */
   );
 }

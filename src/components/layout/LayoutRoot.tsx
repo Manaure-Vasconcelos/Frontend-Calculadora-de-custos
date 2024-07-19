@@ -1,7 +1,8 @@
 'use client';
-import SideBar from './SideBar';
+import SideBar, { SidebarItem } from './SideBar';
 import Footer from './Footer';
 import { useEffect, useState } from 'react';
+
 
 interface LayoutProps {
   children: React.ReactNode;

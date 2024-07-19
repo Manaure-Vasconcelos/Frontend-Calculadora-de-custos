@@ -25,10 +25,13 @@ export default function AuthProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | null>({
+    id: 'id',
+    name: 'Manaure',
+    email: 'manaure@gmail.com',
+    avatarURL: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Midnight'
+  });
   const router = useRouter();
-
-  const isAuthenticated = !!user;
 
   useEffect(() => {
     async function fetchData() {
