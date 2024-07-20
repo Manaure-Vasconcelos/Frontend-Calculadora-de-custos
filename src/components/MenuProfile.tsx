@@ -15,7 +15,6 @@ function MenuProfile() {
           label="Menu"
           dismissOnClick={false}
           renderTrigger={() => <Menu size={20} />}
-          className="cursor-pointer hover:scale-105"
           placement="top"
           size="sm"
         >

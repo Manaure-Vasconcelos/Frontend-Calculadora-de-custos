@@ -1,12 +1,12 @@
 export default function Footer() {
   return (
-    <footer className="bg-white border dark:bg-gray-900">
-      <div className="container flex flex-col items-center justify-around p-3 mx-auto space-y-4 sm:space-y-0 sm:flex-row">
+    <footer className="bg-white border dark:bg-gray-900 h-16">
+      <div className="flex flex-col items-center justify-around p-3 mx-auto space-y-4 sm:space-y-0 sm:flex-row">
         <p className="text-sm text-gray-600 dark:text-gray-300">
           © Copyright 2024. All Rights Reserved.
         </p>
 
-        <div className="flex -mx-2">
+        <div className="flex">
           <a
             href="#"
             className="mx-2 text-gray-600 transition-colors duration-300 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
