@@ -23,7 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className="flex min-h-screen flex-row">
+      <body className="h-screen">
         <AuthProvider>
           <RecipesProvider>{children}</RecipesProvider>
         </AuthProvider>

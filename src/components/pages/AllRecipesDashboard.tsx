@@ -24,19 +24,8 @@ export default function AllRecipesDashboard() {
   const handleOpenModal = () => setCreateModalOpen(true);
   const handleCloseModal = () => setCreateModalOpen(false);
 
-  const handleEditItem = (id: number) => {
-    router.push(`/calculator/${id}`);
-  };
-
-  const handleDeleteItem = async (id: number) => {
-    console.log(id);
-    const res = await api.delete(`/recipes/${String(id)}`);
-    console.log(res);
-    if (res.status === 204) deleteRecipe(id);
-  };
-
   return (
-    <section className="bg-quinary rounded-xl p-4 w-1/2 min-h-72" id="root">
+    <div className="bg-quinary flex-grow rounded-xl p-4 min-w-[450px] max-w-[600px] h-1/2">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl ml-5">Recipes:</h2>
         <button
@@ -94,6 +83,6 @@ export default function AllRecipesDashboard() {
         onRequestClose={handleCloseModal}
         setData={addRecipe}
       />
-    </section>
+    </div>
   );
 }

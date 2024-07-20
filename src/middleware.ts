@@ -3,6 +3,7 @@ import { NextRequest } from 'next/server';
 
 export async function middleware(request: NextRequest) {
   const logged = request.cookies.get('logged');
+  /* const logged = true; */
 
   if (logged === undefined) {
     return NextResponse.redirect(new URL('/auth/login', request.url));
@@ -11,5 +12,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/calculator', '/all-recipes', '/fixed-costs','/acount']
+  matcher: ['/', '/calculator', '/all-recipes', '/fixed-costs', '/acount']
 };

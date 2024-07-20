@@ -1,25 +1,16 @@
 import AllRecipesDashboard from '@/components/pages/AllRecipesDashboard';
 import FixedCosts from '@/components/pages/FixedCosts';
 import LayoutRoot from '@/components/layout/LayoutRoot';
+import Header from '@/components/layout/Header';
 
 export default function Home() {
-  const header = (
-    <>
-      <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-        Dashboard
-      </h1>
-      <p className="text-lg font-normal text-gray-500 lg:text-xl dark:text-gray-400">
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-      </p>
-    </>
-  );
-
   return (
-    <LayoutRoot header={header}>
-      <div className="size-full items-start flex justify-around">
-        <AllRecipesDashboard />
-        <FixedCosts />
-      </div>
+    <LayoutRoot
+      h1="Dashboard"
+      p="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    >
+      <AllRecipesDashboard />
+      <FixedCosts />
     </LayoutRoot>
   );
 }
