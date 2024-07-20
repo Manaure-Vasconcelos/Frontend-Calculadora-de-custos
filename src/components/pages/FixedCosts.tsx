@@ -1,6 +1,6 @@
 export default function FixedCosts() {
   return (
-    <div className="bg-quinary rounded-xl p-4 w-[400px] min-w-[350px] max-w-[400px] h-1/3 flex flex-col justify-center items-center">
+    <div className="bg-quinary rounded-xl p-4 min-w-[200px] max-w-[300px] h-1/3 sm:min-w-[450px] sm:max-w-[600px] sm:h-1/2 flex flex-col justify-center items-center">
       Fixed Costs
       <ul>
         <li>Contas fixas: Gás, luz, internet, aluguel.</li>

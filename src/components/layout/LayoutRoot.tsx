@@ -22,13 +22,13 @@ export default function LayoutRoot({ children, h1, p }: LayoutProps) {
   }
 
   return (
-    <div className="flex h-screen container">
+    <div className="flex h-screen">
       <SideBar />
       <main className="flex flex-1 m-0 overflow-auto bg-white">
         <section className="flex flex-col flex-1 w-full">
-          <div className="content flex-1 overflow-auto">
+          <div className="flex-1 overflow-auto">
             <Header h1={h1} p={p} />
-            <article className="flex flex-wrap h-full p-2 mt-6 gap-2 justify-evenly items-start">
+            <article className="flex flex-wrap h-full container p-2 mt-6 gap-2 justify-evenly items-start">
               {children}
             </article>
           </div>

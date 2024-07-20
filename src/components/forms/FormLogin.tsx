@@ -78,7 +78,7 @@ export default function FormLogin() {
             <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
 
             <span className="text-xs text-gray-500 uppercase dark:text-gray-400 cursor-default">
-              or sign up
+              or
             </span>
 
             <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>

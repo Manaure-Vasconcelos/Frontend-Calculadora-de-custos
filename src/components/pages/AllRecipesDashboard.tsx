@@ -4,15 +4,12 @@ import CreateRecipe from './CreateRecipe';
 import { Table } from 'react-bootstrap';
 import formatForBRL from '@/lib/formatForBrl';
 import { useRouter } from 'next/navigation';
-import { api } from '@/lib/axiosConfig';
 import { useRecipes } from '@/context/ContextRecipes';
 import DropdownButtons from '../ui/DropdownButtons';
 
-/* 4 render */
-
 export default function AllRecipesDashboard() {
   const [isCreateModalOpen, setCreateModalOpen] = useState(false);
-  const { recipes, fetchData, deleteRecipe, addRecipe } = useRecipes();
+  const { recipes, fetchData, addRecipe } = useRecipes();
 
   /* Refatorar */
   useEffect(() => {
@@ -25,7 +22,7 @@ export default function AllRecipesDashboard() {
   const handleCloseModal = () => setCreateModalOpen(false);
 
   return (
-    <div className="bg-quinary flex-grow rounded-xl p-4 min-w-[450px] max-w-[600px] h-1/2">
+    <div className="bg-quinary flex-1 rounded-xl p-4 min-w-[350px] max-w-[450px] h-auto sm:min-w-[450px] sm:max-w-[600px] sm:h-1/2">
       <div className="flex justify-between items-center">
         <h2 className="text-2xl ml-5">Recipes:</h2>
         <button
