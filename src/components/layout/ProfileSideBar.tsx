@@ -1,41 +1,13 @@
 import { useAuth } from '@/context/AuthContext';
-import { useState, useEffect, useRef } from 'react';
-import { Menu } from 'lucide-react';
+import MenuProfile from '../MenuProfile';
 
 export default function ProfileSideBar({ expanded }: { expanded: boolean }) {
-  const [isOpen, setIsOpen] = useState(false);
-  const dropdownRef = useRef<HTMLDivElement>(null);
-  const { user, signOut } = useAuth();
-
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setIsOpen(false);
-    }
-  };
-
-  useEffect(() => {
-    if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    } else {
-      document.removeEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isOpen]);
+  const { user} = useAuth();
 
   return (
     <div className="border-t flex p-3">
       <img
-        src={`https://ui-avatars.com/api/?background=random&name=${user.name}`}
+        src={`https://ui-avatars.com/api/?background=random&name=${user?.name}`}
         alt=""
         className="w-10 h-10 rounded-md"
       />
@@ -46,10 +18,10 @@ export default function ProfileSideBar({ expanded }: { expanded: boolean }) {
           `}
       >
         <div className="leading-4">
-          <h4 className="font-semibold">{user.name}</h4>
-          <span className="text-xs text-gray-600">{user.email}</span>
+          <h4 className="font-semibold">{user?.name}</h4>
+          <span className="text-xs text-gray-600">{user?.email}</span>
         </div>
-        <Menu size={20} />
+        <MenuProfile />
       </div>
     </div>
     /*     <div

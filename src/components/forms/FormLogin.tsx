@@ -1,8 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { api } from '@/lib/axiosConfig';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/navigation';
 import { useAuth } from '@/context/AuthContext';
 
 interface SignInRequest {
@@ -16,7 +14,6 @@ export default function FormLogin() {
     handleSubmit,
     formState: { errors }
   } = useForm<SignInRequest>();
-  const router = useRouter();
   const { signIn } = useAuth();
 
   const onSubmit = async ({ email, password }: SignInRequest) => {

@@ -7,21 +7,16 @@ import {
   Info,
   Coins
 } from 'lucide-react';
-import { useContext, createContext, useState } from 'react';
-import ProfileSideBar from './ProfileSideBar'
-
-interface SideBarContextProp {
-  expanded: boolean;
-}
-
-const SidebarContext = createContext({} as SideBarContextProp);
+import { createContext, useState } from 'react';
+import ProfileSideBar from './ProfileSideBar';
+import Link from 'next/link';
 
 export default function Sidebar() {
-  const [expanded, setExpanded] = useState(true);
+  const [expanded, setExpanded] = useState(false);
 
   return (
-    <aside className="h-screen max-w-[300px]">
-      <nav className="h-full flex flex-col bg-white border-r shadow-sm">
+    <aside className="h-screen max-w-[250px]">
+      <nav className="h-full w-full flex flex-col bg-white border-r shadow-sm">
         <div className="p-4 pb-2 flex justify-between items-center">
           <img
             src="https://img.logoipsum.com/243.svg"
@@ -39,30 +34,38 @@ export default function Sidebar() {
         </div>
 
         <ul className="flex-1 px-3 mt-2">
+          <Link href="/">
           <SidebarItem
             expanded={expanded}
             icon={<LayoutDashboard size={20} />}
             text="Dashboard"
             active
-          />
+            />
+            </Link>
+            <Link href="/all-recipes">
           <SidebarItem
             expanded={expanded}
-            icon={<ScrollText size={20} />}
+            icon={<ScrollText />}
             text="All Recipes"
-          />
+            />
+            </Link>
+            <Link href="/fixed-costs">
           <SidebarItem
             expanded={expanded}
-            icon={<Coins size={20} />}
+            icon={<Coins />}
             text="Fixed Costs"
-          />
+            />
+            </Link>
+            <Link href="/about">
           <SidebarItem
             expanded={expanded}
-            icon={<Info size={20} />}
+            icon={<Info />}
             text="About"
-          />
+            />
+            </Link>
         </ul>
 
-        <ProfileSideBar expanded={expanded}/>
+        <ProfileSideBar expanded={expanded} />
       </nav>
     </aside>
   );
@@ -79,8 +82,7 @@ function SidebarItem({ icon, text, active, expanded }: SideBarItemProp) {
   return (
     /* className="flex items-center px-5 py-3 mt-5 text-gray-600 transition-colors duration-300 transform rounded-md dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800 dark:hover:text-gray-200 hover:text-gray-700" */
     <li
-      className={`
-        relative flex items-center py-3 px-5 my-1 mt-3
+      className={`flex items-center py-3 px-5 my-1 mt-3
         font-medium rounded-md cursor-pointer
         transition-colors group transform duration-300
         ${
@@ -90,27 +92,27 @@ function SidebarItem({ icon, text, active, expanded }: SideBarItemProp) {
         }
     `}
     >
-      {icon}
-      <span
-        className={`overflow-hidden transition-all whitespace-nowrap ${
-          expanded ? 'w-52 ml-6 px-2 py-1' : 'w-0'
-        }`}
-      >
-        {text}
-      </span>
+        <div className="flex-shrink-0">{icon}</div>
+        <span
+          className={`overflow-hidden transition-all whitespace-nowrap ${
+            expanded ? 'w-52 ml-6 px-2 py-1' : 'w-0'
+          }`}
+        >
+          {text}
+        </span>
 
-      {!expanded && (
-        <div
-          className={`
+        {!expanded && (
+          <div
+            className={`
           absolute left-full rounded-md px-2 py-1 ml-6
           bg-indigo-100 text-indigo-800 text-sm
           invisible opacity-20 -translate-x-3 transition-all
           group-hover:visible group-hover:opacity-100 group-hover:translate-x-0 
       `}
-        >
-          {text}
-        </div>
-      )}
+          >
+            {text}
+          </div>
+        )}
     </li>
   );
 }

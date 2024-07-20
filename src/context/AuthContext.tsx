@@ -3,7 +3,6 @@ import { api } from '@/lib/axiosConfig';
 import { setCookie, parseCookies } from 'nookies';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { importSPKI, jwtVerify } from 'jose';
 
 interface User {
   id: string;
@@ -25,12 +24,7 @@ export default function AuthProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [user, setUser] = useState<User | null>({
-    id: 'id',
-    name: 'Manaure',
-    email: 'manaure@gmail.com',
-    avatarURL: 'https://api.dicebear.com/9.x/adventurer/svg?seed=Midnight'
-  });
+  const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
 
   useEffect(() => {
