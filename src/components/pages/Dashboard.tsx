@@ -17,7 +17,7 @@ export default function Dashboard() {
   const [userData, setUserData] = useState<UserData | null>(null);
   const router = useRouter();
 
-  const LoadingAnimation = dynamic(() => import('../ui/LoadingAnimation'), {
+  const LoadingAnimation = dynamic(() => import('./ui/LoadingAnimation'), {
     ssr: false
   });
 

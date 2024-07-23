@@ -1,25 +1,25 @@
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+  DialogFooter
+} from '@/components/ui/dialog';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
-import {api} from '@/lib/axiosConfig';
-import ModalDefault from '../ui/ModalDefault';
-import { Recipe } from '@/context/ContextRecipes';
-
-interface Props {
-  isModalOpen: boolean;
-  onRequestClose: () => void;
-  setData: (data: Recipe) => void;
-}
+import { api } from '@/lib/axiosConfig';
+import { Button } from '../ui/button';
+import { Input } from '../ui/input';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { Recipe } from './AllRecipesDashboard';
 
 interface RecipeRequest {
   title: string;
   describe?: string;
 }
 
-export default function CreateRecipe({
-  isModalOpen,
-  onRequestClose,
-  setData
-}: Props) {
+export default function DialogCreateRecipe() {
   const {
     register,
     handleSubmit,
@@ -27,23 +27,79 @@ export default function CreateRecipe({
     reset
   } = useForm<RecipeRequest>();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
-  const onSubmit = handleSubmit(async (data) => {
-    const res = await api.post(
-      `/recipes`,
-      data
-    );
+  const fetchData = async (data: RecipeRequest) => {
+    const res = await api.post(`/recipes`, data);
+    return res.data;
+  };
 
-    if (res.status === 201) {
-      setData(res.data.data);
-      onRequestClose();
-      reset()
-      router.push(`/calculator/${res.data.data.id}`);
+  const { mutateAsync: createRecipe } = useMutation({
+    mutationFn: fetchData,
+    onSuccess(returnFn, variables, context) {
+      const {data} = returnFn
+      queryClient.setQueryData(['recipes'], (previewData: Recipe[]) => {
+        return [ ...previewData, data ];
+      });
     }
   });
 
+  const onSubmit = async (data: RecipeRequest) => {
+    try {
+      const res = await createRecipe(data);
+      reset();
+      router.push(`/calculator/${res.data.id}`);
+    } catch (error) {
+      alert('error query');
+    }
+  };
+
   return (
-    <ModalDefault
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button variant="outline">Create Recipe</Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <DialogHeader>
+          <DialogTitle>Create Recipe</DialogTitle>
+        </DialogHeader>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <label htmlFor="name" className="text-right">
+                Title:
+              </label>
+              <Input
+                id="title"
+                className="col-span-3"
+                {...register('title', {
+                  required: {
+                    value: true,
+                    message: 'Title is required'
+                  }
+                })}
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <label htmlFor="username" className="text-right">
+                Describe:
+              </label>
+              <Input
+                id="describe"
+                className="col-span-3"
+                {...register('describe', {
+                  required: false
+                })}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button type="submit">Create</Button>
+          </DialogFooter>
+        </form>
+      </DialogContent>
+    </Dialog>
+    /*     <ModalDefault
       isModalOpen={isModalOpen}
       onRequestClose={onRequestClose}
       onBackdropClick={onRequestClose}
@@ -100,6 +156,6 @@ export default function CreateRecipe({
           </button>
         </form>
       </div>
-    </ModalDefault>
+    </ModalDefault> */
   );
 }

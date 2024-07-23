@@ -22,9 +22,7 @@ export default function ProfileSideBar({ expanded }: { expanded: boolean }) {
           <span className="text-xs text-gray-600">{user?.email}</span>
         </div>
 
-        <div className="cursor-pointer hover:scale-105">
         <MenuProfile />
-        </div>
       </div>
     </div>
   );

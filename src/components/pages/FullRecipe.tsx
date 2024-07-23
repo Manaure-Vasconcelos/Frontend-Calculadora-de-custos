@@ -1,22 +1,19 @@
 'use client';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { api } from '@/lib/axiosConfig';
-import { useRouter } from 'next/navigation';
 import dynamic from 'next/dynamic';
-import { Recipe } from '@/context/ContextRecipes';
 import CreateIngredient from './CreateIngredient';
 import DropdownButtons from '../ui/DropdownButtons';
+import { Ingredient, Recipe } from './AllRecipesDashboard';
+import { useQuery } from '@tanstack/react-query';
 
 interface Props {
   id: string;
 }
 
 export default function FullRecipe({ id }: Props) {
-  const [recipe, setRecipe] = useState<Recipe | null>(null);
   const [isModalOpen, setModalOpen] = useState(false);
-  const router = useRouter();
 
   const LoadingAnimation = dynamic(
     () => import('@/components/ui/LoadingAnimation'),
@@ -28,25 +25,43 @@ export default function FullRecipe({ id }: Props) {
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const res = await api.get<Recipe>(`/recipes/${id}`);
-        setRecipe(res.data);
-      } catch (err) {
-        /* alert('Login expirado, você será redirecionado.');
-        router.push('/auth/login'); */
-      }
-    };
+  const fetchData = async () => {
+    try {
+      const res = await api.get<Recipe>(`/recipes/${id}`);
+      return res.data;
+    } catch (err: any) {
+      return err.message;
+    }
+  };
 
-    fetchData();
-  }, []);
+  const {
+    data: recipe,
+    isLoading,
+    isError,
+    error
+  } = useQuery({
+    queryKey: ['recipe'],
+    queryFn: fetchData,
+    refetchOnWindowFocus: false
+  });
 
-  if (!recipe) return <LoadingAnimation height={250} width={250} />;
+  if (isLoading)
+    return (
+      <div className="border rounded-lg p-4 w-[300px] h-full flex flex-col items-start">
+        <LoadingAnimation height={250} width={250} />
+      </div>
+    );
+
+  if (isError)
+    return (
+      <div className="border rounded-lg p-4 w-[300px] h-full flex flex-col items-start">
+        {error.message}
+      </div>
+    );
 
   return (
     recipe && (
-      <div className="border rounded-lg p-4 w-1/2 h-full flex flex-col items-start">
+      <div className="border rounded-lg flex flex-col items-start flex-1 p-4 min-w-[350px] max-w-[450px] h-full sm:min-w-[450px] sm:max-w-[600px] sm:h-full overflow-hidden">
         <header className="flex justify-between items-center">
           <h2 className="text-2xl ml-5">{recipe.title}</h2>
           <button
@@ -57,7 +72,7 @@ export default function FullRecipe({ id }: Props) {
           </button>
         </header>
         <main className="p-4 m-2 bg-slate-700 rounded-lg">
-          <Table striped bordered hover className="w-full table-fixed">
+          <Table striped bordered hover className="w-full min-h-[300px] table-fixed">
             <thead>
               <tr className="border-b-2">
                 <th className="w-1/3 pb-4">Name</th>
@@ -79,7 +94,7 @@ export default function FullRecipe({ id }: Props) {
               </tbody>
             ) : (
               <tbody>
-                {recipe?.ingredients.map((ingredient) => (
+                {recipe?.ingredients.map((ingredient: Ingredient) => (
                   <tr key={ingredient.id}>
                     <th className="w-1/3 py-2 pl-3 text-left">
                       {ingredient.name}
@@ -89,7 +104,7 @@ export default function FullRecipe({ id }: Props) {
                     <th className="w-1/4 py-2">{ingredient.grossWeight}</th>
                     <th className="w-1/4 py-2">{ingredient.realAmount}</th>
                     <th className="w-1/6 py-2">
-                      <DropdownButtons idRecipe={ingredient.id}/>
+                      <DropdownButtons idRecipe={ingredient.id} />
                     </th>
                   </tr>
                 ))}

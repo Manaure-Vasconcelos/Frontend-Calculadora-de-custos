@@ -1,85 +1,126 @@
 'use client';
-import { useEffect, useState } from 'react';
-import CreateRecipe from './CreateRecipe';
-import { Table } from 'react-bootstrap';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from '@/components/ui/table';
+import DialogCreateRecipe from './CreateRecipe';
 import formatForBRL from '@/lib/formatForBrl';
-import { useRouter } from 'next/navigation';
-import { useRecipes } from '@/context/ContextRecipes';
 import DropdownButtons from '../ui/DropdownButtons';
+import { useQuery } from '@tanstack/react-query';
+import { api } from '@/lib/axiosConfig';
+import LoadingAnimation from '../ui/LoadingAnimation';
+
+export interface Ingredient {
+  id: number;
+  name: string;
+  usedWeight: number;
+  grossWeight: number;
+  marketPrice: number;
+  realAmount: number;
+  recipeId: number;
+}
+
+export interface Recipe {
+  id: number;
+  title: string;
+  describe: string | null;
+  valuePartial: number;
+  ingredients: Ingredient[];
+  createdAt: Date;
+}
 
 export default function AllRecipesDashboard() {
-  const [isCreateModalOpen, setCreateModalOpen] = useState(false);
-  const { recipes, fetchData, addRecipe } = useRecipes();
+  const fetchData = async () => {
+    const res = await api.get<Recipe[]>(`/recipes/all`);
+    return res.data;
+    /* return [
+      {
+        id: 10,
+        title: 'receita',
+        describe: null,
+        valuePartial: 10,
+        ingredients: [],
+        createdAt: new Date()
+      }
+    ]; */
+  };
 
-  /* Refatorar */
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  const router = useRouter();
-
-  const handleOpenModal = () => setCreateModalOpen(true);
-  const handleCloseModal = () => setCreateModalOpen(false);
+  const {
+    data: recipes,
+    isLoading,
+    isError,
+    error
+  } = useQuery({
+    queryKey: ['recipes'],
+    queryFn: fetchData,
+    refetchOnWindowFocus: false
+  });
 
   return (
-    <div className="bg-quinary flex-1 rounded-xl p-4 min-w-[350px] max-w-[450px] h-auto sm:min-w-[450px] sm:max-w-[600px] sm:h-1/2">
+    <div className="bg-quinary flex-1 rounded-xl p-4 min-w-[350px] max-w-[450px] h-full sm:min-w-[450px] sm:max-w-[600px] overflow-x-hidden">
       <div className="flex justify-between items-center">
-        <h2 className="text-2xl ml-5">Recipes:</h2>
-        <button
-          className="px-3 py-2 rounded bg-slate-500 hover:bg-slate-700 my-5 mx-3"
-          onClick={handleOpenModal}
-        >
-          Create Recipe
-        </button>
+        <h3 className="text-2xl ml-5">Recipes:</h3>
+        <DialogCreateRecipe />
       </div>
 
-      <div className="p-4 m-2 bg-slate-700 rounded-lg">
-        <Table striped bordered hover className="w-full table-fixed">
-          <thead>
-            <tr className="border-b-2">
-              <th className="w-1/3 pb-4">Title</th>
-              <th className="w-1/4 pb-4">Items</th>
-              <th className="w-1/4 pb-4">Value Recipe</th>
-              <th className="w-1/4 pb-4">Value Real</th>
-              <th className="w-1/12 pb-4"></th>
-            </tr>
-          </thead>
+      <div className="mt-5 p-4 bg-slate-200 rounded-lg overflow-hidden">
+        <Table className="w-full h-auto overflow-x-hidden">
+          <TableHeader>
+            <TableRow className="border-b-2 border-black">
+              <TableHead className="w-1/3 pb-4 text-center">Title</TableHead>
+              <TableHead className="w-1/4 pb-4 text-center">Items</TableHead>
+              <TableHead className="w-1/4 pb-4 text-center">
+                Value Recipe
+              </TableHead>
+              <TableHead className="w-1/4 pb-4 text-center">
+                Value Real
+              </TableHead>
+              <TableHead className="w-1/12 pb-4"></TableHead>
+            </TableRow>
+          </TableHeader>
 
-          {recipes.length === 0 ? (
-            <tbody>
-              <tr>
-                <td colSpan={4} className="w-full text-center py-4">
-                  Adicione uma receita para exibi-la
-                </td>
-              </tr>
-            </tbody>
-          ) : (
-            <tbody>
-              {recipes.map((recipe) => (
-                <tr key={recipe.id}>
-                  <th className="w-1/3 py-2 pl-6 text-left">{recipe.title}</th>
-                  <th className="w-1/4 py-2">
+          <TableBody>
+            {isLoading && (
+              <TableRow>
+                <TableCell colSpan={5}>
+                  <LoadingAnimation height={100} width={100} />
+                </TableCell>
+              </TableRow>
+            )}
+
+            {isError && (
+              <TableRow>
+                <TableCell colSpan={5}>{error.message}</TableCell>
+              </TableRow>
+            )}
+
+            {recipes &&
+              recipes.map((recipe: Recipe) => (
+                <TableRow key={recipe.id}>
+                  <TableCell className="w-1/3 py-2 pl-6 text-left">
+                    {recipe.title}
+                  </TableCell>
+                  <TableCell className="w-1/4 py-2 text-center">
                     {recipe.ingredients ? recipe.ingredients.length : 0}
-                  </th>
-                  <th className="w-1/4 py-2">
+                  </TableCell>
+                  <TableCell className="w-1/4 py-2 text-center">
                     {formatForBRL(recipe.valuePartial)}
-                  </th>
-                  <th className="w-1/4 py-2">valor</th>
-                  <th className="w-1/12 py-2">
+                  </TableCell>
+                  <TableCell className="w-1/4 py-2 text-center">
+                    valor
+                  </TableCell>
+                  <TableCell className="w-1/12 py-2 text-center">
                     <DropdownButtons idRecipe={recipe.id} />
-                  </th>
-                </tr>
+                  </TableCell>
+                </TableRow>
               ))}
-            </tbody>
-          )}
+          </TableBody>
         </Table>
       </div>
-
-      <CreateRecipe
-        isModalOpen={isCreateModalOpen}
-        onRequestClose={handleCloseModal}
-        setData={addRecipe}
-      />
     </div>
   );
 }

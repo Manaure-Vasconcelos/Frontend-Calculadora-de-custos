@@ -3,6 +3,7 @@ import { api } from '@/lib/axiosConfig';
 import { setCookie, parseCookies } from 'nookies';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useQuery } from '@tanstack/react-query';
 
 interface User {
   id: string;
@@ -12,7 +13,7 @@ interface User {
 }
 
 interface AuthContextProps {
-  user: User | null;
+  user: User | undefined;
   signIn: (email: string, password: string) => Promise<void>;
   signOut: () => void;
 }
@@ -24,7 +25,7 @@ export default function AuthProvider({
 }: {
   children: React.ReactNode;
 }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<User | undefined>(undefined);
   /* const [user, setUser] = useState<User | null>({
     id: 'id',
     name: 'Manaure Vasconcelos',

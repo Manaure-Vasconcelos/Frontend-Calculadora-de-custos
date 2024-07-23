@@ -1,8 +1,7 @@
 import { Metadata } from 'next';
 import './globals.css';
 import '@/lib/axiosConfig';
-import RecipesProvider from '@/context/ContextRecipes';
-import AuthProvider from '@/context/AuthContext';
+import Providers from './providers';
 
 export const metadata: Metadata = {
   title: 'Calculadora de Preço',
@@ -24,9 +23,9 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className="h-screen">
-        <AuthProvider>
-          <RecipesProvider>{children}</RecipesProvider>
-        </AuthProvider>
+        <Providers>
+          {children}
+        </Providers>
       </body>
     </html>
   );

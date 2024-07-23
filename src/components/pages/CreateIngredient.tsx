@@ -1,9 +1,9 @@
 import { useForm } from 'react-hook-form';
-import {api} from '@/lib/axiosConfig';
+import { api } from '@/lib/axiosConfig';
 import ModalDefault from '../ui/ModalDefault';
 
 interface Props {
-  recipeId: string
+  recipeId: string;
   isModalOpen: boolean;
   onRequestClose: () => void;
 }
@@ -27,16 +27,14 @@ export default function CreateIngredient({
   } = useForm<IngredientRequest>();
 
   const onSubmit = handleSubmit(async (data) => {
-    const res = await api.post(
-      `/ingredients/${recipeId}`, {
-        name: data.name,
-        usedWeight: Number(data.usedWeight),
-        grossWeight: Number(data.grossWeight),
-        marketPrice: Number(data.marketPrice),
-      }
-    );
-    
-    console.log(res)
+    const res = await api.post(`/ingredients/${recipeId}`, {
+      name: data.name,
+      usedWeight: Number(data.usedWeight),
+      grossWeight: Number(data.grossWeight),
+      marketPrice: Number(data.marketPrice)
+    });
+
+    console.log(res);
 
     onRequestClose();
   });
@@ -128,7 +126,10 @@ export default function CreateIngredient({
               })}
               className="block p-2 w-full bg-slate-900 text-slate-300 rounded"
             />
-            <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
+            <button
+              type="submit"
+              className="bg-blue-500 text-white px-4 py-2 rounded"
+            >
               Create
             </button>
           </form>
