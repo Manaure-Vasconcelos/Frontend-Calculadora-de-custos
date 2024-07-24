@@ -51,6 +51,13 @@ export default function AuthProvider({
   async function signIn(email: string, password: string) {
     const { data } = await api.post('/auth/signin', { email, password });
 
+    setCookie(undefined, 'logged', 'logged', {
+      sameSite: 'strict',
+      secure: true,
+      maxAge: 60 * 60 * 24 * 7,
+      path: '/'
+    });
+
     setUser(data.userData);
 
     router.push('/');
@@ -58,6 +65,11 @@ export default function AuthProvider({
 
   async function signOut() {
     await api.post('/auth/signout');
+
+    setCookie(undefined, 'logged', '', {
+      maxAge: 0,
+      path: '/'
+    });
 
     router.push('/auth/login');
   }
