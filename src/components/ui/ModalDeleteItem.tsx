@@ -1,48 +1,55 @@
 import { api } from '@/lib/axiosConfig';
-import { Button, Modal } from 'flowbite-react';
-import { HiOutlineExclamationCircle } from 'react-icons/hi';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle
+} from '@/components/ui/alert-dialog';
 
-function ModalDeleteItem({
-  openModal,
-  setOpenModal,
-  id
+function DialogDeleteItem({
+  id,
+  open,
+  handleClose
 }: {
-  openModal: boolean;
-  setOpenModal: () => void;
   id: number;
+  open: boolean;
+  handleClose: () => void;
 }) {
   async function handleDeleteItem() {
-    await api.delete(`/recipes/${id}`);
-    setOpenModal();
+    try {
+      await api.delete(`/recipes/${id}`);
+      handleClose();
+    } catch (error) {
+      alert('erro delete item');
+    }
   }
 
   return (
-    <Modal
-      show={openModal}
-      size="md"
-      onClose={setOpenModal}
-      popup
-      className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-75 mx-auto"
-    >
-      <Modal.Header />
-      <Modal.Body>
-        <div className="text-center">
-          <HiOutlineExclamationCircle className="mx-auto mb-4 h-14 w-14 text-gray-400 dark:text-gray-200" />
-          <h3 className="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-            Are you sure you want to delete this product?
-          </h3>
-          <div className="flex justify-center gap-4">
-            <Button color="gray" onClick={() => handleDeleteItem()}>
-              Yes, I'm sure
-            </Button>
-            <Button color="gray" onClick={setOpenModal}>
-              No, cancel
-            </Button>
-          </div>
-        </div>
-      </Modal.Body>
-    </Modal>
+    <AlertDialog open={open} onOpenChange={handleClose}>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>
+            Are you sure you want to delete this item?
+          </AlertDialogTitle>
+          <AlertDialogDescription>
+            This action is irreversible. The item will be permanently deleted.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel onClick={() => handleClose()}>
+            Cancel
+          </AlertDialogCancel>
+          <AlertDialogAction onClick={handleDeleteItem}>
+            Continue
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 }
 
-export default ModalDeleteItem;
+export default DialogDeleteItem;

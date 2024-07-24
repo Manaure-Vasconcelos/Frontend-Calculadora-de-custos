@@ -7,12 +7,12 @@ import {
   TableHeader,
   TableRow
 } from '@/components/ui/table';
-import DialogCreateRecipe from './CreateRecipe';
-import formatForBRL from '@/lib/formatForBrl';
-import DropdownButtons from '../ui/DropdownButtons';
-import { useQuery } from '@tanstack/react-query';
 import { api } from '@/lib/axiosConfig';
-import LoadingAnimation from '../ui/LoadingAnimation';
+import formatForBRL from '@/lib/formatForBrl';
+import { useQuery } from '@tanstack/react-query';
+import dynamic from 'next/dynamic';
+import DropdownButtons from './ui/DropdownButtons';
+import DialogCreateRecipe from './dialog/DialogCreateRecipe';
 
 export interface Ingredient {
   id: number;
@@ -34,6 +34,13 @@ export interface Recipe {
 }
 
 export default function AllRecipesDashboard() {
+  const LoadingAnimation = dynamic(
+    () => import('@/components/ui/LoadingAnimation'),
+    {
+      ssr: false
+    }
+  );
+
   const fetchData = async () => {
     const res = await api.get<Recipe[]>(`/recipes/all`);
     return res.data;
@@ -61,13 +68,13 @@ export default function AllRecipesDashboard() {
   });
 
   return (
-    <div className="bg-quinary flex-1 rounded-xl p-4 min-w-[350px] max-w-[450px] h-full sm:min-w-[450px] sm:max-w-[600px] overflow-x-hidden">
+    <div className="flex-1 rounded-xl p-4 min-w-[350px] max-w-[450px] min-h-[200px] sm:min-w-[450px] sm:max-w-[600px] overflow-x-hidden bg-slate-200">
       <div className="flex justify-between items-center">
         <h3 className="text-2xl ml-5">Recipes:</h3>
         <DialogCreateRecipe />
       </div>
 
-      <div className="mt-5 p-4 bg-slate-200 rounded-lg overflow-hidden">
+      <div className="mt-5 p-4  rounded-lg overflow-hidden">
         <Table className="w-full h-auto overflow-x-hidden">
           <TableHeader>
             <TableRow className="border-b-2 border-black">
@@ -87,7 +94,7 @@ export default function AllRecipesDashboard() {
             {isLoading && (
               <TableRow>
                 <TableCell colSpan={5}>
-                  <LoadingAnimation height={100} width={100} />
+                  <LoadingAnimation height={50} width={50} />
                 </TableCell>
               </TableRow>
             )}

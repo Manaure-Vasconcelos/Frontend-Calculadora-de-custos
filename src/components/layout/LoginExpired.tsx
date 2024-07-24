@@ -1,4 +1,4 @@
-import ModalDefault from '../pages/ui/ModalDefault';
+import ModalDefault from '../ui/ModalDefault';
 
 interface Props {
   isModalOpen: boolean;

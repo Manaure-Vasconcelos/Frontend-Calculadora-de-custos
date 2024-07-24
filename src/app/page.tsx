@@ -1,7 +1,6 @@
-import AllRecipesDashboard from '@/components/pages/AllRecipesDashboard';
-import FixedCosts from '@/components/pages/FixedCosts';
+import AllRecipesDashboard from '@/components/AllRecipesDashboard';
+import FixedCosts from '@/components/FixedCosts';
 import LayoutRoot from '@/components/layout/LayoutRoot';
-import Header from '@/components/layout/Header';
 
 export default function Home() {
   return (

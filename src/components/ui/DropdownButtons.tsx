@@ -1,21 +1,27 @@
-import { Button, Dropdown, DropdownItem, Modal } from 'flowbite-react';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from '@/components/ui/dropdown-menu';
 import Link from 'next/link';
 import { useState } from 'react';
-import { HiOutlineExclamationCircle } from 'react-icons/hi';
-import ModalDeleteItem from './ModalDeleteItem';
+import DialogDeleteItem from './ModalDeleteItem';
+import { DeleteIcon, Edit, Trash2 } from 'lucide-react';
 
 export default function DropdownButtons({ idRecipe }: { idRecipe: number }) {
-  const [openModal, setOpenModal] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
 
   const handleCloseModal = () => {
-    setOpenModal(false);
+    setOpenDialog(false);
   };
 
   return (
     <>
-      <Dropdown
-        label=""
-        renderTrigger={() => (
+      <DropdownMenu>
+        <DropdownMenuTrigger>
           <svg
             className="w-6 h-6 text-black dark:text-white cursor-pointer hover:scale-105 transform"
             aria-hidden="true"
@@ -32,18 +38,26 @@ export default function DropdownButtons({ idRecipe }: { idRecipe: number }) {
               d="M6 12h.01m6 0h.01m5.99 0h.01"
             />
           </svg>
-        )}
-        placement="right"
-      >
-        <DropdownItem>
-          <Link href={`/calculator/${idRecipe}`}>Edit</Link>
-        </DropdownItem>
-        <DropdownItem onClick={() => setOpenModal(true)}>Delete</DropdownItem>
-      </Dropdown>
-      <ModalDeleteItem
-        openModal={openModal}
-        setOpenModal={handleCloseModal}
+        </DropdownMenuTrigger>
+        <DropdownMenuContent >
+          <DropdownMenuItem className="flex justify-evenly items-center">
+            <Edit size={19} />
+            <Link href={`/calculator/${idRecipe}`} className='mr-2'>Edit</Link>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
+            onClick={() => setOpenDialog(true)}
+            className="flex justify-evenly items-center"
+          >
+            <Trash2 size={19} />
+            <span>Delete</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+      <DialogDeleteItem
         id={idRecipe}
+        open={openDialog}
+        handleClose={handleCloseModal}
       />
     </>
   );
