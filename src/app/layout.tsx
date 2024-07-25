@@ -12,7 +12,10 @@ export const metadata: Metadata = {
     'custo unitário',
     'microempreendedor',
     'MEI'
-  ]
+  ],
+  icons: {
+    icon: '/favicon2.png'
+  }
 };
 
 export default function RootLayout({
@@ -23,9 +26,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className="h-screen">
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   );
