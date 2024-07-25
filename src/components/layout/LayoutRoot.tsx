@@ -1,8 +1,8 @@
 'use client';
-import SideBar from './SideBar';
 import Footer from './Footer';
 import { useEffect, useState } from 'react';
 import Header from './Header';
+import NavBar from './NavBar';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -22,19 +22,17 @@ export default function LayoutRoot({ children, h1, p }: LayoutProps) {
   }
 
   return (
-    <div className="flex h-screen">
-      <SideBar />
-      <main className="flex flex-1 m-0 overflow-auto bg-white">
-        <section className="flex flex-col flex-1 w-full">
-          <div className="flex-1 overflow-auto">
-            <Header h1={h1} p={p} />
-            <article className="flex flex-wrap h-full p-2 mt-6 gap-2 justify-around items-start">
-              {children}
-            </article>
-          </div>
-          <Footer />
+    <div className="flex flex-col h-full overflow-hidden">
+      <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+        <NavBar />
+      </header>
+      <main className="flex-1 w-full m-0 overflow-auto bg-white">
+        <Header h1={h1} p={p} />
+        <section className="flex flex-wrap p-2 mt-6 gap-2 justify-around items-start">
+          {children}
         </section>
       </main>
+      <Footer />
     </div>
   );
 }
