@@ -60,7 +60,7 @@ export default function DialogCreateRecipe() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Create Recipe</Button>
+        <Button>Create Recipe</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

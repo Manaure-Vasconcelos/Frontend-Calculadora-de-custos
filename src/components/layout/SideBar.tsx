@@ -48,13 +48,6 @@ export default function Sidebar() {
               text="All Recipes"
             />
           </Link>
-          <Link href="/fixed-costs">
-            <SidebarItem
-              expanded={expanded}
-              icon={<Coins />}
-              text="Fixed Costs"
-            />
-          </Link>
           <Link href="/about">
             <SidebarItem expanded={expanded} icon={<Info />} text="About" />
           </Link>

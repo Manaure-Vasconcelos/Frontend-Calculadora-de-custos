@@ -39,15 +39,17 @@ export default function DropdownButtons({ idRecipe }: { idRecipe: number }) {
             />
           </svg>
         </DropdownMenuTrigger>
-        <DropdownMenuContent >
-          <DropdownMenuItem className="flex justify-evenly items-center">
+        <DropdownMenuContent>
+          <DropdownMenuItem className="flex justify-evenly items-center cursor-pointer">
             <Edit size={19} />
-            <Link href={`/calculator/${idRecipe}`} className='mr-2'>Edit</Link>
+            <Link href={`/calculator/${idRecipe}`} className="mr-2">
+              Edit
+            </Link>
           </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
             onClick={() => setOpenDialog(true)}
-            className="flex justify-evenly items-center"
+            className="flex justify-evenly items-center cursor-pointer"
           >
             <Trash2 size={19} />
             <span>Delete</span>

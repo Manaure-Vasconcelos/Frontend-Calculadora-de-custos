@@ -9,6 +9,7 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from '@/components/ui/alert-dialog';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 function DialogDeleteItem({
   id,
@@ -19,13 +20,25 @@ function DialogDeleteItem({
   open: boolean;
   handleClose: () => void;
 }) {
-  async function handleDeleteItem() {
+  const queryClient = useQueryClient();
+  const onDeleteItem = async () => {
     try {
       await api.delete(`/recipes/${id}`);
-      handleClose();
     } catch (error) {
       alert('erro delete item');
     }
+  };
+
+  const { mutateAsync: deleteItem } = useMutation({
+    mutationFn: onDeleteItem,
+    onSuccess() {
+      queryClient.invalidateQueries({ queryKey: ['recipes'] });
+    }
+  });
+
+  async function handleDeleteItem() {
+    await deleteItem();
+    handleClose();
   }
 
   return (

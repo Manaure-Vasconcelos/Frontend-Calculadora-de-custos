@@ -28,7 +28,7 @@ export default function LayoutRoot({ children, h1, p }: LayoutProps) {
         <section className="flex flex-col flex-1 w-full">
           <div className="flex-1 overflow-auto">
             <Header h1={h1} p={p} />
-            <article className="flex flex-wrap h-full container p-2 mt-6 gap-2 justify-evenly items-start space-y-5">
+            <article className="flex flex-wrap h-full p-2 mt-6 gap-2 justify-around items-start">
               {children}
             </article>
           </div>

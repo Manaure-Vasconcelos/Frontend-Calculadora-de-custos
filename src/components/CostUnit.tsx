@@ -31,7 +31,7 @@ export default function CostUnit() {
         className="flex flex-col justify-around gap-4"
       >
         <div className="grid grid-cols-4 items-center gap-4">
-          <label htmlFor="name" className="text-right">
+          <label htmlFor="serving" className="text-right">
             Serving:
           </label>
           <Input
@@ -48,7 +48,7 @@ export default function CostUnit() {
           />
         </div>
         <div className="grid grid-cols-4 items-center gap-4">
-          <label htmlFor="name" className="text-right">
+          <label htmlFor="pack" className="text-right">
             Pack:
           </label>
           <Input
@@ -64,7 +64,7 @@ export default function CostUnit() {
           />
         </div>
 
-         {!isEditing && (
+        {!isEditing && (
           <div className="flex justify-end gap-2">
             <Button onClick={() => setIsEditing(!isEditing)}>Edit</Button>
           </div>
@@ -78,7 +78,10 @@ export default function CostUnit() {
             >
               Cancel
             </Button>
-            <Button type="submit" className="bg-green-500 text-white py-2 px-4 rounded">
+            <Button
+              type="submit"
+              className="bg-green-500 text-white py-2 px-4 rounded"
+            >
               Save
             </Button>
           </div>
