@@ -15,14 +15,14 @@ export default function ProfileNavBar() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="mr-3">
+      <DropdownMenuTrigger className="mr-3" asChild>
         <img
           src={`https://ui-avatars.com/api/?background=random&name=${user?.name}`}
           alt=""
-          className="w-10 h-10 rounded-md"
+          className="w-10 h-10 rounded-xl"
         />
       </DropdownMenuTrigger>
-      <DropdownMenuContent>
+      <DropdownMenuContent align="end">
         <DropdownMenuLabel>
           <div className="leading-4">
             <h4 className="font-semibold">{user?.name}</h4>
@@ -31,18 +31,27 @@ export default function ProfileNavBar() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem>
-          <Link href={'/acount'} className="flex justify-center items-center w-full gap-5">
+          <Link
+            href={'/acount'}
+            className="flex justify-center items-center w-full gap-5"
+          >
             <User /> <span>Acount</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
-          <Link href={'/acount'} className="flex justify-center items-center w-full gap-5">
+          <Link
+            href={'/acount'}
+            className="flex justify-center items-center w-full gap-5"
+          >
             <Settings /> <span>Settings</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={async () => await signOut()}>
-          <Link href={'/acount'} className="flex justify-center items-center w-full gap-4">
+          <Link
+            href={'/acount'}
+            className="flex justify-center items-center w-full gap-4"
+          >
             <LogOut /> <span>Sign Out</span>
           </Link>
         </DropdownMenuItem>
