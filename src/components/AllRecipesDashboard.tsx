@@ -13,6 +13,7 @@ import { useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import DropdownButtons from './ui/DropdownButtons';
 import DialogCreateRecipe from './dialog/DialogCreateRecipe';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 export interface Ingredient {
   id: number;
@@ -44,16 +45,6 @@ export default function AllRecipesDashboard() {
   const fetchData = async () => {
     const res = await api.get<Recipe[]>(`/recipes/all`);
     return res.data;
-    /* return [
-      {
-        id: 10,
-        title: 'receita',
-        describe: null,
-        valuePartial: 10,
-        ingredients: [],
-        createdAt: new Date()
-      }
-    ]; */
   };
 
   const {
@@ -69,62 +60,68 @@ export default function AllRecipesDashboard() {
   });
 
   return (
-    <div className="flex-1 rounded-xl p-4 w-full min-w-[350px] min-h-[200px] sm:min-w-[550px] sm:max-w-[700px] lg:min-w-[550px] lg:max-w-[650px] xl:min-w-[550px] xl:max-w-[750px] overflow-x-hidden bg-slate-200">
-      <div className="flex p-3 justify-between items-center">
-        <h3 className="text-2xl font-semibold leading-none tracking-tight">
+    <Card className="flex-1 rounded-xl p-4 w-full min-w-[350px] min-h-[200px] sm:min-w-[550px] sm:max-w-[700px] xl:min-w-[750px] xl:max-w-[800px] overflow-x-hidden border">
+      <CardHeader className="flex flex-row p-3 justify-between items-center">
+        <CardTitle>
           Recipes:
-        </h3>
+        </CardTitle>
         <DialogCreateRecipe />
-      </div>
+      </CardHeader>
 
-      <Table className="w-full h-auto overflow-x-hidden mt-5 p-3">
-        <TableHeader>
-          <TableRow className="border-b-2 border-black">
-            <TableHead className="w-1/3 pb-4 text-center">Title</TableHead>
-            <TableHead className="w-1/4 pb-4 text-center">Items</TableHead>
-            <TableHead className="w-1/4 pb-4 text-center">
-              Value Recipe
-            </TableHead>
-            <TableHead className="w-1/4 pb-4 text-center">Value Real</TableHead>
-            <TableHead className="w-1/12 pb-4"></TableHead>
-          </TableRow>
-        </TableHeader>
-
-        <TableBody>
-          {isLoading && (
-            <TableRow>
-              <TableCell colSpan={5}>
-                <LoadingAnimation height={50} width={50} />
-              </TableCell>
+      <CardContent>
+        <Table className="w-full h-auto overflow-x-hidden mt-5">
+          <TableHeader>
+            <TableRow className="border-b-black dark:border-b-foreground">
+              <TableHead className="w-1/3 pb-4 text-center">Title</TableHead>
+              <TableHead className="w-1/4 pb-4 text-center">Items</TableHead>
+              <TableHead className="w-1/4 pb-4 text-center">
+                Value Recipe
+              </TableHead>
+              <TableHead className="w-1/4 pb-4 text-center">
+                Value Real
+              </TableHead>
+              <TableHead className="w-1/12 pb-4"></TableHead>
             </TableRow>
-          )}
+          </TableHeader>
 
-          {isError && (
-            <TableRow>
-              <TableCell colSpan={5}>{error.message}</TableCell>
-            </TableRow>
-          )}
-
-          {recipes &&
-            recipes.map((recipe: Recipe) => (
-              <TableRow key={recipe.id}>
-                <TableCell className="w-1/3 py-2 pl-6 text-center">
-                  {recipe.title}
-                </TableCell>
-                <TableCell className="w-1/4 py-2 text-center">
-                  {recipe.ingredients ? recipe.ingredients.length : 0}
-                </TableCell>
-                <TableCell className="w-1/4 py-2 text-center">
-                  {formatForBRL(recipe.valuePartial)}
-                </TableCell>
-                <TableCell className="w-1/4 py-2 text-center">valor</TableCell>
-                <TableCell className="w-1/12 py-2 text-center">
-                  <DropdownButtons idRecipe={recipe.id} />
+          <TableBody>
+            {isLoading && (
+              <TableRow>
+                <TableCell colSpan={5}>
+                  <LoadingAnimation height={100} width={100} />
                 </TableCell>
               </TableRow>
-            ))}
-        </TableBody>
-      </Table>
-    </div>
+            )}
+
+            {isError && (
+              <TableRow>
+                <TableCell colSpan={5}>{error.message}</TableCell>
+              </TableRow>
+            )}
+
+            {recipes &&
+              recipes.map((recipe: Recipe) => (
+                <TableRow key={recipe.id}>
+                  <TableCell className="w-1/3 py-2 pl-6 text-center">
+                    {recipe.title}
+                  </TableCell>
+                  <TableCell className="w-1/4 py-2 text-center">
+                    {recipe.ingredients ? recipe.ingredients.length : 0}
+                  </TableCell>
+                  <TableCell className="w-1/4 py-2 text-center">
+                    {formatForBRL(recipe.valuePartial)}
+                  </TableCell>
+                  <TableCell className="w-1/4 py-2 text-center">
+                    valor
+                  </TableCell>
+                  <TableCell className="w-1/12 py-2 text-center">
+                    <DropdownButtons idRecipe={recipe.id} />
+                  </TableCell>
+                </TableRow>
+              ))}
+          </TableBody>
+        </Table>
+      </CardContent>
+    </Card>
   );
 }

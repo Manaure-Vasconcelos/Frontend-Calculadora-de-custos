@@ -18,7 +18,7 @@ export default function FixedCosts() {
   // chamar o useQuery aqui2
 
   return (
-    <Card className="rounded-xl w-full min-w-[400px] min-h-[200px] sm:min-w-[350px] sm:max-w-[400px] lg:min-w-[400px] lg:max-w-[450px] xl:min-w-[400px] xl:max-w-[450px] flex flex-col justify-normal bg-slate-200 p-2">
+    <Card className="rounded-xl w-full min-w-[400px] min-h-[200px] sm:min-w-[350px] sm:max-w-[400px] lg:min-w-[400px] lg:max-w-[450px] xl:min-w-[400px] xl:max-w-[450px] flex flex-col justify-normal p-2">
       <CardHeader>
         <CardTitle className="flex justify-start">Gastos Fixos</CardTitle>
       </CardHeader>
@@ -35,6 +35,7 @@ export default function FixedCosts() {
           </label>
           <Input
             id="fixedCost"
+            type='number'
             className="flex-grow min-w-[100px] max-w-[150px]"
             disabled={!isEditing}
             value={0}
@@ -46,6 +47,7 @@ export default function FixedCosts() {
           </label>
           <Input
             id="salesPerDay"
+            type='number'
             className="flex-grow min-w-[100px] max-w-[150px]"
             disabled={!isEditing}
             value={0}

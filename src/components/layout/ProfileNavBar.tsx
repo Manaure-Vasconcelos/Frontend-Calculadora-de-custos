@@ -15,7 +15,7 @@ export default function ProfileNavBar() {
 
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger className="mr-3" asChild>
+      <DropdownMenuTrigger className="mr-3 cursor-pointer" asChild>
         <img
           src={`https://ui-avatars.com/api/?background=random&name=${user?.name}`}
           alt=""

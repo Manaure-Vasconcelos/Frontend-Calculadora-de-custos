@@ -71,7 +71,7 @@ export default function DialogCreateIngredient({ recipeId }: Props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Add Item</Button>
+        <Button>Add Item</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>

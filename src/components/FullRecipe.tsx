@@ -13,6 +13,7 @@ import {
   TableHeader,
   TableRow
 } from './ui/table';
+import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 
 interface Props {
   id: string;
@@ -49,7 +50,7 @@ export default function FullRecipe({ id }: Props) {
   if (isLoading)
     return (
       <div className="border rounded-lg p-4 w-[300px] h-full flex flex-col items-start">
-        <LoadingAnimation height={250} width={250} />
+        <LoadingAnimation height={150} width={150} />
       </div>
     );
 
@@ -61,12 +62,13 @@ export default function FullRecipe({ id }: Props) {
     );
 
   return (
-    <div className="flex-1 rounded-xl p-4 min-w-[350px] max-w-[450px] min-h-[200px] sm:min-w-[450px] sm:max-w-[600px] overflow-x-hidden bg-slate-200">
-      <header className="flex justify-between items-center">
-        <h3 className="text-2xl ml-5">{recipe.title}</h3>
+    <Card className="flex-1 rounded-xl p-4 w-full min-w-[500px] min-h-[200px] sm:min-w-[500px] sm:max-w-full lg:min-w-[500px] lg:max-w-[550px] xl:min-w-[550px] xl:max-w-[750px] overflow-x-hidden">
+      <CardHeader className="flex flex-row justify-between items-center">
+        <CardTitle>{recipe.title}</CardTitle>
         <DialogCreateIngredient recipeId={id} />
-      </header>
-      <main className="p-4 mt-4 overflow-hidden">
+      </CardHeader>
+
+      <CardContent className="p-4 mt-4 overflow-hidden">
         <Table className="w-full min-h-[200px]">
           <TableHeader>
             <TableRow className="border-b-2 border-black">
@@ -97,7 +99,7 @@ export default function FullRecipe({ id }: Props) {
             ) : (
               recipe?.ingredients.map((ingredient: Ingredient) => (
                 <TableRow key={ingredient.id}>
-                  <TableCell className="w-1/3 py-2 pl-3 text-left">
+                  <TableCell className="w-1/3 py-2 pl-3 text-center">
                     {ingredient.name}
                   </TableCell>
                   <TableCell className="w-1/4 py-2 text-center">
@@ -120,7 +122,7 @@ export default function FullRecipe({ id }: Props) {
             )}
           </TableBody>
         </Table>
-      </main>
-    </div>
+      </CardContent>
+    </Card>
   );
 }

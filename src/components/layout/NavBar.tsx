@@ -4,6 +4,7 @@ import { Calculator, Menu, Search } from 'lucide-react';
 import { Input } from '../ui/input';
 import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
 import { Button } from '../ui/button';
+import { ModeToggle } from '../ui/ModeToggle';
 
 function NavBar() {
   return (
@@ -62,6 +63,8 @@ function NavBar() {
         </SheetContent>
       </Sheet>
 
+  
+
       <div className="flex w-full items-center gap-4 md:ml-auto md:gap-2 lg:gap-4">
         <form className="ml-auto flex-1 sm:flex-initial">
           <div className="relative">
@@ -73,6 +76,7 @@ function NavBar() {
             />
           </div>
         </form>
+            <ModeToggle />
         <ProfileNavBar />
       </div>
     </>
