@@ -18,7 +18,7 @@ export default function FixedCosts() {
   // chamar o useQuery aqui2
 
   return (
-    <Card className="rounded-xl w-[300px] min-w-[250px] min-h-[200px] max-w-[300px] sm:min-w-[400px] sm:max-w-[400px] flex flex-col justify-normal bg-slate-200 p-2">
+    <Card className="rounded-xl w-full min-w-[400px] min-h-[200px] sm:min-w-[350px] sm:max-w-[400px] lg:min-w-[400px] lg:max-w-[450px] xl:min-w-[400px] xl:max-w-[450px] flex flex-col justify-normal bg-slate-200 p-2">
       <CardHeader>
         <CardTitle className="flex justify-start">Gastos Fixos</CardTitle>
       </CardHeader>

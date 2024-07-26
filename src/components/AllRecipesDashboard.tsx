@@ -69,7 +69,7 @@ export default function AllRecipesDashboard() {
   });
 
   return (
-    <div className="flex-1 rounded-xl p-4 min-w-[350px] max-w-[450px] min-h-[200px] sm:min-w-[500px] sm:max-w-[700px] overflow-x-hidden bg-slate-200">
+    <div className="flex-1 rounded-xl p-4 w-full min-w-[350px] min-h-[200px] sm:min-w-[550px] sm:max-w-[700px] lg:min-w-[550px] lg:max-w-[650px] xl:min-w-[550px] xl:max-w-[750px] overflow-x-hidden bg-slate-200">
       <div className="flex p-3 justify-between items-center">
         <h3 className="text-2xl font-semibold leading-none tracking-tight">
           Recipes:
@@ -108,7 +108,7 @@ export default function AllRecipesDashboard() {
           {recipes &&
             recipes.map((recipe: Recipe) => (
               <TableRow key={recipe.id}>
-                <TableCell className="w-1/3 py-2 pl-6 text-left">
+                <TableCell className="w-1/3 py-2 pl-6 text-center">
                   {recipe.title}
                 </TableCell>
                 <TableCell className="w-1/4 py-2 text-center">
