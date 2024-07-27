@@ -41,9 +41,9 @@ export default function DropdownButtons({ idRecipe }: { idRecipe: number }) {
         </DropdownMenuTrigger>
         <DropdownMenuContent>
           <Link href={`/calculator/${idRecipe}`}>
-            <DropdownMenuItem className="flex justify-evenly items-center cursor-pointer">
+            <DropdownMenuItem className="flex justify-evenly items-center cursor-pointer gap-1">
               <Edit size={19} />
-              Edit
+              Editar
             </DropdownMenuItem>
           </Link>
           <DropdownMenuSeparator />
@@ -52,7 +52,7 @@ export default function DropdownButtons({ idRecipe }: { idRecipe: number }) {
             className="flex justify-evenly items-center cursor-pointer"
           >
             <Trash2 size={19} />
-            <span>Delete</span>
+            <span>Deletar</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>

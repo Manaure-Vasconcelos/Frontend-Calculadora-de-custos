@@ -4,7 +4,7 @@ export default function ResultSpan({
   children: React.ReactNode;
 }) {
   return (
-    <span className="border-l-[5px] border-primary p-2 rounded-lg bg-white cursor-default mr-2">
+    <span className="border-l-[5px] border-primary p-2 rounded-lg bg-background cursor-default mr-2 dark:text-white">
       {children}
     </span>
   );

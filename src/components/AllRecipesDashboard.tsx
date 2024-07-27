@@ -63,7 +63,7 @@ export default function AllRecipesDashboard() {
     <Card className="flex-1 rounded-xl p-4 w-full min-w-[650px] min-h-[200px] sm:min-w-[650px] sm:max-w-[700px] xl:min-w-[750px] xl:max-w-[800px] overflow-x-hidden border">
       <CardHeader className="flex flex-row p-3 justify-between items-center">
         <CardTitle>
-          Recipes:
+          Produtos:
         </CardTitle>
         <DialogCreateRecipe />
       </CardHeader>
@@ -72,13 +72,13 @@ export default function AllRecipesDashboard() {
         <Table className="w-full h-auto overflow-x-hidden mt-5">
           <TableHeader>
             <TableRow className="border-b-black dark:border-b-foreground">
-              <TableHead className="w-1/3 pb-4 text-center">Title</TableHead>
-              <TableHead className="w-1/4 pb-4 text-center">Items</TableHead>
+              <TableHead className="w-1/3 pb-4 text-center">Nome</TableHead>
+              <TableHead className="w-1/4 pb-4 text-center">Itens</TableHead>
               <TableHead className="w-1/4 pb-4 text-center">
-                Value Recipe
+                Valor Real
               </TableHead>
               <TableHead className="w-1/4 pb-4 text-center">
-                Value Real
+                Valor Total
               </TableHead>
               <TableHead className="w-1/12 pb-4"></TableHead>
             </TableRow>

@@ -13,6 +13,7 @@ import { Input } from '../ui/input';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Recipe } from '../AllRecipesDashboard';
 import { useState } from 'react';
+import { CirclePlus } from 'lucide-react';
 
 interface Props {
   recipeId: string;
@@ -71,21 +72,27 @@ export default function DialogCreateIngredient({ recipeId }: Props) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Add Item</Button>
+        <Button
+          className="rounded-full p-0 w-7 h-7 hover:bg-primary"
+          variant={'secondary'}
+        >
+          <CirclePlus />
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create Ingredient</DialogTitle>
+          <DialogTitle>Adicionar Item:</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit(HandleOnSubmit)}>
           <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <label htmlFor="name" className="text-right">
-                Name:
+            <div className="grid grid-cols-6 items-center gap-4">
+              <label htmlFor="name" className="text-right col-span-2">
+                Nome:
               </label>
               <Input
                 id="name"
-                className="col-span-3"
+                type="text"
+                className="col-span-2 sm:max-w-[200px]"
                 autoFocus
                 {...register('name', {
                   required: {
@@ -95,37 +102,40 @@ export default function DialogCreateIngredient({ recipeId }: Props) {
                 })}
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <label htmlFor="usedWeight" className="text-right">
-                Used Weight:
+            <div className="grid grid-cols-6 items-center gap-4">
+              <label htmlFor="usedWeight" className="text-right col-span-2">
+                Quant. usada:
               </label>
               <Input
                 id="usedWeight"
-                className="col-span-3"
+                type="number"
+                className="col-span-2 sm:max-w-[200px]"
                 {...register('usedWeight', {
                   required: true
                 })}
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <label htmlFor="marketPrice" className="text-right">
-                MarketPrice:
+            <div className="grid grid-cols-6 items-center gap-4">
+              <label htmlFor="marketPrice" className="text-right col-span-2">
+                Preço bruto:
               </label>
               <Input
                 id="marketPrice"
-                className="col-span-3"
+                type="number"
+                className="col-span-2 sm:max-w-[200px]"
                 {...register('marketPrice', {
                   required: true
                 })}
               />
             </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <label htmlFor="grossWeight" className="text-right">
-                GrossWeight:
+            <div className="grid grid-cols-6 items-center gap-4">
+              <label htmlFor="grossWeight" className="text-right col-span-2">
+                Quant. total:
               </label>
               <Input
                 id="grossWeight"
-                className="col-span-3"
+                type="number"
+                className="col-span-3 sm:max-w-[200px]"
                 {...register('grossWeight', {
                   required: true
                 })}
@@ -133,7 +143,7 @@ export default function DialogCreateIngredient({ recipeId }: Props) {
             </div>
           </div>
           <DialogFooter>
-            <Button>Create</Button>
+            <Button>Salvar</Button>
           </DialogFooter>
         </form>
       </DialogContent>

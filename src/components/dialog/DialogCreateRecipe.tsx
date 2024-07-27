@@ -14,6 +14,7 @@ import { Input } from '../ui/input';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { Recipe } from '../AllRecipesDashboard';
 import { useState } from 'react';
+import { CirclePlus } from 'lucide-react';
 
 interface RecipeRequest {
   title: string;
@@ -60,17 +61,18 @@ export default function DialogCreateRecipe() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button>Create Recipe</Button>
+        <Button className="rounded-full p-0 w-7 h-7 hover:bg-primary"
+          variant={'secondary'}><CirclePlus /></Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Create Recipe</DialogTitle>
+          <DialogTitle>Criar Produto</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <label htmlFor="name" className="text-right">
-                Title:
+              <label htmlFor="title" className="text-right">
+                Nome:
               </label>
               <Input
                 id="title"
@@ -86,7 +88,7 @@ export default function DialogCreateRecipe() {
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
               <label htmlFor="username" className="text-right">
-                Describe:
+                Descrição:
               </label>
               <Input
                 id="describe"
@@ -98,7 +100,7 @@ export default function DialogCreateRecipe() {
             </div>
           </div>
           <DialogFooter>
-            <Button>Create</Button>
+            <Button>Salvar</Button>
           </DialogFooter>
         </form>
       </DialogContent>

@@ -49,14 +49,14 @@ export default function FullRecipe({ id }: Props) {
 
   if (isLoading)
     return (
-      <div className="border rounded-lg p-4 w-[300px] h-full flex flex-col items-start">
+      <div className="rounded-xl p-4 min-w-[400px] max-w-[500px] min-h-[200px] sm:w-[400px] sm:max-w-[650px] lg:min-w-[600px] lg:max-w-[650px] xl:min-w-[550px] xl:max-w-[750px]">
         <LoadingAnimation height={150} width={150} />
       </div>
     );
 
   if (isError)
     return (
-      <div className="border rounded-lg p-4 w-[300px] h-full flex flex-col items-start">
+      <div className="rounded-xl p-4 min-w-[400px] max-w-[500px] min-h-[200px] sm:w-[400px] sm:max-w-[650px] lg:min-w-[600px] lg:max-w-[650px] xl:min-w-[550px] xl:max-w-[750px]">
         {error.message}
       </div>
     );
@@ -71,7 +71,7 @@ export default function FullRecipe({ id }: Props) {
       <CardContent className="p-4 mt-4 overflow-hidden">
         <Table className="w-full min-h-[200px]">
           <TableHeader>
-            <TableRow className="border-b-2 border-black">
+            <TableRow className="border-b-1 border-black dark:border-white">
               <TableHead className="w-1/3 pb-4 text-center">Name</TableHead>
               <TableHead className="w-1/4 pb-4 text-center">
                 Used Weight
