@@ -2,16 +2,15 @@
 import {
   Card,
   CardContent,
-  CardDescription,
   CardFooter,
   CardHeader,
   CardTitle
 } from '@/components/ui/card';
 import { useState } from 'react';
-import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { PopoverStatusProperty } from './PopoverStatusProperty';
 import GroupButtons from './ui/ButtonsGroup';
+import ResultSpan from './ui/ResultSpan';
 
 export default function FixedCosts() {
   const [isEditing, setIsEditing] = useState(false);
@@ -63,9 +62,7 @@ export default function FixedCosts() {
         </div>
       </CardContent>
       <CardFooter>
-        <span className="border-l-[5px] border-black p-2 rounded-lg bg-primary shadow-sm cursor-default">
-          R$ 00,00
-        </span>
+        <ResultSpan>R$ 00,00</ResultSpan>
       </CardFooter>
     </Card>
   );

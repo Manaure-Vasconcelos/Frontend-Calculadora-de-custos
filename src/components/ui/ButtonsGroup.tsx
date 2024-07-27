@@ -12,7 +12,7 @@ export default function ButtonsGroup({ isEditing, toggle }: ButtonsGroupProps) {
       {!isEditing && (
         <Button
           onClick={toggle}
-          className="rounded-full p-0 w-7 h-7 hover:bg-blue-500"
+          className="rounded-full p-0 w-7 h-7 hover:bg-primary"
           variant={'secondary'}
         >
           <Edit size={18} />
@@ -22,8 +22,9 @@ export default function ButtonsGroup({ isEditing, toggle }: ButtonsGroupProps) {
       {isEditing && (
         <div className="flex justify-evenly gap-2">
           <Button
-            className="rounded-full p-0 w-7 h-7 bg-red-500 hover:bg-red-600"
+            className="rounded-full p-0 w-7 h-7 hover:bg-red-600"
             onClick={toggle}
+            variant={'destructive'}
           >
             <CircleX size={18} />
           </Button>

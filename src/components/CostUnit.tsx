@@ -10,6 +10,7 @@ import {
   CardTitle
 } from './ui/card';
 import GroupButtons from './ui/ButtonsGroup';
+import ResultSpan from './ui/ResultSpan';
 
 interface CostUnitRequest {
   serving: number;
@@ -81,9 +82,9 @@ export default function CostUnit() {
         </CardContent>
 
         <CardFooter className="flex justify-end mt-3">
-          <span className="border-l-[5px] border-black p-2 rounded-lg bg-primary shadow-2xl cursor-default">
+          <ResultSpan>
             R$ 00,00
-          </span>
+          </ResultSpan>
         </CardFooter>
       </form>
     </Card>

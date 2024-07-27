@@ -10,6 +10,7 @@ import {
 import { Slider } from './ui/slider';
 import GroupButtons from './ui/ButtonsGroup';
 import { useState } from 'react';
+import ResultSpan from './ui/ResultSpan';
 
 export default function ProfitProduct() {
   const [isEditing, setIsEditing] = useState(false);
@@ -34,15 +35,15 @@ export default function ProfitProduct() {
           defaultValue={[33]}
           max={100}
           step={1}
-          disabled={true}
+          disabled={isEditing}
           className="cursor-not-allowed bg-foreground"
         />
       </CardContent>
 
       <CardFooter className="flex justify-end mt-3">
-        <span className="border-l-[5px] border-black p-2 rounded-lg bg-primary shadow-sm cursor-default">
+        <ResultSpan>
           R$ 00,00
-        </span>
+        </ResultSpan>
       </CardFooter>
     </Card>
   );
