@@ -1,9 +1,15 @@
 'use client';
 import { useState } from 'react';
-import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { useForm } from 'react-hook-form';
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from './ui/card';
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+  CardTitle
+} from './ui/card';
+import GroupButtons from './ui/ButtonsGroup';
 
 interface CostUnitRequest {
   serving: number;
@@ -18,16 +24,21 @@ export default function CostUnit() {
     formState: { errors }
   } = useForm<CostUnitRequest>();
 
+  const toggleEditing = () => {
+    setIsEditing(!isEditing);
+  };
+
   const onSubmit = (data: CostUnitRequest) => {
     setIsEditing(false);
   };
 
   return (
-    <Card className="rounded-xl p-4 min-w-[250px] max-w-[350px] h-auto sm:min-w-[400px] sm:max-w-[400px] flex flex-col justify-normal gap-3">
+    <Card className="rounded-xl p-4 min-w-[350px] max-w-[500px] h-auto sm:min-w-[400px] sm:max-w-[400px] flex flex-col justify-normal gap-3 mb-4">
       <CardHeader>
-        <CardTitle className="flex justify-start">
-          Costs Unit:
-        </CardTitle>
+        <div className="flex justify-between items-center gap-2">
+          <CardTitle className="flex justify-start">Costs Unit:</CardTitle>
+          <GroupButtons isEditing={isEditing} toggle={toggleEditing} />
+        </div>
       </CardHeader>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -38,7 +49,7 @@ export default function CostUnit() {
             </label>
             <Input
               id="serving"
-              type='number'
+              type="number"
               className="col-span-3"
               disabled={!isEditing}
               autoFocus
@@ -56,7 +67,7 @@ export default function CostUnit() {
             </label>
             <Input
               id="pack"
-              type='number'
+              type="number"
               className="col-span-3"
               disabled={!isEditing}
               {...register('pack', {
@@ -69,38 +80,12 @@ export default function CostUnit() {
           </div>
         </CardContent>
 
-        <CardFooter>
-          {!isEditing && (
-            <div className="flex justify-end gap-2">
-              <Button onClick={() => setIsEditing(!isEditing)}>Edit</Button>
-            </div>
-          )}
-
-          {isEditing && (
-            <div className="flex justify-end gap-2">
-              <Button
-                className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded"
-                onClick={() => setIsEditing(!isEditing)}
-              >
-                Cancel
-              </Button>
-              <Button
-                type="submit"
-                className="bg-green-500 hover:bg-green-600 text-white py-2 px-4 rounded"
-              >
-                Save
-              </Button>
-            </div>
-          )}
+        <CardFooter className="flex justify-end mt-3">
+          <span className="border-l-[5px] border-black p-2 rounded-lg bg-primary shadow-2xl cursor-default">
+            R$ 00,00
+          </span>
         </CardFooter>
       </form>
     </Card>
-
-    /*  <div className="bg-slate-200 rounded-xl p-4 min-w-[150px] max-w-[250px] h-auto sm:min-w-[350px] sm:max-w-[400px] flex flex-col justify-normal items-center gap-3">
-      <header>
-        
-      </header>
-      
-    </div> */
   );
 }

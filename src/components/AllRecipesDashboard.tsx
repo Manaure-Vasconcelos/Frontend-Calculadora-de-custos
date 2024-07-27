@@ -60,7 +60,7 @@ export default function AllRecipesDashboard() {
   });
 
   return (
-    <Card className="flex-1 rounded-xl p-4 w-full min-w-[350px] min-h-[200px] sm:min-w-[550px] sm:max-w-[700px] xl:min-w-[750px] xl:max-w-[800px] overflow-x-hidden border">
+    <Card className="flex-1 rounded-xl p-4 w-full min-w-[650px] min-h-[200px] sm:min-w-[650px] sm:max-w-[700px] xl:min-w-[750px] xl:max-w-[800px] overflow-x-hidden border">
       <CardHeader className="flex flex-row p-3 justify-between items-center">
         <CardTitle>
           Recipes:
