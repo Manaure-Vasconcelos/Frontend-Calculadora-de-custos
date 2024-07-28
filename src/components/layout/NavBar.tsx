@@ -14,7 +14,7 @@ function NavBar() {
           href="/"
           className="flex items-center gap-2 text-lg font-semibold md:text-base"
         >
-          <Calculator className="h-6 w-6" />
+          <Calculator className="h-7 w-7 text-gray-300 dark:text-white" />
           <span className="sr-only">Home</span>
         </Link>
         <Link
@@ -72,7 +72,7 @@ function NavBar() {
             <Input
               type="search"
               placeholder="Search products..."
-              className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px]"
+              className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px] border-muted-foreground text-white"
             />
           </div>
         </form>

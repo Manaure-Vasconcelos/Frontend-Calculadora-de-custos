@@ -35,15 +35,13 @@ export default function ProfitProduct() {
           defaultValue={[33]}
           max={100}
           step={1}
-          disabled={isEditing}
-          className="cursor-not-allowed bg-foreground"
+          disabled={!isEditing}
+          className="cursor-not-allowed bg-foreground disabled:opacity-50 disabled:bg-muted-foreground"
         />
       </CardContent>
 
       <CardFooter className="flex justify-end mt-3">
-        <ResultSpan>
-          R$ 00,00
-        </ResultSpan>
+        <ResultSpan>R$ 00,00</ResultSpan>
       </CardFooter>
     </Card>
   );

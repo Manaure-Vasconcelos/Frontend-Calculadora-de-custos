@@ -23,7 +23,7 @@ export default function LayoutRoot({ children, h1, p }: LayoutProps) {
 
   return (
     <div className="flex flex-col h-full overflow-hidden">
-      <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+      <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-gray1 dark:bg-background px-4 md:px-6">
         <NavBar />
       </header>
       <main className="flex-1 w-full m-0 overflow-auto bg-background ">

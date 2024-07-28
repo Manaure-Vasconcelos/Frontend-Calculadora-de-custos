@@ -74,17 +74,15 @@ export default function FullRecipe({ id }: Props) {
             <TableRow className="border-b-1 border-black dark:border-white">
               <TableHead className="w-1/3 pb-4 text-center">Name</TableHead>
               <TableHead className="w-1/4 pb-4 text-center">
-                Used Weight
+                Quant. usada:
               </TableHead>
               <TableHead className="w-1/4 pb-4 text-center">
-                Market Price
+                Preço bruto:
               </TableHead>
               <TableHead className="w-1/4 pb-4 text-center">
-                Gross Weight
+                Quant. total:
               </TableHead>
-              <TableHead className="w-1/4 pb-4 text-center">
-                Real Amount
-              </TableHead>
+              <TableHead className="w-1/4 pb-4 text-center">Custo</TableHead>
               <TableHead className="w-1/6 pb-4"></TableHead>
             </TableRow>
           </TableHeader>
