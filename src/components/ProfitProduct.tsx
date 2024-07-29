@@ -53,7 +53,7 @@ export default function ProfitProduct() {
             Custo unitario: [value] + Margem de lucro: [value]
           </p>
         </div>
-        <ResultSpan>R$ 00,00</ResultSpan>
+        <ResultSpan>$ 00,00</ResultSpan>
       </CardFooter>
     </Card>
   );

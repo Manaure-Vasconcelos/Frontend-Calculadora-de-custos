@@ -125,7 +125,7 @@ export default function CostUnit() {
               Esse é o custo total de [N] produtos.
             </p>
           </div>
-          <ResultSpan>R$ 00,00</ResultSpan>
+          <ResultSpan>$ 00,00</ResultSpan>
         </CardFooter>
       </form>
     </Card>

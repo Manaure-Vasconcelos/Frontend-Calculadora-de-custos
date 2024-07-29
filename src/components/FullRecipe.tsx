@@ -1,5 +1,6 @@
 'use client';
 import { api } from '@/lib/axiosConfig';
+import formatForARS from '@/lib/formatForARS';
 import dynamic from 'next/dynamic';
 import DialogCreateIngredient from './dialog/DialogCreateIngredient';
 import DropdownButtons from './ui/DropdownButtons';
@@ -64,7 +65,35 @@ export default function FullRecipe({ id }: Props) {
   return (
     <Card className="flex-1 rounded-xl p-4 min-w-[400px] max-w-[500px] min-h-[200px] sm:w-[400px] sm:max-w-[650px] lg:min-w-[600px] lg:max-w-[650px] xl:min-w-[550px] xl:max-w-[750px] overflow-x-hidden">
       <CardHeader className="flex flex-row justify-between items-center">
-        <CardTitle className='text-black dark:text-white'>{recipe.title}</CardTitle>
+        <div className="flex w-full p-3">
+          <div className='w-1/2'>
+            <div className="flex w-full items-center">
+              <h4 className='text-lg font-bold text-header'>Nome:</h4>
+              <h4 className="ml-2 leading-7">
+                {recipe.title}
+              </h4>
+            </div>
+            <div className="flex">
+              <h4 className='text-lg font-bold text-header'>Descrição:</h4>
+              <h4 className="ml-2 leading-7">
+                {recipe.describe ? recipe.describe : '----'}
+              </h4>
+            </div>
+          </div>
+
+          <div className='w-1/2'>
+            <div className="flex w-full">
+              <h4 className='text-lg font-bold text-header'>Valor Parcial:</h4>
+              <h4 className="ml-2 leading-7">
+                {formatForARS(recipe.valuePartial)}
+              </h4>
+            </div>
+            <div className="flex">
+              <h4 className='text-lg font-bold text-header'>Valor Total:</h4>
+              <h4 className="ml-2 leading-7">00</h4>
+            </div>
+          </div>
+        </div>
         <DialogCreateIngredient recipeId={id} />
       </CardHeader>
 
@@ -104,13 +133,13 @@ export default function FullRecipe({ id }: Props) {
                     {ingredient.usedWeight}
                   </TableCell>
                   <TableCell className="w-1/4 py-2 text-center">
-                    {ingredient.marketPrice}
+                    {formatForARS(ingredient.marketPrice)}
                   </TableCell>
                   <TableCell className="w-1/4 py-2 text-center">
                     {ingredient.grossWeight}
                   </TableCell>
                   <TableCell className="w-1/4 py-2 text-center">
-                    {ingredient.realAmount}
+                    {formatForARS(ingredient.realAmount)}
                   </TableCell>
                   <TableCell className="w-1/6 py-2 text-center">
                     <DropdownButtons idRecipe={ingredient.id} />

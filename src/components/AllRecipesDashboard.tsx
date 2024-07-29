@@ -8,7 +8,7 @@ import {
   TableRow
 } from '@/components/ui/table';
 import { api } from '@/lib/axiosConfig';
-import formatForBRL from '@/lib/formatForBrl';
+import formatForARS from '@/lib/formatForARS';
 import { useQuery } from '@tanstack/react-query';
 import dynamic from 'next/dynamic';
 import DropdownButtons from './ui/DropdownButtons';
@@ -62,9 +62,7 @@ export default function AllRecipesDashboard() {
   return (
     <Card className="flex-1 rounded-xl p-4 w-full min-w-[400px] min-h-[200px] sm:min-w-[650px] sm:max-w-[700px] xl:min-w-[750px] xl:max-w-[800px] overflow-x-hidden border">
       <CardHeader className="flex flex-row p-3 justify-between items-center">
-        <CardTitle>
-          Produtos:
-        </CardTitle>
+        <CardTitle>Produtos:</CardTitle>
         <DialogCreateRecipe />
       </CardHeader>
 
@@ -109,7 +107,7 @@ export default function AllRecipesDashboard() {
                     {recipe.ingredients ? recipe.ingredients.length : 0}
                   </TableCell>
                   <TableCell className="w-1/4 py-2 text-center">
-                    {formatForBRL(recipe.valuePartial)}
+                    {formatForARS(recipe.valuePartial)}
                   </TableCell>
                   <TableCell className="w-1/4 py-2 text-center">
                     valor
