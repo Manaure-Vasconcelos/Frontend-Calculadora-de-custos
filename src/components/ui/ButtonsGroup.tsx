@@ -30,7 +30,7 @@ export default function ButtonsGroup({ isEditing, toggle }: ButtonsGroupProps) {
           </Button>
           <Button
             onClick={toggle}
-            className="rounded-full p-0 w-7 h-7 bg-primary hover:bg-primary/90 text-black"
+            className="rounded-full p-0 w-7 h-7 bg-primary hover:bg-green-500 text-black"
           >
             <Save size={20} />
           </Button>

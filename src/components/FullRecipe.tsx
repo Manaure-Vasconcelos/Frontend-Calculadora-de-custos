@@ -65,8 +65,8 @@ export default function FullRecipe({ id }: Props) {
   return (
     <Card className="flex-1 rounded-xl p-4 min-w-[400px] max-w-[500px] min-h-[200px] sm:w-[400px] sm:max-w-[650px] lg:min-w-[600px] lg:max-w-[650px] xl:min-w-[550px] xl:max-w-[750px] overflow-x-hidden">
       <CardHeader className="flex flex-row justify-between items-center">
-        <div className="flex w-full p-3">
-          <div className='w-1/2'>
+        <div className="flex flex-col sm:flex-row w-full p-3">
+          <div>
             <div className="flex w-full items-center">
               <h4 className='text-lg font-bold text-header'>Nome:</h4>
               <h4 className="ml-2 leading-7">
@@ -81,7 +81,7 @@ export default function FullRecipe({ id }: Props) {
             </div>
           </div>
 
-          <div className='w-1/2'>
+          <div className='sm:ml-12'>
             <div className="flex w-full">
               <h4 className='text-lg font-bold text-header'>Valor Parcial:</h4>
               <h4 className="ml-2 leading-7">

@@ -40,7 +40,7 @@ export default function ProfitProduct() {
           max={100}
           step={1}
           disabled={!isEditing}
-          className="cursor-not-allowed bg-foreground disabled:opacity-50 disabled:bg-muted-foreground"
+          className="cursor-not-allowed text-black"
         />
       </CardContent>
 
