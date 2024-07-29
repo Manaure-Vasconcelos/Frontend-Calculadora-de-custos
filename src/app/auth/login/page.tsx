@@ -1,4 +1,5 @@
 import FormLogin from '@/components/forms/FormLogin';
+import { Calculator } from 'lucide-react';
 
 export default function Login() {
   return (
@@ -12,13 +13,13 @@ export default function Login() {
           }}
         >
           <div className="flex items-center h-full px-20 bg-gray-900 bg-opacity-40">
-            <div>
+            <div className="bg-black bg-opacity-50 p-6 rounded-xl">
               <h1 className="mb-4 text-4xl font-extrabold leading-none tracking-tight text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-500">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-green-600 scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
                   Price Calculator
                 </span>
               </h1>
-              <p className="text-lg font-normal text-white lg:text-xl dark:text-gray-400">
+              <p className="text-lg font-normal text-white lg:text-xl ">
                 Your cost calculator that helps you in the daily life of an
                 entrepreneur
               </p>
@@ -30,11 +31,7 @@ export default function Login() {
           <div className="flex-1">
             <div className="text-center">
               <div className="flex justify-center mx-auto mb-4">
-                <img
-                  className="w-auto h-7 sm:h-8"
-                  src="https://merakiui.com/images/logo.svg"
-                  alt=""
-                />
+                <Calculator className="h-8 w-8 text-primary" />
               </div>
               <h1 className="text-2xl font-semibold tracking-wider text-gray-800 capitalize dark:text-white">
                 Sign in to access your account

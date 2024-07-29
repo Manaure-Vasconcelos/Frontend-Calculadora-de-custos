@@ -2,6 +2,8 @@
 import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { useAuth } from '@/context/AuthContext';
+import { Input } from '../ui/input';
+import { Button } from '../ui/button';
 
 interface SignInRequest {
   email: string;
@@ -34,13 +36,13 @@ export default function FormLogin() {
           >
             Email Address
           </label>
-          <input
+          <Input
             {...register('email', { required: true })}
             type="email"
             name="email"
             id="email"
             placeholder="example@example.com"
-            className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            className="block w-full px-4 py-2 mt-2 "
           />
         </div>
 
@@ -60,20 +62,20 @@ export default function FormLogin() {
             </Link>
           </div>
 
-          <input
+          <Input
             {...register('password', { required: true })}
             type="password"
             name="password"
             id="password"
             placeholder="Your Password"
-            className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40"
+            className="block w-full px-4 py-2 mt-2"
           />
         </div>
 
         <div className="mt-6">
-          <button className="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+          <Button className="w-full px-4 py-2 tracking-wide bg-primary hover:bg-green-400">
             Sign in
-          </button>
+          </Button>
           <div className="flex items-center justify-between mt-4">
             <span className="w-1/5 border-b dark:border-gray-600 md:w-1/4"></span>
 
