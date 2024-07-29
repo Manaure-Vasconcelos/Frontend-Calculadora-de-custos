@@ -4,7 +4,6 @@ import { setCookie, parseCookies } from 'nookies';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { cookies } from 'next/headers';
-import { useQuery } from '@tanstack/react-query';
 
 interface User {
   id: string;
@@ -27,12 +26,6 @@ export default function AuthProvider({
   children: React.ReactNode;
 }) {
   const [user, setUser] = useState<User | undefined>(undefined);
-  /* const [user, setUser] = useState<User | null>({
-    id: 'id',
-    name: 'Manaure Vasconcelos',
-    email: 'Manaure@gmail.com',
-    avatarURL: 'dasda'
-  }); */
   const router = useRouter();
 
   useEffect(() => {
@@ -50,6 +43,17 @@ export default function AuthProvider({
 
   async function signIn(email: string, password: string) {
     const { data } = await api.post('/auth/signin', { email, password });
+
+    const { logged } = parseCookies();
+
+    console.log(logged);
+
+    if (logged) {
+      setCookie(undefined, 'logged', '', {
+        maxAge: 0,
+        path: '/'
+      });
+    }
 
     setCookie(undefined, 'logged', 'logged', {
       sameSite: 'strict',
