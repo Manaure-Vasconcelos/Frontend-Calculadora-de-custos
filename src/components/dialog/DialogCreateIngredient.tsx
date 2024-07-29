@@ -92,7 +92,7 @@ export default function DialogCreateIngredient({ recipeId }: Props) {
               <Input
                 id="name"
                 type="text"
-                className="col-span-2 sm:max-w-[200px]"
+                className="col-span-3 sm:max-w-[200px]"
                 autoFocus
                 {...register('name', {
                   required: {
@@ -109,7 +109,7 @@ export default function DialogCreateIngredient({ recipeId }: Props) {
               <Input
                 id="usedWeight"
                 type="number"
-                className="col-span-2 sm:max-w-[200px]"
+                className="col-span-3 sm:max-w-[200px]"
                 {...register('usedWeight', {
                   required: true
                 })}
@@ -122,7 +122,7 @@ export default function DialogCreateIngredient({ recipeId }: Props) {
               <Input
                 id="marketPrice"
                 type="number"
-                className="col-span-2 sm:max-w-[200px]"
+                className="col-span-3 sm:max-w-[200px]"
                 {...register('marketPrice', {
                   required: true
                 })}

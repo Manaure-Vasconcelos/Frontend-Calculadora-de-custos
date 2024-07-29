@@ -11,7 +11,7 @@ import {
 } from './ui/card';
 import GroupButtons from './ui/ButtonsGroup';
 import ResultSpan from './ui/ResultSpan';
-import { Info } from 'lucide-react';
+import { Info, LockKeyhole, LockKeyholeOpen } from 'lucide-react';
 
 interface CostUnitRequest {
   serving: number;
@@ -48,57 +48,77 @@ export default function CostUnit() {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <CardContent className="flex flex-col justify-around gap-4">
-          <div className="grid grid-cols-4 items-center gap-4">
-            <h4 className="text-header text-base font-semibold leading-none tracking-tight col-span-6">
+          <div className="flex flex-col items-center gap-4">
+            <div className='flex flex-col items-start w-full'>
+            <label htmlFor='serving' className="text-base font-semibold leading-none tracking-tight">
               RENDIMENTO:
-            </h4>
-            <p className="text-muted-foreground col-span-6">
+            </label>
+            <p className="text-muted-foreground">
               Quantas unidades rende a receita?
             </p>
-            <span className="sr-only">
-              Serving:
-            </span>
-            <Input
-              id="serving"
-              type="number"
-              className="col-span-3"
-              disabled={!isEditing}
-              autoFocus
-              {...register('serving', {
-                required: {
-                  value: true,
-                  message: 'Name is required'
-                }
-              })}
-            />
+            </div>
+            <div className="relative">
+              {!isEditing && (
+                <LockKeyhole className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              )}
+              {isEditing && (
+                <LockKeyholeOpen className="absolute left-2.5 top-2.5 h-4 w-4 " />
+              )}
+              <Input
+                id="serving"
+                type="number"
+                className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px] border-muted-foreground"
+                disabled={!isEditing}
+                autoFocus
+                {...register('serving', {
+                  required: {
+                    value: true,
+                    message: 'Name is required'
+                  }
+                })}
+              />
+            </div>
           </div>
-          <div className="grid grid-cols-6 items-center justify-center gap-4">
-            <h4 className="text-header text-base font-semibold leading-none tracking-tight col-span-6">
+
+          <div className="flex flex-col items-center gap-4">
+            <div className='flex flex-col items-start w-full'>
+
+            <label htmlFor='pack' className="text-base font-semibold leading-none tracking-tight col-span-6">
               CUSTO COM EMBALAGEM
-            </h4>
+            </label>
             <p className="text-muted-foreground col-span-6">
-              Quanl custo para embalar o produto?
+              Qual custo para embalar o produto?
             </p>
+            </div>
 
             <span className="sr-only">Pack:</span>
-            <Input
-              id="pack"
-              type="number"
-              className="col-span-4"
-              disabled={!isEditing}
-              {...register('pack', {
-                required: {
-                  value: true,
-                  message: 'Name is required'
-                }
-              })}
-            />
+            <div className="relative">
+              {!isEditing && (
+                <LockKeyhole className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              )}
+              {isEditing && (
+                <LockKeyholeOpen className="absolute left-2.5 top-2.5 h-4 w-4 " />
+              )}
+
+              <Input
+                id="pack"
+                type="number"
+                className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px] border-muted-foreground"
+                disabled={!isEditing}
+                {...register('pack', {
+                  required: {
+                    value: true,
+                    message: 'Name is required'
+                  }
+                })}
+              />
+            </div>
           </div>
         </CardContent>
 
         <CardFooter className="flex flex-col mt-2">
           <div className="flex flex-col justify-start items-start w-full pl-2 mb-2">
-            <h4 className="text-header text-lg font-semibold leading-none tracking-tight">
+            <h4 className="text-primary text-lg font-semibold leading-none tracking-tight">
               CUSTO PARA CRIAR O PRODUTO:
             </h4>
             <p className="text-muted-foreground">

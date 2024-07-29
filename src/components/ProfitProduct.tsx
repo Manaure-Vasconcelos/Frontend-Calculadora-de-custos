@@ -11,6 +11,7 @@ import { Slider } from './ui/slider';
 import GroupButtons from './ui/ButtonsGroup';
 import { useState } from 'react';
 import ResultSpan from './ui/ResultSpan';
+import { Info } from 'lucide-react';
 
 export default function ProfitProduct() {
   const [isEditing, setIsEditing] = useState(false);
@@ -22,7 +23,10 @@ export default function ProfitProduct() {
     <Card className="rounded-xl p-4 min-w-[350px] max-w-[500px] h-auto sm:min-w-[400px] sm:max-w-[400px]">
       <CardHeader>
         <div className="flex justify-between items-center gap-2">
-          <CardTitle>Margem de Lucro:</CardTitle>
+          <div className="flex items-center">
+            <CardTitle className="mr-4">Margem de Lucro:</CardTitle>
+            <Info size={18} className="hover:text-primary cursor-pointer" />
+          </div>
 
           <GroupButtons isEditing={isEditing} toggle={toggleEditing} />
         </div>
@@ -40,7 +44,15 @@ export default function ProfitProduct() {
         />
       </CardContent>
 
-      <CardFooter className="flex justify-end mt-3">
+      <CardFooter className="flex flex-col mt-3">
+        <div className="flex flex-col justify-start items-start w-full pl-2 mb-2">
+          <h4 className="text-primary text-lg font-semibold leading-none tracking-tight">
+            ESSE É O VALOR DO SEU PRODUTO:
+          </h4>
+          <p className="text-muted-foreground">
+            Custo unitario: [value] + Margem de lucro: [value]
+          </p>
+        </div>
         <ResultSpan>R$ 00,00</ResultSpan>
       </CardFooter>
     </Card>

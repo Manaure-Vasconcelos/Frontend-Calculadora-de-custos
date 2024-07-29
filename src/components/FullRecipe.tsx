@@ -49,22 +49,22 @@ export default function FullRecipe({ id }: Props) {
 
   if (isLoading)
     return (
-      <div className="rounded-xl p-4 min-w-[400px] max-w-[500px] min-h-[200px] sm:w-[400px] sm:max-w-[650px] lg:min-w-[600px] lg:max-w-[650px] xl:min-w-[550px] xl:max-w-[750px]">
+      <Card className="flex-1 rounded-xl p-4 min-w-[400px] max-w-[500px] min-h-[200px] sm:w-[400px] sm:max-w-[650px] lg:min-w-[600px] lg:max-w-[650px] xl:min-w-[550px] xl:max-w-[750px] overflow-x-hidden">
         <LoadingAnimation height={150} width={150} />
-      </div>
+      </Card>
     );
 
   if (isError)
     return (
-      <div className="rounded-xl p-4 min-w-[400px] max-w-[500px] min-h-[200px] sm:w-[400px] sm:max-w-[650px] lg:min-w-[600px] lg:max-w-[650px] xl:min-w-[550px] xl:max-w-[750px]">
+      <Card className="flex-1 rounded-xl p-4 min-w-[400px] max-w-[500px] min-h-[200px] sm:w-[400px] sm:max-w-[650px] lg:min-w-[600px] lg:max-w-[650px] xl:min-w-[550px] xl:max-w-[750px] overflow-x-hidden">
         {error.message}
-      </div>
+      </Card>
     );
 
   return (
     <Card className="flex-1 rounded-xl p-4 min-w-[400px] max-w-[500px] min-h-[200px] sm:w-[400px] sm:max-w-[650px] lg:min-w-[600px] lg:max-w-[650px] xl:min-w-[550px] xl:max-w-[750px] overflow-x-hidden">
       <CardHeader className="flex flex-row justify-between items-center">
-        <CardTitle>{recipe.title}</CardTitle>
+        <CardTitle className='text-black dark:text-white'>{recipe.title}</CardTitle>
         <DialogCreateIngredient recipeId={id} />
       </CardHeader>
 

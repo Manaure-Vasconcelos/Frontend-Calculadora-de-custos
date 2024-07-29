@@ -19,13 +19,13 @@ function NavBar() {
         </Link>
         <Link
           href="#"
-          className="text-muted-foreground transition-colors hover:text-foreground"
+          className="text-muted-foreground transition-colors hover:text-white"
         >
           Home
         </Link>
         <Link
           href="/"
-          className="text-muted-foreground transition-colors hover:text-foreground"
+          className="text-muted-foreground transition-colors hover:text-white"
         >
           Dashboard
         </Link>
@@ -33,8 +33,8 @@ function NavBar() {
 
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="outline" size="icon" className="shrink-0 md:hidden">
-            <Menu className="h-5 w-5" />
+          <Button variant="outline" size="icon" className="shrink-0 md:hidden bg-gray1 border-muted-foreground">
+            <Menu className="h-5 w-5 text-muted-foreground" />
             <span className="sr-only">Toggle navigation menu</span>
           </Button>
         </SheetTrigger>
@@ -72,7 +72,7 @@ function NavBar() {
             <Input
               type="search"
               placeholder="Search products..."
-              className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px] border-muted-foreground text-white"
+              className="pl-8 sm:w-[300px] md:w-[200px] lg:w-[300px] border-muted-foreground text-white bg-gray1"
             />
           </div>
         </form>
