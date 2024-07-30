@@ -56,7 +56,7 @@ export default function AuthProvider({
     }
 
     setCookie(undefined, 'logged', 'logged', {
-      sameSite: 'strict',
+      sameSite: 'lax',
       secure: true,
       maxAge: 60 * 60 * 24 * 7,
       path: '/'
