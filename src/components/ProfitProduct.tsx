@@ -28,7 +28,11 @@ export default function ProfitProduct() {
             <Info size={18} className="hover:text-primary cursor-pointer" />
           </div>
 
-          <GroupButtons isEditing={isEditing} toggle={toggleEditing} />
+          <GroupButtons
+            isEditing={isEditing}
+            toggle={toggleEditing}
+            formRef={'algo'}
+          />
         </div>
 
         <CardDescription>Defina a margem de Lucro do produto.</CardDescription>

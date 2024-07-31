@@ -42,20 +42,27 @@ export default function CostUnit() {
             <CardTitle className="mr-4">Custo Unitário:</CardTitle>
             <Info size={18} className="hover:text-primary cursor-pointer" />
           </div>
-          <GroupButtons isEditing={isEditing} toggle={toggleEditing} />
+          <GroupButtons
+            isEditing={isEditing}
+            toggle={toggleEditing}
+            formRef={'algo'}
+          />
         </div>
       </CardHeader>
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <CardContent className="flex flex-col justify-around gap-4">
           <div className="flex flex-col items-center gap-4">
-            <div className='flex flex-col items-start w-full'>
-            <label htmlFor='serving' className="text-base font-semibold leading-none tracking-tight">
-              RENDIMENTO:
-            </label>
-            <p className="text-muted-foreground">
-              Quantas unidades rende a receita?
-            </p>
+            <div className="flex flex-col items-start w-full">
+              <label
+                htmlFor="serving"
+                className="text-base font-semibold leading-none tracking-tight"
+              >
+                RENDIMENTO:
+              </label>
+              <p className="text-muted-foreground">
+                Quantas unidades rende a receita?
+              </p>
             </div>
             <div className="relative">
               {!isEditing && (
@@ -81,14 +88,16 @@ export default function CostUnit() {
           </div>
 
           <div className="flex flex-col items-center gap-4">
-            <div className='flex flex-col items-start w-full'>
-
-            <label htmlFor='pack' className="text-base font-semibold leading-none tracking-tight col-span-6">
-              CUSTO COM EMBALAGEM
-            </label>
-            <p className="text-muted-foreground col-span-6">
-              Qual custo para embalar o produto?
-            </p>
+            <div className="flex flex-col items-start w-full">
+              <label
+                htmlFor="pack"
+                className="text-base font-semibold leading-none tracking-tight col-span-6"
+              >
+                CUSTO COM EMBALAGEM
+              </label>
+              <p className="text-muted-foreground col-span-6">
+                Qual custo para embalar o produto?
+              </p>
             </div>
 
             <span className="sr-only">Pack:</span>
