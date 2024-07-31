@@ -14,12 +14,20 @@ import { Info, LockKeyhole, LockKeyholeOpen } from 'lucide-react';
 import { api } from '@/lib/axiosConfig';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useForm } from 'react-hook-form';
-import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton } from '@/components/ui/skeleton';
+import formatForARS from '@/lib/formatForARS';
 
 interface ProfileRequest {
   fixedCosts: number;
   daysOfWorking: number;
   salesPerDay: number;
+}
+
+interface Profile {
+  fixedCosts: number;
+  daysOfWorking: number;
+  salesPerDay: number;
+  fixedCostTotal: number;
 }
 
 export default function FixedCosts() {
@@ -39,7 +47,7 @@ export default function FixedCosts() {
 
   const fetchData = async () => {
     try {
-      const res = await api.get<ProfileRequest>(`/profile`);
+      const res = await api.get<Profile>(`/profile`);
       return res.data;
     } catch (err: any) {
       return err.message;
@@ -86,13 +94,19 @@ export default function FixedCosts() {
     }
   };
 
-  if(isLoading) 
+  if (isLoading)
     return (
       <Card className="rounded-xl min-w-[350px] min-h-[400px] sm:min-w-[350px] sm:max-w-[350px] lg:min-w-[400px] lg:max-w-[350px] xl:min-w-[400px] xl:max-w-[400px] flex flex-col justify-normal p-2 gap-2">
-      <Skeleton className='w-full h-full'/>
+        <Skeleton className="w-full h-full" />
       </Card>
-    )
+    );
 
+    if (isError)
+    return (
+      <Card className="rounded-xl min-w-[350px] min-h-[400px] sm:min-w-[350px] sm:max-w-[350px] lg:min-w-[400px] lg:max-w-[350px] xl:min-w-[400px] xl:max-w-[400px] flex flex-col justify-normal p-2 gap-2">
+        {error.message}
+      </Card>
+    );
 
   return (
     <Card className="rounded-xl min-w-[350px] sm:min-w-[350px] sm:max-w-[350px] lg:min-w-[400px] lg:max-w-[350px] xl:min-w-[400px] xl:max-w-[400px] flex flex-col justify-normal p-2 gap-2">
@@ -135,7 +149,7 @@ export default function FixedCosts() {
                 type="number"
                 className="pl-9 w-[300px] sm:w-[300px] md:w-[200px] lg:w-[300px] border-muted-foreground"
                 disabled={!isEditing}
-                placeholder={`${profile?.fixedCosts}`}
+                placeholder={`${formatForARS(profile?.fixedCosts)}`}
                 {...register('fixedCosts')}
               />
             )}
@@ -205,7 +219,7 @@ export default function FixedCosts() {
             Esse valor é adicionado em cada produto.
           </p>
         </div>
-        <ResultSpan>$ 00,00</ResultSpan>
+        <ResultSpan>{formatForARS(profile?.fixedCostTotal)}</ResultSpan>
       </CardFooter>
     </Card>
   );

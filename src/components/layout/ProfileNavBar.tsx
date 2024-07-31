@@ -35,7 +35,7 @@ export default function ProfileNavBar() {
             href={'/acount'}
             className="flex justify-center items-center w-full gap-5"
           >
-            <User /> <span>Acount</span>
+            <User size={18} /> <span>Acount</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
@@ -43,7 +43,7 @@ export default function ProfileNavBar() {
             href={'/acount'}
             className="flex justify-center items-center w-full gap-5"
           >
-            <Settings /> <span>Settings</span>
+            <Settings size={18} /> <span>Settings</span>
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
@@ -52,7 +52,7 @@ export default function ProfileNavBar() {
             href={'/acount'}
             className="flex justify-center items-center w-full gap-4"
           >
-            <LogOut /> <span>Sign Out</span>
+            <LogOut size={18} /> <span>Sign Out</span>
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>
