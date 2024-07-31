@@ -14,6 +14,7 @@ import dynamic from 'next/dynamic';
 import DropdownButtons from './ui/DropdownButtons';
 import DialogCreateRecipe from './dialog/DialogCreateRecipe';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import {Skeleton} from './ui/skeleton'
 
 export interface Ingredient {
   id: number;
@@ -59,8 +60,15 @@ export default function AllRecipesDashboard() {
     notifyOnChangeProps: ['data']
   });
 
+ if(isLoading) 
+    return (
+      <Card className="flex-1 rounded-xl p-4 w-full min-h-[200px] min-w-[400px] sm:min-w-[650px] sm:max-w-[700px] xl:min-w-[750px] xl:max-w-[800px] overflow-x-hidden border">
+      <Skeleton className='w-full h-full'/>
+      </Card>
+    )
+
   return (
-    <Card className="flex-1 rounded-xl p-4 w-full min-w-[400px] min-h-[200px] sm:min-w-[650px] sm:max-w-[700px] xl:min-w-[750px] xl:max-w-[800px] overflow-x-hidden border">
+    <Card className="flex-1 rounded-xl p-4 w-full min-w-[400px] sm:min-w-[650px] sm:max-w-[700px] xl:min-w-[750px] xl:max-w-[800px] overflow-x-hidden border">
       <CardHeader className="flex flex-row p-3 justify-between items-center">
         <CardTitle>Produtos:</CardTitle>
         <DialogCreateRecipe />

@@ -6,30 +6,108 @@ import {
   CardHeader,
   CardTitle
 } from '@/components/ui/card';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { Input } from './ui/input';
 import GroupButtons from './ui/ButtonsGroup';
 import ResultSpan from './ui/ResultSpan';
 import { Info, LockKeyhole, LockKeyholeOpen } from 'lucide-react';
+import { api } from '@/lib/axiosConfig';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useForm } from 'react-hook-form';
+import { Skeleton } from "@/components/ui/skeleton"
+
+interface ProfileRequest {
+  fixedCosts: number;
+  daysOfWorking: number;
+  salesPerDay: number;
+}
 
 export default function FixedCosts() {
   const [isEditing, setIsEditing] = useState(false);
+  const formRef = useRef(null);
+  const queryClient = useQueryClient();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset
+  } = useForm<ProfileRequest>();
 
   const toggleEditing = () => {
     setIsEditing(!isEditing);
   };
 
-  // chamar o useQuery aqui2
+  const fetchData = async () => {
+    try {
+      const res = await api.get<ProfileRequest>(`/profile`);
+      return res.data;
+    } catch (err: any) {
+      return err.message;
+    }
+  };
+
+  const {
+    data: profile,
+    isLoading,
+    isError,
+    error
+  } = useQuery({
+    queryKey: ['profile'],
+    queryFn: fetchData,
+    refetchOnWindowFocus: false
+  });
+
+  const onSubmit = async (data: ProfileRequest) => {
+    const payload = {
+      fixedCosts: data.fixedCosts ? Number(data.fixedCosts) : undefined,
+      daysOfWorking: data.daysOfWorking
+        ? Number(data.daysOfWorking)
+        : undefined,
+      salesPerDay: data.salesPerDay ? Number(data.salesPerDay) : undefined
+    };
+    const res = await api.patch<ProfileRequest>(`/profile`, payload);
+    return res.data;
+  };
+
+  const { mutateAsync: patchProfile } = useMutation({
+    mutationFn: onSubmit,
+    onSuccess(returnFn, variables, context) {
+      queryClient.setQueryData(['profile'], returnFn);
+    }
+  });
+
+  const HandleOnSubmit = async (data: ProfileRequest) => {
+    try {
+      await patchProfile(data);
+      reset();
+      toggleEditing();
+    } catch (error) {
+      alert('error query');
+    }
+  };
+
+  if(isLoading) 
+    return (
+      <Card className="rounded-xl min-w-[350px] min-h-[400px] sm:min-w-[350px] sm:max-w-[350px] lg:min-w-[400px] lg:max-w-[350px] xl:min-w-[400px] xl:max-w-[400px] flex flex-col justify-normal p-2 gap-2">
+      <Skeleton className='w-full h-full'/>
+      </Card>
+    )
+
 
   return (
-    <Card className="rounded-xl min-w-[350px] min-h-[200px] sm:min-w-[350px] sm:max-w-[350px] lg:min-w-[400px] lg:max-w-[350px] xl:min-w-[400px] xl:max-w-[400px] flex flex-col justify-normal p-2 gap-2">
+    <Card className="rounded-xl min-w-[350px] sm:min-w-[350px] sm:max-w-[350px] lg:min-w-[400px] lg:max-w-[350px] xl:min-w-[400px] xl:max-w-[400px] flex flex-col justify-normal p-2 gap-2">
+      <form ref={formRef} onSubmit={handleSubmit(HandleOnSubmit)}></form>
       <CardHeader>
         <div className="flex justify-between items-center gap-3">
           <div className="flex items-center">
             <CardTitle className="mr-4">Gastos Fixos</CardTitle>
             <Info size={18} className="hover:text-primary cursor-pointer" />
           </div>
-          <GroupButtons isEditing={isEditing} toggle={toggleEditing} />
+          <GroupButtons
+            isEditing={isEditing}
+            toggle={toggleEditing}
+            formRef={formRef}
+          />
         </div>
       </CardHeader>
       <CardContent className="flex flex-col justify-around gap-5">
@@ -49,13 +127,18 @@ export default function FixedCosts() {
             {isEditing && (
               <LockKeyholeOpen className="absolute left-2.5 top-2.5 h-4 w-4 " />
             )}
-            <Input
-              id="fixedCost"
-              type="number"
-              className="pl-9 w-[300px] sm:w-[300px] md:w-[200px] lg:w-[300px] border-muted-foreground"
-              disabled={!isEditing}
-              value={0}
-            />
+            {isLoading ? (
+              <>carregando</>
+            ) : (
+              <Input
+                id="fixedCost"
+                type="number"
+                className="pl-9 w-[300px] sm:w-[300px] md:w-[200px] lg:w-[300px] border-muted-foreground"
+                disabled={!isEditing}
+                placeholder={`${profile?.fixedCosts}`}
+                {...register('fixedCosts')}
+              />
+            )}
           </div>
         </div>
 
@@ -80,7 +163,8 @@ export default function FixedCosts() {
               type="number"
               className="pl-9 w-[300px] sm:w-[300px] md:w-[200px] lg:w-[300px] border-muted-foreground"
               disabled={!isEditing}
-              value={0}
+              placeholder={`${profile?.salesPerDay}`}
+              {...register('salesPerDay')}
             />
           </div>
         </div>
@@ -88,7 +172,7 @@ export default function FixedCosts() {
         <div className="flex flex-col items-center gap-5">
           <div className="flex flex-col items-start w-full">
             <label
-              htmlFor="salesPerDay"
+              htmlFor="daysOfWorking"
               className="text-base font-semibold leading-none tracking-tight"
             >
               Nº DE DIAS TRABALHADOS / SEMANA:
@@ -102,11 +186,12 @@ export default function FixedCosts() {
               <LockKeyholeOpen className="absolute left-2.5 top-2.5 h-4 w-4 " />
             )}
             <Input
-              id="salesPerDay"
+              id="daysOfWorking"
               type="number"
               className="pl-9 w-[300px] sm:w-[300px] md:w-[200px] lg:w-[300px] border-muted-foreground"
               disabled={!isEditing}
-              value={0}
+              placeholder={`${profile?.daysOfWorking}`}
+              {...register('daysOfWorking')}
             />
           </div>
         </div>

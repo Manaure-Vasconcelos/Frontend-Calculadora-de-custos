@@ -4,9 +4,19 @@ import { CircleX, Edit, Save } from 'lucide-react';
 interface ButtonsGroupProps {
   isEditing: boolean;
   toggle: () => void;
+  formRef: any;
 }
 
-export default function ButtonsGroup({ isEditing, toggle }: ButtonsGroupProps) {
+export default function ButtonsGroup({
+  isEditing,
+  toggle,
+  formRef
+}: ButtonsGroupProps) {
+  const handleExternalSubmit = () => {
+    if (formRef.current) {
+      formRef.current.requestSubmit(); // Dispara a submissão do formulário
+    }
+  };
   return (
     <>
       {!isEditing && (
@@ -29,7 +39,11 @@ export default function ButtonsGroup({ isEditing, toggle }: ButtonsGroupProps) {
             <CircleX size={20} />
           </Button>
           <Button
-            onClick={toggle}
+            onClick={() =>
+              formRef.current.dispatchEvent(
+                new Event('submit', { cancelable: true, bubbles: true })
+              )
+            }
             className="rounded-full p-0 w-7 h-7 bg-primary hover:bg-green-500 text-black"
           >
             <Save size={20} />
