@@ -14,7 +14,7 @@ import dynamic from 'next/dynamic';
 import DropdownButtons from './ui/DropdownButtons';
 import DialogCreateRecipe from './dialog/DialogCreateRecipe';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
-import {Skeleton} from './ui/skeleton'
+import { Skeleton } from './ui/skeleton';
 
 export interface Ingredient {
   id: number;
@@ -60,15 +60,15 @@ export default function AllRecipesDashboard() {
     notifyOnChangeProps: ['data']
   });
 
- if(isLoading) 
+  if (isLoading)
     return (
       <Card className="flex-1 rounded-xl p-4 w-full min-h-[200px] min-w-[400px] sm:min-w-[650px] sm:max-w-[700px] xl:min-w-[750px] xl:max-w-[800px] overflow-x-hidden border">
-      <Skeleton className='w-full h-full'/>
+        <Skeleton className="w-full h-full" />
       </Card>
-    )
+    );
 
   return (
-    <Card className="flex-1 rounded-xl p-4 w-full min-w-[400px] sm:min-w-[650px] sm:max-w-[700px] xl:min-w-[750px] xl:max-w-[800px] overflow-x-hidden border">
+    <Card className="flex-1 rounded-xl p-4 w-full min-w-[400px] min-h-[200px] sm:min-w-[650px] sm:max-w-[700px] xl:min-w-[750px] xl:max-w-[800px] overflow-x-hidden border">
       <CardHeader className="flex flex-row p-3 justify-between items-center">
         <CardTitle>Produtos:</CardTitle>
         <DialogCreateRecipe />
@@ -105,8 +105,14 @@ export default function AllRecipesDashboard() {
               </TableRow>
             )}
 
-            {recipes &&
-              recipes.map((recipe: Recipe) => (
+            {recipes?.length === 0 ? (
+              <TableRow>
+                <TableCell colSpan={5} className="w-full text-center py-4">
+                  Adicione uma receita para exibi-la
+                </TableCell>
+              </TableRow>
+            ) : (
+              recipes?.map((recipe: Recipe) => (
                 <TableRow key={recipe.id}>
                   <TableCell className="w-1/3 py-2 pl-6 text-center">
                     {recipe.title}
@@ -121,10 +127,14 @@ export default function AllRecipesDashboard() {
                     valor
                   </TableCell>
                   <TableCell className="w-1/12 py-2 text-center">
-                    <DropdownButtons idRecipe={recipe.id} />
+                    <DropdownButtons
+                      idItem={String(recipe.id)}
+                      url={'/recipes'}
+                    />
                   </TableCell>
                 </TableRow>
-              ))}
+              ))
+            )}
           </TableBody>
         </Table>
       </CardContent>

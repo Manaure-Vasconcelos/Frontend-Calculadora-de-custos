@@ -46,8 +46,6 @@ export default function AuthProvider({
 
     const { logged } = parseCookies();
 
-    console.log(logged);
-
     if (logged) {
       setCookie(undefined, 'logged', '', {
         maxAge: 0,

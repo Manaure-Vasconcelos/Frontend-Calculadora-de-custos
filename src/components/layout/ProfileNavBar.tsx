@@ -33,27 +33,20 @@ export default function ProfileNavBar() {
         <DropdownMenuItem>
           <Link
             href={'/acount'}
-            className="flex justify-center items-center w-full gap-5"
+            className="flex justify-center items-center w-full gap-5 cursor-pointer"
           >
-            <User size={18} /> <span>Acount</span>
+            <User size={20} className='mr-1'/> <span>Acount</span>
           </Link>
         </DropdownMenuItem>
-        <DropdownMenuItem>
-          <Link
-            href={'/acount'}
-            className="flex justify-center items-center w-full gap-5"
-          >
-            <Settings size={18} /> <span>Settings</span>
-          </Link>
+        <DropdownMenuItem className="flex justify-center items-center w-full gap-5 cursor-pointer">
+          <Settings size={20} /> <span>Settings</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={async () => await signOut()}>
-          <Link
-            href={'/acount'}
-            className="flex justify-center items-center w-full gap-4"
-          >
-            <LogOut size={18} /> <span>Sign Out</span>
-          </Link>
+        <DropdownMenuItem
+          onClick={async () => await signOut()}
+          className="flex justify-center items-center w-full gap-4 cursor-pointer"
+        >
+          <LogOut size={20} /> <span>Sign Out</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

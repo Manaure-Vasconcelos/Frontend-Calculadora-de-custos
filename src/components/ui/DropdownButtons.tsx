@@ -6,16 +6,36 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import DialogDeleteItem from './ModalDeleteItem';
-import { DeleteIcon, Edit, Trash2 } from 'lucide-react';
+import DialogEditIngredient from '@/components/dialog/DialogEditIngredient';
+import { Edit, Trash2 } from 'lucide-react';
 
-export default function DropdownButtons({ idRecipe }: { idRecipe: number }) {
-  const [openDialog, setOpenDialog] = useState(false);
+export default function DropdownButtons({
+  idItem,
+  url
+}: {
+  idItem: string;
+  url: string;
+}) {
+  const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
+  const [openEditDialog, setOpenEditDialog] = useState(false);
+  const router = useRouter();
 
-  const handleCloseModal = () => {
-    setOpenDialog(false);
+  const handleDeleteDialog = () => {
+    setOpenDeleteDialog(!openDeleteDialog);
+  };
+  const handleEditDialog = () => {
+    setOpenEditDialog(!openEditDialog);
+  };
+
+  const handleEdit = () => {
+    if (url === '/recipes') router.push(`/calculator/${idItem}`);
+
+    if (url === '/ingredients') {
+      handleEditDialog();
+    }
   };
 
   return (
@@ -40,15 +60,16 @@ export default function DropdownButtons({ idRecipe }: { idRecipe: number }) {
           </svg>
         </DropdownMenuTrigger>
         <DropdownMenuContent>
-          <Link href={`/calculator/${idRecipe}`}>
-            <DropdownMenuItem className="flex justify-evenly items-center cursor-pointer gap-1">
-              <Edit size={19} />
-              Editar
-            </DropdownMenuItem>
-          </Link>
+          <DropdownMenuItem
+            className="flex justify-evenly items-center cursor-pointer gap-1"
+            onClick={() => handleEdit()}
+          >
+            <Edit size={19} />
+            Editar
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuItem
-            onClick={() => setOpenDialog(true)}
+            onClick={() => setOpenDeleteDialog(true)}
             className="flex justify-evenly items-center cursor-pointer"
           >
             <Trash2 size={19} />
@@ -57,9 +78,15 @@ export default function DropdownButtons({ idRecipe }: { idRecipe: number }) {
         </DropdownMenuContent>
       </DropdownMenu>
       <DialogDeleteItem
-        id={idRecipe}
-        open={openDialog}
-        handleClose={handleCloseModal}
+        id={idItem}
+        url={url}
+        open={openDeleteDialog}
+        handleClose={handleDeleteDialog}
+      />
+      <DialogEditIngredient
+        ingredientId={idItem}
+        open={openEditDialog}
+        handleClose={handleEditDialog}
       />
     </>
   );

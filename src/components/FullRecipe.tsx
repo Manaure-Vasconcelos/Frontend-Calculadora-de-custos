@@ -45,7 +45,8 @@ export default function FullRecipe({ id }: Props) {
   } = useQuery({
     queryKey: ['recipe'],
     queryFn: fetchData,
-    refetchOnWindowFocus: false
+    refetchOnWindowFocus: false,
+    notifyOnChangeProps: ['data']
   });
 
   if (isLoading)
@@ -68,28 +69,26 @@ export default function FullRecipe({ id }: Props) {
         <div className="flex flex-col sm:flex-row w-full p-3">
           <div>
             <div className="flex w-full items-center">
-              <h4 className='text-lg font-bold text-header'>Nome:</h4>
-              <h4 className="ml-2 leading-7">
-                {recipe.title}
-              </h4>
+              <h4 className="text-lg font-bold text-header">Nome:</h4>
+              <h4 className="ml-2 leading-7">{recipe.title}</h4>
             </div>
             <div className="flex">
-              <h4 className='text-lg font-bold text-header'>Descrição:</h4>
+              <h4 className="text-lg font-bold text-header">Descrição:</h4>
               <h4 className="ml-2 leading-7">
                 {recipe.describe ? recipe.describe : '----'}
               </h4>
             </div>
           </div>
 
-          <div className='sm:ml-12'>
+          <div className="sm:ml-12">
             <div className="flex w-full">
-              <h4 className='text-lg font-bold text-header'>Valor Parcial:</h4>
+              <h4 className="text-lg font-bold text-header">Valor Parcial:</h4>
               <h4 className="ml-2 leading-7">
                 {formatForARS(recipe.valuePartial)}
               </h4>
             </div>
             <div className="flex">
-              <h4 className='text-lg font-bold text-header'>Valor Total:</h4>
+              <h4 className="text-lg font-bold text-header">Valor Total:</h4>
               <h4 className="ml-2 leading-7">00</h4>
             </div>
           </div>
@@ -98,7 +97,7 @@ export default function FullRecipe({ id }: Props) {
       </CardHeader>
 
       <CardContent className="p-4 mt-4 overflow-hidden">
-        <Table className="w-full min-h-[200px]">
+        <Table className="w-full">
           <TableHeader>
             <TableRow className="border-b-1 border-black dark:border-white">
               <TableHead className="w-1/3 pb-4 text-center">Name</TableHead>
@@ -142,7 +141,10 @@ export default function FullRecipe({ id }: Props) {
                     {formatForARS(ingredient.realAmount)}
                   </TableCell>
                   <TableCell className="w-1/6 py-2 text-center">
-                    <DropdownButtons idRecipe={ingredient.id} />
+                    <DropdownButtons
+                      idItem={String(ingredient.id)}
+                      url={'/ingredients'}
+                    />
                   </TableCell>
                 </TableRow>
               ))
