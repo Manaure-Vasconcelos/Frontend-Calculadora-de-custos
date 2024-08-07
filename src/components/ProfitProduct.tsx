@@ -1,4 +1,3 @@
-'use client';
 import {
   Card,
   CardContent,
@@ -12,12 +11,39 @@ import GroupButtons from './ui/ButtonsGroup';
 import { useState } from 'react';
 import ResultSpan from './ui/ResultSpan';
 import { Info } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { GetRecipe } from '@/app/calculator/[id]/page';
+import formatForARS from '@/lib/formatForARS';
+import LoadingAnimation from './ui/LoadingAnimation';
 
 export default function ProfitProduct() {
   const [isEditing, setIsEditing] = useState(false);
   const toggleEditing = () => {
     setIsEditing(!isEditing);
   };
+
+  const {
+    data: expenses,
+    isLoading,
+    isError,
+    error
+  } = useQuery<GetRecipe>({
+    queryKey: ['recipe']
+  });
+
+  if (isLoading || !expenses)
+    return (
+      <Card className="rounded-xl p-4 min-w-[350px] max-w-[500px] h-auto sm:min-w-[400px] sm:max-w-[400px]">
+        <LoadingAnimation height={100} width={100} />
+      </Card>
+    );
+
+  if (isError)
+    return (
+      <Card className="rounded-xl p-4 min-w-[350px] max-w-[500px] h-auto sm:min-w-[400px] sm:max-w-[400px]">
+        {error.message}
+      </Card>
+    );
 
   return (
     <Card className="rounded-xl p-4 min-w-[350px] max-w-[500px] h-auto sm:min-w-[400px] sm:max-w-[400px]">
@@ -40,7 +66,7 @@ export default function ProfitProduct() {
 
       <CardContent className="mt-3">
         <Slider
-          defaultValue={[33]}
+          defaultValue={[expenses?.profit]}
           max={100}
           step={1}
           disabled={!isEditing}
@@ -54,10 +80,11 @@ export default function ProfitProduct() {
             ESSE É O VALOR DO SEU PRODUTO:
           </h4>
           <p className="text-muted-foreground">
-            Custo unitário: [value] + Margem de lucro: [value]
+            Custo unitário: {formatForARS(expenses.valueUnit)} + Margem de lucro:{' '}
+            {expenses.profit}%
           </p>
         </div>
-        <ResultSpan>$ 00,00</ResultSpan>
+        <ResultSpan>{formatForARS(expenses.valueTotal)}</ResultSpan>
       </CardFooter>
     </Card>
   );

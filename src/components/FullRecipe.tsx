@@ -1,8 +1,7 @@
 import formatForARS from '@/lib/formatForARS';
-import dynamic from 'next/dynamic';
 import DialogCreateIngredient from './dialog/DialogCreateIngredient';
 import DropdownButtons from './ui/DropdownButtons';
-import { IngredientProps, RecipeProps } from './AllRecipesDashboard';
+import { IngredientProps } from './AllRecipesDashboard';
 import {
   Table,
   TableBody,
@@ -12,28 +11,21 @@ import {
   TableRow
 } from './ui/table';
 import { Card, CardContent, CardHeader } from './ui/card';
+import { useQuery } from '@tanstack/react-query';
+import { GetRecipe } from '@/app/calculator/[id]/page';
+import LoadingAnimation from '@/components/ui/LoadingAnimation';
 
-interface Props {
-  recipe: Partial<RecipeProps>;
-  isLoading: boolean;
-  isError: boolean;
-  error: any;
-}
+export default function FullRecipe() {
+  const {
+    data: recipe,
+    isLoading,
+    isError,
+    error
+  } = useQuery<GetRecipe>({
+    queryKey: ['recipe']
+  });
 
-export default function FullRecipe({
-  recipe,
-  isLoading,
-  isError,
-  error
-}: Props) {
-  const LoadingAnimation = dynamic(
-    () => import('@/components/ui/LoadingAnimation'),
-    {
-      ssr: false
-    }
-  );
-
-  if (isLoading)
+  if (isLoading || !recipe)
     return (
       <Card className="flex-1 rounded-xl p-4 min-w-[400px] max-w-[500px] min-h-[200px] sm:w-[400px] sm:max-w-[650px] lg:min-w-[600px] lg:max-w-[650px] xl:min-w-[550px] xl:max-w-[750px] overflow-x-hidden">
         <LoadingAnimation height={150} width={150} />

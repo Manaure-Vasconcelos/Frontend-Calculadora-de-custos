@@ -10,11 +10,11 @@ import {
 import { api } from '@/lib/axiosConfig';
 import formatForARS from '@/lib/formatForARS';
 import { useQuery } from '@tanstack/react-query';
-import dynamic from 'next/dynamic';
 import DropdownButtons from './ui/DropdownButtons';
 import DialogCreateRecipe from './dialog/DialogCreateRecipe';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Skeleton } from './ui/skeleton';
+import LoadingAnimation from './ui/LoadingAnimation';
 
 export interface IngredientProps {
   id: number;
@@ -36,13 +36,6 @@ export interface RecipeProps {
 }
 
 export default function AllRecipesDashboard() {
-  const LoadingAnimation = dynamic(
-    () => import('@/components/ui/LoadingAnimation'),
-    {
-      ssr: false
-    }
-  );
-
   const fetchData = async () => {
     const res = await api.get<RecipeProps[]>(`/recipes/all`);
     return res.data;

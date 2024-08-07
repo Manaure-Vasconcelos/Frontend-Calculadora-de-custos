@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import LayoutRoot from '@/components/layout/LayoutRoot';
 import FullRecipe from '@/components/FullRecipe';
 import CostUnit from '@/components/CostUnit';
@@ -25,40 +25,25 @@ export default function Calculator({ params }: { params: { id: string } }) {
   const fetchData = async (): Promise<GetRecipe> => {
     try {
       const res = await api.get<GetRecipe>(`/recipes/${params.id}`);
-      console.log(res.data);
       return res.data;
     } catch (err: any) {
       return err.message;
     }
   };
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data } = useQuery({
     queryKey: ['recipe'],
     queryFn: fetchData,
     refetchOnWindowFocus: false,
     notifyOnChangeProps: ['data']
   });
 
-  const recipe = {
-    id: data?.id,
-    title: data?.title,
-    describe: data?.describe,
-    valuePartial: data?.valuePartial,
-    ingredients: data?.ingredients,
-    createdAt: data?.createdAt
-  };
-
   return (
     <LayoutRoot
       h1="Recipe details"
       p="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     >
-      <FullRecipe
-        recipe={recipe}
-        isLoading={isLoading}
-        isError={isError}
-        error={error}
-      />
+      <FullRecipe />
       <div className="flex-wrap gap-3 w-[400px] p-0 flex flex-col justify-center items-center">
         <CostUnit />
         <ProfitProduct />

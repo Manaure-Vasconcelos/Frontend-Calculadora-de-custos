@@ -2,6 +2,7 @@
 import React from 'react';
 import Lottie from 'react-lottie';
 import animationData from '@/public/loading-dots.json';
+import dynamic from 'next/dynamic';
 
 interface Props {
   height: number;
@@ -21,4 +22,6 @@ const LoadingAnimation = ({ height, width }: Props) => {
   return <Lottie options={defaultOptions} height={height} width={width} />;
 };
 
-export default LoadingAnimation;
+export default dynamic(() => Promise.resolve(LoadingAnimation), {
+  ssr: false
+});
