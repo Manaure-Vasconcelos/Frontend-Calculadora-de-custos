@@ -8,16 +8,38 @@ import {
 } from './ui/card';
 import { Slider } from './ui/slider';
 import GroupButtons from './ui/ButtonsGroup';
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import ResultSpan from './ui/ResultSpan';
 import { Info } from 'lucide-react';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { GetRecipe } from '@/app/calculator/[id]/page';
 import formatForARS from '@/lib/formatForARS';
 import LoadingAnimation from './ui/LoadingAnimation';
+import { Controller, useForm } from 'react-hook-form';
+import { api } from '@/lib/axiosConfig';
+
+interface ProfitRequest {
+  profit: number;
+}
+
+interface ResultProps extends ProfitRequest {
+  valueTotal: number;
+}
 
 export default function ProfitProduct() {
   const [isEditing, setIsEditing] = useState(false);
+  const [temp, setTemp] = useState<ResultProps>({
+    profit: 0,
+    valueTotal: 0
+  });
+  const queryClient = useQueryClient();
+  const formRef = useRef(null);
+  const {
+    handleSubmit,
+    control,
+    formState: { errors }
+  } = useForm<ProfitRequest>();
+
   const toggleEditing = () => {
     setIsEditing(!isEditing);
   };
@@ -30,6 +52,55 @@ export default function ProfitProduct() {
   } = useQuery<GetRecipe>({
     queryKey: ['recipe']
   });
+
+  useEffect(() => {
+    if (expenses) {
+      setTemp({ profit: expenses.profit, valueTotal: expenses.valueTotal });
+    }
+  }, [expenses]);
+
+
+  const onSubmit = async (newProfit: number) => {
+    const res = await api.patch('/expenses', {
+      valuePartial: expenses?.valuePartial,
+      profit: newProfit,
+      recipeId: expenses?.id
+    });
+    setTemp({ profit: res.data.profit, valueTotal: res.data.valueTotal });
+    return res.data;
+  };
+
+  const { mutateAsync: saveExpenses } = useMutation({
+    mutationFn: onSubmit,
+    onSuccess(returnFn) {
+      queryClient.setQueryData(['recipe'], (previewData: GetRecipe) => {
+        return {
+          ...previewData,
+          profit: returnFn.profit,
+          valueTotal: returnFn.valueTotal
+        };
+      });
+    }
+  });
+
+  const HandleOnSubmit = async (data: any) => {
+    const newProfit = data.profit[0];
+    if (newProfit === undefined) {
+      toggleEditing();
+      return;
+    }
+
+    await saveExpenses(newProfit);
+    toggleEditing();
+  };
+
+  const calculate = (data: any) => {
+    const newProfit = data[0][0];
+    if(!expenses?.valueUnit) return
+    const newValueTotal =
+      expenses?.valueUnit + expenses?.valueUnit * (newProfit / 100);
+    setTemp({ profit: newProfit, valueTotal: newValueTotal });
+  };
 
   if (isLoading || !expenses)
     return (
@@ -47,6 +118,7 @@ export default function ProfitProduct() {
 
   return (
     <Card className="rounded-xl p-4 min-w-[350px] max-w-[500px] h-auto sm:min-w-[400px] sm:max-w-[400px]">
+      <form ref={formRef} onSubmit={handleSubmit(HandleOnSubmit)}></form>
       <CardHeader>
         <div className="flex justify-between items-center gap-2">
           <div className="flex items-center">
@@ -57,7 +129,7 @@ export default function ProfitProduct() {
           <GroupButtons
             isEditing={isEditing}
             toggle={toggleEditing}
-            formRef={'algo'}
+            formRef={formRef}
           />
         </div>
 
@@ -65,12 +137,22 @@ export default function ProfitProduct() {
       </CardHeader>
 
       <CardContent className="mt-3">
-        <Slider
-          defaultValue={[expenses?.profit]}
-          max={100}
-          step={1}
-          disabled={!isEditing}
-          className={`${!isEditing ? 'cursor-not-allowed' : 'cursor-pointer'} text-black`}
+        <Controller
+          control={control}
+          name="profit"
+          defaultValue={expenses.profit}
+          render={({ field: { value, onChange } }) => (
+            <Slider
+              value={[value]}
+              onValueChange={onChange}
+              onValueCommit={(e) => calculate(e)}
+              min={0}
+              max={100}
+              step={1}
+              disabled={!isEditing}
+              className={`${!isEditing ? 'cursor-not-allowed' : 'cursor-pointer'} text-black`}
+            />
+          )}
         />
       </CardContent>
 
@@ -80,11 +162,11 @@ export default function ProfitProduct() {
             ESSE É O VALOR DO SEU PRODUTO:
           </h4>
           <p className="text-muted-foreground">
-            Custo unitário: {formatForARS(expenses.valueUnit)} + Margem de lucro:{' '}
-            {expenses.profit}%
+            Custo unitário: {formatForARS(expenses.valueUnit)} + Margem de
+            lucro: {temp.profit}%
           </p>
         </div>
-        <ResultSpan>{formatForARS(expenses.valueTotal)}</ResultSpan>
+        <ResultSpan>{formatForARS(temp.valueTotal)}</ResultSpan>
       </CardFooter>
     </Card>
   );
