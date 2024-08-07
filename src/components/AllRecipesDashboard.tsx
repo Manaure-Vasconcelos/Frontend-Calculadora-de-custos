@@ -16,7 +16,7 @@ import DialogCreateRecipe from './dialog/DialogCreateRecipe';
 import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
 import { Skeleton } from './ui/skeleton';
 
-export interface Ingredient {
+export interface IngredientProps {
   id: number;
   name: string;
   usedWeight: number;
@@ -26,12 +26,12 @@ export interface Ingredient {
   recipeId: number;
 }
 
-export interface Recipe {
+export interface RecipeProps {
   id: number;
   title: string;
   describe: string | null;
   valuePartial: number;
-  ingredients: Ingredient[];
+  ingredients: IngredientProps[];
   createdAt: Date;
 }
 
@@ -44,7 +44,7 @@ export default function AllRecipesDashboard() {
   );
 
   const fetchData = async () => {
-    const res = await api.get<Recipe[]>(`/recipes/all`);
+    const res = await api.get<RecipeProps[]>(`/recipes/all`);
     return res.data;
   };
 
@@ -112,7 +112,7 @@ export default function AllRecipesDashboard() {
                 </TableCell>
               </TableRow>
             ) : (
-              recipes?.map((recipe: Recipe) => (
+              recipes?.map((recipe: RecipeProps) => (
                 <TableRow key={recipe.id}>
                   <TableCell className="w-1/3 py-2 pl-6 text-center">
                     {recipe.title}

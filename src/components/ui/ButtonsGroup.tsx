@@ -12,11 +12,6 @@ export default function ButtonsGroup({
   toggle,
   formRef
 }: ButtonsGroupProps) {
-  const handleExternalSubmit = () => {
-    if (formRef.current) {
-      formRef.current.requestSubmit(); // Dispara a submissão do formulário
-    }
-  };
   return (
     <>
       {!isEditing && (

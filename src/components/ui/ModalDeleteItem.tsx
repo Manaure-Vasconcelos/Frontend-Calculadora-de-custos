@@ -18,7 +18,7 @@ function DialogDeleteItem({
   handleClose
 }: {
   id: string;
-  url: string
+  url: string;
   open: boolean;
   handleClose: () => void;
 }) {
@@ -34,7 +34,8 @@ function DialogDeleteItem({
   const { mutateAsync: deleteItem } = useMutation({
     mutationFn: onDeleteItem,
     onSuccess() {
-      queryClient.invalidateQueries({ queryKey: ['recipes', 'recipe'] });
+      queryClient.invalidateQueries({ queryKey: ['recipes'] });
+      queryClient.invalidateQueries({ queryKey: ['recipe'] });
     }
   });
 

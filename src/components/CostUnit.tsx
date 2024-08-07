@@ -12,6 +12,8 @@ import {
 import GroupButtons from './ui/ButtonsGroup';
 import ResultSpan from './ui/ResultSpan';
 import { Info, LockKeyhole, LockKeyholeOpen } from 'lucide-react';
+import { useQueryClient } from '@tanstack/react-query';
+import { GetRecipe } from '@/app/calculator/[id]/page';
 
 interface CostUnitRequest {
   serving: number;
@@ -25,6 +27,10 @@ export default function CostUnit() {
     handleSubmit,
     formState: { errors }
   } = useForm<CostUnitRequest>();
+  const queryClient = useQueryClient();
+  const data = queryClient.getQueryData<GetRecipe>(['recipe']);
+
+  console.log(data)
 
   const toggleEditing = () => {
     setIsEditing(!isEditing);

@@ -1,11 +1,8 @@
-'use client';
-import { api } from '@/lib/axiosConfig';
 import formatForARS from '@/lib/formatForARS';
 import dynamic from 'next/dynamic';
 import DialogCreateIngredient from './dialog/DialogCreateIngredient';
 import DropdownButtons from './ui/DropdownButtons';
-import { Ingredient, Recipe } from './AllRecipesDashboard';
-import { useQuery } from '@tanstack/react-query';
+import { IngredientProps, RecipeProps } from './AllRecipesDashboard';
 import {
   Table,
   TableBody,
@@ -14,40 +11,27 @@ import {
   TableHeader,
   TableRow
 } from './ui/table';
-import { Card, CardContent, CardHeader, CardTitle } from './ui/card';
+import { Card, CardContent, CardHeader } from './ui/card';
 
 interface Props {
-  id: string;
+  recipe: Partial<RecipeProps>;
+  isLoading: boolean;
+  isError: boolean;
+  error: any;
 }
 
-export default function FullRecipe({ id }: Props) {
+export default function FullRecipe({
+  recipe,
+  isLoading,
+  isError,
+  error
+}: Props) {
   const LoadingAnimation = dynamic(
     () => import('@/components/ui/LoadingAnimation'),
     {
       ssr: false
     }
   );
-
-  const fetchData = async () => {
-    try {
-      const res = await api.get<Recipe>(`/recipes/${id}`);
-      return res.data;
-    } catch (err: any) {
-      return err.message;
-    }
-  };
-
-  const {
-    data: recipe,
-    isLoading,
-    isError,
-    error
-  } = useQuery({
-    queryKey: ['recipe'],
-    queryFn: fetchData,
-    refetchOnWindowFocus: false,
-    notifyOnChangeProps: ['data']
-  });
 
   if (isLoading)
     return (
@@ -93,7 +77,7 @@ export default function FullRecipe({ id }: Props) {
             </div>
           </div>
         </div>
-        <DialogCreateIngredient recipeId={id} />
+        <DialogCreateIngredient recipeId={recipe.id!} />
       </CardHeader>
 
       <CardContent className="p-4 mt-4 overflow-hidden">
@@ -116,14 +100,14 @@ export default function FullRecipe({ id }: Props) {
           </TableHeader>
 
           <TableBody>
-            {recipe.ingredients.length === 0 ? (
+            {recipe.ingredients?.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={5} className="w-full text-center py-4">
                   Adicione um ingrediente para exibi-lo
                 </TableCell>
               </TableRow>
             ) : (
-              recipe?.ingredients.map((ingredient: Ingredient) => (
+              recipe.ingredients?.map((ingredient: IngredientProps) => (
                 <TableRow key={ingredient.id}>
                   <TableCell className="w-1/3 py-2 pl-3 text-center">
                     {ingredient.name}

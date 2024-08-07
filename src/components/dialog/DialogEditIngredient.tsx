@@ -10,7 +10,7 @@ import { api } from '@/lib/axiosConfig';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Recipe } from '../AllRecipesDashboard';
+import { RecipeProps } from '../AllRecipesDashboard';
 
 interface Props {
   ingredientId: string;
@@ -52,7 +52,7 @@ export default function DialogEditIngredient({
     mutationFn: onSubmit,
     onSuccess(returnFn, variables, context) {
       const { data } = returnFn;
-      queryClient.setQueryData(['recipe'], (previewData: Recipe) => {
+      queryClient.setQueryData(['recipe'], (previewData: RecipeProps) => {
         const updatedIngredients = previewData.ingredients.map((item) => {
           if (item.id === data.id) {
             return data;
@@ -61,8 +61,8 @@ export default function DialogEditIngredient({
         });
         return {
           ...previewData,
-           ingredients: updatedIngredients,
-         };
+          ingredients: updatedIngredients
+        };
       });
     }
   });

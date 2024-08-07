@@ -11,12 +11,12 @@ import { api } from '@/lib/axiosConfig';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Recipe } from '../AllRecipesDashboard';
+import { RecipeProps } from '../AllRecipesDashboard';
 import { useState } from 'react';
 import { CirclePlus } from 'lucide-react';
 
 interface Props {
-  recipeId: string;
+  recipeId: number;
 }
 
 interface IngredientRequest {
@@ -49,12 +49,8 @@ export default function DialogCreateIngredient({ recipeId }: Props) {
   const { mutateAsync: createIngredient } = useMutation({
     mutationFn: onSubmit,
     onSuccess(returnFn, variables, context) {
-      const { data } = returnFn;
-      queryClient.setQueryData(['recipe'], (previewData: Recipe) => {
-        return {
-          ...previewData,
-          ingredients: [...previewData.ingredients, data]
-        };
+      queryClient.setQueryData(['recipe'], () => {
+        return returnFn;
       });
     }
   });

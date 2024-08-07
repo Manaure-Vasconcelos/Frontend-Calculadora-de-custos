@@ -44,7 +44,7 @@ export default function ProfitProduct() {
           max={100}
           step={1}
           disabled={!isEditing}
-          className="cursor-not-allowed text-black"
+          className={`${!isEditing ? 'cursor-not-allowed' : 'cursor-pointer'} text-black`}
         />
       </CardContent>
 
@@ -54,7 +54,7 @@ export default function ProfitProduct() {
             ESSE É O VALOR DO SEU PRODUTO:
           </h4>
           <p className="text-muted-foreground">
-            Custo unitario: [value] + Margem de lucro: [value]
+            Custo unitário: [value] + Margem de lucro: [value]
           </p>
         </div>
         <ResultSpan>$ 00,00</ResultSpan>

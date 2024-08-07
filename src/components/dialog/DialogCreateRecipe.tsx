@@ -12,7 +12,7 @@ import { api } from '@/lib/axiosConfig';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Recipe } from '../AllRecipesDashboard';
+import { RecipeProps } from '../AllRecipesDashboard';
 import { useState } from 'react';
 import { CirclePlus } from 'lucide-react';
 
@@ -41,7 +41,7 @@ export default function DialogCreateRecipe() {
     mutationFn: fetchData,
     onSuccess(returnFn, variables, context) {
       const { data } = returnFn;
-      queryClient.setQueryData(['recipes'], (previewData: Recipe[]) => {
+      queryClient.setQueryData(['recipes'], (previewData: RecipeProps[]) => {
         return [...previewData, data];
       });
     }
@@ -61,8 +61,12 @@ export default function DialogCreateRecipe() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button className="rounded-full p-0 w-7 h-7 hover:bg-primary"
-          variant={'secondary'}><CirclePlus /></Button>
+        <Button
+          className="rounded-full p-0 w-7 h-7 hover:bg-primary"
+          variant={'secondary'}
+        >
+          <CirclePlus />
+        </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
