@@ -8,12 +8,14 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TableRow
+  TableRow,
+  TableFooter
 } from './ui/table';
 import { Card, CardContent, CardHeader } from './ui/card';
 import { useQuery } from '@tanstack/react-query';
 import { GetRecipe } from '@/app/calculator/[id]/page';
-import LoadingAnimation from '@/components/ui/LoadingAnimation';
+import { Skeleton } from './ui/skeleton';
+import ResultSpan from './ui/ResultSpan';
 
 export default function FullRecipe() {
   const {
@@ -27,8 +29,8 @@ export default function FullRecipe() {
 
   if (isLoading || !recipe)
     return (
-      <Card className="flex-1 rounded-xl p-4 min-w-[400px] max-w-[500px] min-h-[200px] sm:w-[400px] sm:max-w-[650px] lg:min-w-[600px] lg:max-w-[650px] xl:min-w-[550px] xl:max-w-[750px] overflow-x-hidden">
-        <LoadingAnimation height={150} width={150} />
+      <Card className="flex-1 rounded-xl min-w-[400px] max-w-[500px] min-h-[200px] sm:w-[400px] sm:max-w-[650px] lg:min-w-[600px] lg:max-w-[650px] xl:min-w-[550px] xl:max-w-[750px] overflow-x-hidden">
+        <Skeleton className="w-full h-full" />
       </Card>
     );
 
@@ -40,39 +42,25 @@ export default function FullRecipe() {
     );
 
   return (
-    <Card className="flex-1 rounded-xl p-4 min-w-[400px] max-w-[500px] min-h-[200px] sm:w-[400px] sm:max-w-[650px] lg:min-w-[600px] lg:max-w-[650px] xl:min-w-[550px] xl:max-w-[750px] overflow-x-hidden">
+    <Card className="flex-1 rounded-xl p-2 min-w-[400px] max-w-[500px] min-h-[200px] sm:w-[400px] sm:max-w-[650px] lg:min-w-[600px] lg:max-w-[650px] xl:min-w-[550px] xl:max-w-[750px] overflow-x-hidden">
       <CardHeader className="flex flex-row justify-between items-center">
-        <div className="flex flex-col sm:flex-row w-full p-3">
-          <div>
-            <div className="flex w-full items-center">
-              <h4 className="text-lg font-bold text-header">Nome:</h4>
-              <h4 className="ml-2 leading-7">{recipe.title}</h4>
-            </div>
-            <div className="flex">
-              <h4 className="text-lg font-bold text-header">Descrição:</h4>
-              <h4 className="ml-2 leading-7">
-                {recipe.describe ? recipe.describe : '----'}
-              </h4>
-            </div>
+        <div className="flex flex-col sm:flex-row sm:justify-evenly w-full">
+          <div className="flex sm:w-1/2">
+            <h4 className="text-lg font-bold text-header">Nome:</h4>
+            <h4 className="ml-2 leading-7">{recipe.title}</h4>
           </div>
 
-          <div className="sm:ml-12">
-            <div className="flex w-full">
-              <h4 className="text-lg font-bold text-header">Valor Parcial:</h4>
-              <h4 className="ml-2 leading-7">
-                {formatForARS(recipe.valuePartial)}
-              </h4>
-            </div>
-            <div className="flex">
-              <h4 className="text-lg font-bold text-header">Valor Total:</h4>
-              <h4 className="ml-2 leading-7">00</h4>
-            </div>
+          <div className="flex w-1/2">
+            <h4 className="text-lg font-bold text-header">Descrição:</h4>
+            <h4 className="ml-2 leading-7">
+              {recipe.describe ? recipe.describe : '----'}
+            </h4>
           </div>
         </div>
         <DialogCreateIngredient recipeId={recipe.id!} />
       </CardHeader>
 
-      <CardContent className="p-4 mt-4 overflow-hidden">
+      <CardContent className="mt-4 overflow-hidden">
         <Table className="w-full">
           <TableHeader>
             <TableRow className="border-b-1 border-black dark:border-white">
@@ -126,6 +114,16 @@ export default function FullRecipe() {
               ))
             )}
           </TableBody>
+          <TableFooter>
+            <TableRow>
+              <TableCell colSpan={6} className="text-right">
+                <div className='flex flex-row gap-3 items-center justify-end'>
+                Total:
+                <ResultSpan>{formatForARS(recipe.valuePartial)}</ResultSpan>
+                </div>
+              </TableCell>
+            </TableRow>
+          </TableFooter>
         </Table>
       </CardContent>
     </Card>

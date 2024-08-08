@@ -14,9 +14,9 @@ import { Info } from 'lucide-react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { GetRecipe } from '@/app/calculator/[id]/page';
 import formatForARS from '@/lib/formatForARS';
-import LoadingAnimation from './ui/LoadingAnimation';
 import { Controller, useForm } from 'react-hook-form';
 import { api } from '@/lib/axiosConfig';
+import { Skeleton } from './ui/skeleton';
 
 interface ProfitRequest {
   profit: number;
@@ -104,8 +104,8 @@ export default function ProfitProduct() {
 
   if (isLoading || !expenses)
     return (
-      <Card className="rounded-xl p-4 min-w-[350px] max-w-[500px] h-auto sm:min-w-[400px] sm:max-w-[400px]">
-        <LoadingAnimation height={100} width={100} />
+      <Card className="rounded-xl min-w-[350px] max-w-[500px] h-[150px] sm:min-w-[400px] sm:max-w-[400px]">
+        <Skeleton className="w-full h-full" />
       </Card>
     );
 
@@ -117,7 +117,7 @@ export default function ProfitProduct() {
     );
 
   return (
-    <Card className="rounded-xl p-4 min-w-[350px] max-w-[500px] h-auto sm:min-w-[400px] sm:max-w-[400px]">
+    <Card className="rounded-xl p-2 min-w-[350px] max-w-[500px] h-auto sm:min-w-[400px] sm:max-w-[400px]">
       <form ref={formRef} onSubmit={handleSubmit(HandleOnSubmit)}></form>
       <CardHeader>
         <div className="flex justify-between items-center gap-2">

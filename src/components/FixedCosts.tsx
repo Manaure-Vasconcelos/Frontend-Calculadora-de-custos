@@ -110,7 +110,8 @@ export default function FixedCosts() {
 
   return (
     <Card className="rounded-xl min-w-[350px] sm:min-w-[350px] sm:max-w-[350px] lg:min-w-[400px] lg:max-w-[350px] xl:min-w-[400px] xl:max-w-[400px] flex flex-col justify-normal p-2 gap-2">
-      <form ref={formRef} onSubmit={handleSubmit(HandleOnSubmit)}></form>
+      <form ref={formRef} onSubmit={handleSubmit(HandleOnSubmit)}>
+
       <CardHeader>
         <div className="flex justify-between items-center gap-3">
           <div className="flex items-center">
@@ -210,6 +211,7 @@ export default function FixedCosts() {
           </div>
         </div>
       </CardContent>
+            </form>
       <CardFooter className="flex flex-col mt-2">
         <div className="flex flex-col justify-start items-start w-full pl-2 mb-2">
           <h4 className="text-primary text-lg font-semibold leading-none tracking-tight">
