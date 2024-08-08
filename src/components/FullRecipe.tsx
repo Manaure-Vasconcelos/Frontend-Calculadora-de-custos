@@ -60,7 +60,7 @@ export default function FullRecipe() {
         <DialogCreateIngredient recipeId={recipe.id!} />
       </CardHeader>
 
-      <CardContent className="mt-4 overflow-hidden">
+      <CardContent className="mt-4 overflow-hidden pb-0">
         <Table className="w-full">
           <TableHeader>
             <TableRow className="border-b-1 border-black dark:border-white">
