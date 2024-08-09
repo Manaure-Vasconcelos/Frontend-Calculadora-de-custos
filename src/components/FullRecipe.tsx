@@ -114,6 +114,31 @@ export default function FullRecipe() {
                 </TableRow>
               ))
             )}
+
+            {true && (
+              <TableRow>
+                <TableCell className="w-1/3 py-2 pl-3 text-center">
+                  adicional
+                </TableCell>
+                <TableCell className="w-1/4 py-2 text-center">12</TableCell>
+                <TableCell className="w-1/4 py-2 text-center">
+                  {formatForARS(20)}
+                </TableCell>
+                <TableCell className="w-1/4 py-2 text-center">
+                  {20}
+                </TableCell>
+                <TableCell className="w-1/4 py-2 text-center">
+                  {formatForARS(20)}
+                </TableCell>
+                <TableCell className="w-1/6 py-2 text-center">
+                  <DropdownButtons
+                    idItem={String(1)}
+                    url={'/ingredients'}
+                    recipeId={2}
+                  />
+                </TableCell>
+              </TableRow>
+            )}
           </TableBody>
           <TableFooter>
             <TableRow>

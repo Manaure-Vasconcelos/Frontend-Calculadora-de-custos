@@ -6,14 +6,14 @@ import {
   DialogTrigger,
   DialogFooter
 } from '@/components/ui/dialog';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { api } from '@/lib/axiosConfig';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { RecipeProps } from '../AllRecipesDashboard';
 import { useState } from 'react';
 import { CirclePlus } from 'lucide-react';
+import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 
 interface Props {
   recipeId: number;
@@ -24,6 +24,7 @@ interface IngredientRequest {
   usedWeight: number;
   grossWeight: number;
   marketPrice: number;
+  choose: string;
 }
 
 export default function DialogCreateIngredient({ recipeId }: Props) {
@@ -32,6 +33,7 @@ export default function DialogCreateIngredient({ recipeId }: Props) {
     register,
     handleSubmit,
     formState: { errors },
+    control,
     reset
   } = useForm<IngredientRequest>();
   const queryClient = useQueryClient();
@@ -76,10 +78,33 @@ export default function DialogCreateIngredient({ recipeId }: Props) {
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Adicionar Item:</DialogTitle>
-        </DialogHeader>
         <form onSubmit={handleSubmit(HandleOnSubmit)}>
+          <DialogHeader className="gap-3">
+            <DialogTitle>Adicionar:</DialogTitle>
+            <Controller
+              control={control}
+              name="choose"
+              defaultValue="item"
+              render={({ field: { value, onChange } }) => (
+                <RadioGroup
+                  defaultValue="item"
+                  orientation="horizontal"
+                  className="flex flex-row justify-evenly"
+                  value={value}
+                  onValueChange={onChange}
+                >
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="item" id="item" />
+                    <label htmlFor="item">Item.</label>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <RadioGroupItem value="additional" id="additional" />
+                    <label htmlFor="additional">Adicional.</label>
+                  </div>
+                </RadioGroup>
+              )}
+            />
+          </DialogHeader>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-6 items-center gap-4">
               <label htmlFor="name" className="text-right col-span-2">
