@@ -13,19 +13,27 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 function DialogDeleteItem({
   id,
+  recipeId,
   url,
   open,
   handleClose
 }: {
   id: string;
   url: string;
+  recipeId?: number;
   open: boolean;
   handleClose: () => void;
 }) {
   const queryClient = useQueryClient();
   const onDeleteItem = async () => {
     try {
-      await api.delete(`${url}/${id}`);
+      if (url === '/recipes') {
+        await api.delete(`${url}/${id}`);
+      }
+
+      if (url === '/ingredients') {
+        await api.delete(`${url}/${recipeId}/${id}`);
+      }
     } catch (error) {
       alert('erro delete item');
     }

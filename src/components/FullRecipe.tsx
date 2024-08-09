@@ -108,6 +108,7 @@ export default function FullRecipe() {
                     <DropdownButtons
                       idItem={String(ingredient.id)}
                       url={'/ingredients'}
+                      recipeId={ingredient.recipeId}
                     />
                   </TableCell>
                 </TableRow>
@@ -117,9 +118,9 @@ export default function FullRecipe() {
           <TableFooter>
             <TableRow>
               <TableCell colSpan={6} className="text-right">
-                <div className='flex flex-row gap-3 items-center justify-end'>
-                Total:
-                <ResultSpan>{formatForARS(recipe.valuePartial)}</ResultSpan>
+                <div className="flex flex-row gap-3 items-center justify-end">
+                  Total:
+                  <ResultSpan>{formatForARS(recipe.valuePartial)}</ResultSpan>
                 </div>
               </TableCell>
             </TableRow>

@@ -70,11 +70,11 @@ export default function CostUnit() {
       queryClient.setQueryData(['recipe'], (previewData: ReturnRequest) => {
         return {
           ...previewData,
-          serving: previewData.serving,
-          pack: previewData.pack,
-          profit: previewData.profit,
-          valueTotal: previewData.valueTotal,
-          valueUnit: previewData.valueUnit
+          serving: returnFn.serving,
+          pack: returnFn.pack,
+          profit: returnFn.profit,
+          valueTotal: returnFn.valueTotal,
+          valueUnit: returnFn.valueUnit
         };
       });
     }

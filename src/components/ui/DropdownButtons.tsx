@@ -2,7 +2,6 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu';
@@ -14,9 +13,11 @@ import { Edit, Trash2 } from 'lucide-react';
 
 export default function DropdownButtons({
   idItem,
+  recipeId,
   url
 }: {
   idItem: string;
+  recipeId?: number;
   url: string;
 }) {
   const [openDeleteDialog, setOpenDeleteDialog] = useState(false);
@@ -80,6 +81,7 @@ export default function DropdownButtons({
       <DialogDeleteItem
         id={idItem}
         url={url}
+        recipeId={recipeId}
         open={openDeleteDialog}
         handleClose={handleDeleteDialog}
       />

@@ -67,7 +67,7 @@ export default function AllRecipesDashboard() {
         <DialogCreateRecipe />
       </CardHeader>
 
-      <CardContent>
+      <CardContent className='pb-0'>
         <Table className="w-full h-auto overflow-x-hidden mt-5">
           <TableHeader>
             <TableRow className="border-b-black dark:border-b-foreground">
