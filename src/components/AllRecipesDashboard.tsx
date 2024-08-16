@@ -71,15 +71,15 @@ export default function AllRecipesDashboard() {
         <Table className="w-full h-auto overflow-x-hidden mt-5">
           <TableHeader>
             <TableRow className="border-b-black dark:border-b-foreground">
-              <TableHead className="w-1/3 pb-4 text-center">Nome</TableHead>
-              <TableHead className="w-1/4 pb-4 text-center">Itens</TableHead>
-              <TableHead className="w-1/4 pb-4 text-center">
+              <TableHead className="w-1/3 py-4 text-center">Nome</TableHead>
+              <TableHead className="w-1/4 py-4 text-center">Itens</TableHead>
+              <TableHead className="w-1/4 py-4 text-center">
                 Valor Real
               </TableHead>
-              <TableHead className="w-1/4 pb-4 text-center">
+              <TableHead className="w-1/4 py-4 text-center">
                 Valor Total
               </TableHead>
-              <TableHead className="w-1/12 pb-4"></TableHead>
+              <TableHead className="w-1/12 py-4"></TableHead>
             </TableRow>
           </TableHeader>
 

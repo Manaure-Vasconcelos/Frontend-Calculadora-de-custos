@@ -14,6 +14,7 @@ export interface GetRecipe {
   valuePartial: number;
   createdAt: Date;
   ingredients: IngredientProps[];
+  additional: IngredientProps[];
   serving: number;
   pack: number;
   profit: number;

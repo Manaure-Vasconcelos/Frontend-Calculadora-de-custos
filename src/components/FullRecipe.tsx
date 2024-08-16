@@ -64,25 +64,25 @@ export default function FullRecipe() {
         <Table className="w-full">
           <TableHeader>
             <TableRow className="border-b-1 border-black dark:border-white">
-              <TableHead className="w-1/3 pb-4 text-center">Name</TableHead>
-              <TableHead className="w-1/4 pb-4 text-center">
-                Quant. usada:
-              </TableHead>
-              <TableHead className="w-1/4 pb-4 text-center">
+              <TableHead className="w-1/3 py-4 text-center">Name</TableHead>
+              <TableHead className="w-1/4 py-4 text-center">
                 Preço bruto:
               </TableHead>
-              <TableHead className="w-1/4 pb-4 text-center">
+              <TableHead className="w-1/4 py-4 text-center">
                 Quant. total:
               </TableHead>
-              <TableHead className="w-1/4 pb-4 text-center">Custo</TableHead>
-              <TableHead className="w-1/6 pb-4"></TableHead>
+              <TableHead className="w-1/4 py-4 text-center">
+                Quant. usada:
+              </TableHead>
+              <TableHead className="w-1/4 py-4 text-center">Custo</TableHead>
+              <TableHead className="w-1/6 py-4"></TableHead>
             </TableRow>
           </TableHeader>
 
           <TableBody>
             {recipe.ingredients?.length === 0 ? (
               <TableRow>
-                <TableCell colSpan={5} className="w-full text-center py-4">
+                <TableCell colSpan={6} className="w-full text-center py-3">
                   Adicione um ingrediente para exibi-lo
                 </TableCell>
               </TableRow>
@@ -93,13 +93,13 @@ export default function FullRecipe() {
                     {ingredient.name}
                   </TableCell>
                   <TableCell className="w-1/4 py-2 text-center">
-                    {ingredient.usedWeight}
-                  </TableCell>
-                  <TableCell className="w-1/4 py-2 text-center">
                     {formatForARS(ingredient.marketPrice)}
                   </TableCell>
                   <TableCell className="w-1/4 py-2 text-center">
                     {ingredient.grossWeight}
+                  </TableCell>
+                  <TableCell className="w-1/4 py-2 text-center">
+                    {ingredient.usedWeight}
                   </TableCell>
                   <TableCell className="w-1/4 py-2 text-center">
                     {formatForARS(ingredient.realAmount)}
@@ -115,33 +115,47 @@ export default function FullRecipe() {
               ))
             )}
 
-            {true && (
+            {recipe.additional.length !== 0 && (
               <TableRow>
-                <TableCell className="w-1/3 py-2 pl-3 text-center">
-                  adicional
-                </TableCell>
-                <TableCell className="w-1/4 py-2 text-center">12</TableCell>
-                <TableCell className="w-1/4 py-2 text-center">
-                  {formatForARS(20)}
-                </TableCell>
-                <TableCell className="w-1/4 py-2 text-center">
-                  {20}
-                </TableCell>
-                <TableCell className="w-1/4 py-2 text-center">
-                  {formatForARS(20)}
-                </TableCell>
-                <TableCell className="w-1/6 py-2 text-center">
-                  <DropdownButtons
-                    idItem={String(1)}
-                    url={'/ingredients'}
-                    recipeId={2}
-                  />
+                <TableCell
+                  colSpan={6}
+                  className="w-full text-center bg-muted/80 py-4"
+                >
+                  Adicionais:
                 </TableCell>
               </TableRow>
             )}
+
+            {recipe.additional &&
+              recipe.additional.map((additional: IngredientProps) => (
+                <TableRow key={additional.id}>
+                  <TableCell className="w-1/3 py-2 pl-3 text-center">
+                    {additional.name}
+                  </TableCell>
+                  <TableCell className="w-1/4 py-2 text-center">
+                    {formatForARS(additional.marketPrice)}
+                  </TableCell>
+                  <TableCell className="w-1/4 py-2 text-center">
+                    {additional.grossWeight}
+                  </TableCell>
+                  <TableCell className="w-1/4 py-2 text-center">
+                    {additional.usedWeight}
+                  </TableCell>
+                  <TableCell className="w-1/4 py-2 text-center">
+                    {formatForARS(additional.realAmount)}
+                  </TableCell>
+                  <TableCell className="w-1/6 py-2 text-center">
+                    <DropdownButtons
+                      idItem={String(additional.id)}
+                      url={'/ingredients'}
+                      recipeId={additional.recipeId}
+                    />
+                  </TableCell>
+                </TableRow>
+              ))}
           </TableBody>
           <TableFooter>
-            <TableRow>
+            <TableRow className='hover:bg-card'>
               <TableCell colSpan={6} className="text-right">
                 <div className="flex flex-row gap-3 items-center justify-end">
                   Total:
