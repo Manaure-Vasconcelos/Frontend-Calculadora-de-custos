@@ -39,13 +39,26 @@ export default function DialogCreateIngredient({ recipeId }: Props) {
   const queryClient = useQueryClient();
 
   const onSubmit = async (data: IngredientRequest) => {
-    const res = await api.post(`/ingredients/${recipeId}`, {
-      name: data.name,
-      usedWeight: Number(data.usedWeight),
-      grossWeight: Number(data.grossWeight),
-      marketPrice: Number(data.marketPrice)
-    });
-    return res.data;
+    if (data.choose === 'item') {
+      console.log('aqui');
+      const res = await api.post(`/ingredients/${recipeId}`, {
+        name: data.name,
+        usedWeight: Number(data.usedWeight),
+        marketPrice: Number(data.marketPrice),
+        grossWeight: Number(data.grossWeight)
+      });
+      return res.data;
+    }
+
+    if (data.choose === 'additional') {
+      const res = await api.post(`/additional/${recipeId}`, {
+        name: data.name,
+        usedWeight: Number(data.usedWeight),
+        marketPrice: Number(data.marketPrice),
+        grossWeight: Number(data.grossWeight)
+      });
+      return res.data;
+    }
   };
 
   const { mutateAsync: createIngredient } = useMutation({
@@ -63,6 +76,7 @@ export default function DialogCreateIngredient({ recipeId }: Props) {
       reset();
       setOpen(false);
     } catch (error) {
+      console.log(error);
       alert('error query');
     }
   };

@@ -147,7 +147,7 @@ export default function FullRecipe() {
                   <TableCell className="w-1/6 py-2 text-center">
                     <DropdownButtons
                       idItem={String(additional.id)}
-                      url={'/ingredients'}
+                      url={'/additional'}
                       recipeId={additional.recipeId}
                     />
                   </TableCell>
@@ -155,11 +155,11 @@ export default function FullRecipe() {
               ))}
           </TableBody>
           <TableFooter>
-            <TableRow className='hover:bg-card'>
+            <TableRow className="hover:bg-card">
               <TableCell colSpan={6} className="text-right">
                 <div className="flex flex-row gap-3 items-center justify-end">
                   Total:
-                  <ResultSpan>{formatForARS(recipe.valuePartial)}</ResultSpan>
+                  <ResultSpan>{formatForARS(recipe.valuePartial, recipe.additional)}</ResultSpan>
                 </div>
               </TableCell>
             </TableRow>
