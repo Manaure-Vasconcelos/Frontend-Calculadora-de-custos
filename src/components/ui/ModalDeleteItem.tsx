@@ -25,13 +25,14 @@ function DialogDeleteItem({
   handleClose: () => void;
 }) {
   const queryClient = useQueryClient();
+  const IngredientOrAdditional = ['/ingredients', '/additional'].includes(url);
   const onDeleteItem = async () => {
     try {
       if (url === '/recipes') {
         await api.delete(`${url}/${id}`);
       }
 
-      if (url === '/ingredients') {
+      if (IngredientOrAdditional) {
         await api.delete(`${url}/${recipeId}/${id}`);
       }
     } catch (error) {

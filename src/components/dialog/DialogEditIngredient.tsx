@@ -15,7 +15,7 @@ import { Info } from 'lucide-react';
 
 interface Props {
   ingredientId: string;
-  recipeId: number;
+  recipeId?: number;
   url: string;
   open: boolean;
   handleClose: () => void;
