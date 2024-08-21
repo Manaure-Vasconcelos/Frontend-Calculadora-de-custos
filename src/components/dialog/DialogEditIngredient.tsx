@@ -11,9 +11,12 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { RecipeProps } from '../AllRecipesDashboard';
+import { Info } from 'lucide-react';
 
 interface Props {
   ingredientId: string;
+  recipeId: number;
+  url: string;
   open: boolean;
   handleClose: () => void;
 }
@@ -23,10 +26,13 @@ interface IngredientRequest {
   usedWeight: number;
   grossWeight: number;
   marketPrice: number;
+  recipeId: number;
 }
 
 export default function DialogEditIngredient({
   ingredientId,
+  url,
+  recipeId,
   open,
   handleClose
 }: Props) {
@@ -39,11 +45,12 @@ export default function DialogEditIngredient({
   const queryClient = useQueryClient();
 
   const onSubmit = async (data: IngredientRequest) => {
-    const res = await api.put(`/ingredients/${ingredientId}`, {
+    const res = await api.patch(`${url}/${ingredientId}`, {
       name: data.name ? data.name : undefined,
       usedWeight: data.usedWeight ? Number(data.usedWeight) : undefined,
       grossWeight: data.grossWeight ? Number(data.grossWeight) : undefined,
-      marketPrice: data.marketPrice ? Number(data.marketPrice) : undefined
+      marketPrice: data.marketPrice ? Number(data.marketPrice) : undefined,
+      recipeId: recipeId
     });
     return res.data;
   };
@@ -51,18 +58,8 @@ export default function DialogEditIngredient({
   const { mutateAsync: updateIngredient } = useMutation({
     mutationFn: onSubmit,
     onSuccess(returnFn, variables, context) {
-      const { data } = returnFn;
-      queryClient.setQueryData(['recipe'], (previewData: RecipeProps) => {
-        const updatedIngredients = previewData.ingredients.map((item) => {
-          if (item.id === data.id) {
-            return data;
-          }
-          return item;
-        });
-        return {
-          ...previewData,
-          ingredients: updatedIngredients
-        };
+      queryClient.setQueryData(['recipe'], () => {
+        return returnFn
       });
     }
   });
@@ -73,6 +70,7 @@ export default function DialogEditIngredient({
       reset();
       handleClose();
     } catch (error) {
+      console.log(error)
       alert('error query');
     }
   };
@@ -81,7 +79,10 @@ export default function DialogEditIngredient({
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Editar:</DialogTitle>
+          <div className="flex items-center">
+            <DialogTitle className="mr-4">Editar:</DialogTitle>
+            <Info size={18} className="hover:text-primary cursor-pointer" />
+          </div>
         </DialogHeader>
         <form onSubmit={handleSubmit(HandleOnSubmit)}>
           <div className="grid gap-4 py-4">
@@ -99,19 +100,6 @@ export default function DialogEditIngredient({
                     value: true,
                     message: 'Name is required'
                   }
-                })}
-              />
-            </div>
-            <div className="grid grid-cols-6 items-center gap-4">
-              <label htmlFor="usedWeight" className="text-right col-span-2">
-                Quant. usada:
-              </label>
-              <Input
-                id="usedWeight"
-                type="number"
-                className="col-span-3 sm:max-w-[200px]"
-                {...register('usedWeight', {
-                  required: true
                 })}
               />
             </div>
@@ -137,6 +125,19 @@ export default function DialogEditIngredient({
                 type="number"
                 className="col-span-3 sm:max-w-[200px]"
                 {...register('grossWeight', {
+                  required: true
+                })}
+              />
+            </div>
+            <div className="grid grid-cols-6 items-center gap-4">
+              <label htmlFor="usedWeight" className="text-right col-span-2">
+                Quant. usada:
+              </label>
+              <Input
+                id="usedWeight"
+                type="number"
+                className="col-span-3 sm:max-w-[200px]"
+                {...register('usedWeight', {
                   required: true
                 })}
               />

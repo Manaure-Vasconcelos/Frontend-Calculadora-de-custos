@@ -12,7 +12,7 @@ import { Button } from '../ui/button';
 import { Input } from '../ui/input';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
-import { CirclePlus } from 'lucide-react';
+import { CirclePlus, Info } from 'lucide-react';
 import { RadioGroup, RadioGroupItem } from '../ui/radio-group';
 
 interface Props {
@@ -94,7 +94,10 @@ export default function DialogCreateIngredient({ recipeId }: Props) {
       <DialogContent className="sm:max-w-[425px]">
         <form onSubmit={handleSubmit(HandleOnSubmit)}>
           <DialogHeader className="gap-3">
-            <DialogTitle>Adicionar:</DialogTitle>
+            <div className="flex items-center">
+              <DialogTitle className="mr-4">Adicionar:</DialogTitle>
+              <Info size={18} className="hover:text-primary cursor-pointer" />
+            </div>
             <Controller
               control={control}
               name="choose"
@@ -138,19 +141,6 @@ export default function DialogCreateIngredient({ recipeId }: Props) {
               />
             </div>
             <div className="grid grid-cols-6 items-center gap-4">
-              <label htmlFor="usedWeight" className="text-right col-span-2">
-                Quant. usada:
-              </label>
-              <Input
-                id="usedWeight"
-                type="number"
-                className="col-span-3 sm:max-w-[200px]"
-                {...register('usedWeight', {
-                  required: true
-                })}
-              />
-            </div>
-            <div className="grid grid-cols-6 items-center gap-4">
               <label htmlFor="marketPrice" className="text-right col-span-2">
                 Preço bruto:
               </label>
@@ -172,6 +162,19 @@ export default function DialogCreateIngredient({ recipeId }: Props) {
                 type="number"
                 className="col-span-3 sm:max-w-[200px]"
                 {...register('grossWeight', {
+                  required: true
+                })}
+              />
+            </div>
+            <div className="grid grid-cols-6 items-center gap-4">
+              <label htmlFor="usedWeight" className="text-right col-span-2">
+                Quant. usada:
+              </label>
+              <Input
+                id="usedWeight"
+                type="number"
+                className="col-span-3 sm:max-w-[200px]"
+                {...register('usedWeight', {
                   required: true
                 })}
               />

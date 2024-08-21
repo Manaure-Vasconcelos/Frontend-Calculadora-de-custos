@@ -67,7 +67,7 @@ export default function AllRecipesDashboard() {
         <DialogCreateRecipe />
       </CardHeader>
 
-      <CardContent className='pb-0'>
+      <CardContent className="pb-0">
         <Table className="w-full h-auto overflow-x-hidden mt-5">
           <TableHeader>
             <TableRow className="border-b-black dark:border-b-foreground">
@@ -75,6 +75,9 @@ export default function AllRecipesDashboard() {
               <TableHead className="w-1/4 py-4 text-center">Itens</TableHead>
               <TableHead className="w-1/4 py-4 text-center">
                 Valor Real
+              </TableHead>
+              <TableHead className="w-1/4 py-4 text-center">
+                Valor Unit
               </TableHead>
               <TableHead className="w-1/4 py-4 text-center">
                 Valor Total
@@ -110,14 +113,17 @@ export default function AllRecipesDashboard() {
                   <TableCell className="w-1/3 py-2 pl-6 text-center">
                     {recipe.title}
                   </TableCell>
-                  <TableCell className="w-1/4 py-2 text-center">
+                  <TableCell className="w-1/5 py-2 text-center">
                     {recipe.ingredients ? recipe.ingredients.length : 0}
                   </TableCell>
                   <TableCell className="w-1/4 py-2 text-center">
                     {formatForARS(recipe.valuePartial)}
                   </TableCell>
                   <TableCell className="w-1/4 py-2 text-center">
-                    valor
+                    {formatForARS(recipe.valuePartial)}
+                  </TableCell>
+                  <TableCell className="w-1/4 py-2 text-center">
+                    {formatForARS(recipe.valuePartial)}
                   </TableCell>
                   <TableCell className="w-1/12 py-2 text-center">
                     <DropdownButtons

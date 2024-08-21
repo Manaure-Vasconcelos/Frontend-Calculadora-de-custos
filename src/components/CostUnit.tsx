@@ -68,14 +68,7 @@ export default function CostUnit() {
     mutationFn: onSubmit,
     onSuccess(returnFn) {
       queryClient.setQueryData(['recipe'], (previewData: ReturnRequest) => {
-        return {
-          ...previewData,
-          serving: returnFn.serving,
-          pack: returnFn.pack,
-          profit: returnFn.profit,
-          valueTotal: returnFn.valueTotal,
-          valueUnit: returnFn.valueUnit
-        };
+        return returnFn;
       });
     }
   });

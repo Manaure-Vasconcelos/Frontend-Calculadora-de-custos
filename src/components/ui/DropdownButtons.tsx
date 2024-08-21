@@ -37,6 +37,10 @@ export default function DropdownButtons({
     if (url === '/ingredients') {
       handleEditDialog();
     }
+    
+    if (url === '/additional') {
+      handleEditDialog();
+    }
   };
 
   return (
@@ -87,6 +91,8 @@ export default function DropdownButtons({
       />
       <DialogEditIngredient
         ingredientId={idItem}
+        url={url}
+        recipeId={recipeId}
         open={openEditDialog}
         handleClose={handleEditDialog}
       />

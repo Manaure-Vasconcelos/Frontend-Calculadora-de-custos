@@ -11,11 +11,13 @@ export default function formatForARS(
     }).format(0);
 
   if (additional) {
-    const newValue = additional.reduce(
+    const sum = additional.reduce(
       (total: number, additional: IngredientProps) =>
         total + additional.realAmount,
-      num
+      0
     );
+
+    const newValue = num + sum;
 
     return new Intl.NumberFormat('es-AR', {
       style: 'currency',
